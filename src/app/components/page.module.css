@@ -1,0 +1,126 @@
+.pageWrapper {
+  padding: 2.5rem;
+  max-width: 1100px;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+/* Search & Filter Bar */
+.filterBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.searchInputFull {
+  width: 100%;
+}
+
+/* Dropdown */
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  min-width: 180px;
+  justify-content: space-between;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  min-width: 180px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  font-size: 0.82rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 100ms ease;
+  font-family: var(--font-sans);
+}
+
+.dropdownItemActive {
+  background: rgba(168, 85, 247, 0.1);
+  color: var(--accent-primary);
+}
+
+.dropdownItemInactive {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+/* Count Badge */
+.countBadge {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* Grid */
+.componentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+}
+
+.emptyTitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.emptySubtitle {
+  font-size: 0.85rem;
+}

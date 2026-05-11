@@ -1,0 +1,30 @@
+.container {
+    position: relative;
+    overflow: hidden;
+    min-height: 44vh;
+    width: 100%;
+    padding: 4rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+}
+
+.svgWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.svgElement {
+    overflow: visible;
+}
+
+.liquidText {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}

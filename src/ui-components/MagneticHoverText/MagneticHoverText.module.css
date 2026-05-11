@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  padding: 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  cursor: default;
+  /* Prevent text selection during interaction */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.word {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
+  will-change: transform;
+  /* Ensure transform origin is center */
+  transform-origin: center center;
+  /* Transition is handled by GSAP quickTo, so no CSS transitions here */
+}
+
+.space {
+  display: inline-block;
+  width: 0.3em;
+}

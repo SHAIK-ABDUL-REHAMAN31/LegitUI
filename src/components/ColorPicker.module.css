@@ -1,0 +1,281 @@
+/* ====== ColorPicker — Phase 4-A & 4-B ====== */
+
+/* ====== SWATCH BUTTON (trigger) ====== */
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.swatchBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 150ms ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.swatchBtn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+}
+
+.swatchBtnActive {
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
+}
+
+/* ====== FLOATING POPOVER ====== */
+.popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.05);
+  z-index: 100;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: popoverIn 150ms ease;
+}
+
+@keyframes popoverIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Color preview bar */
+.previewBar {
+  width: 100%;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ====== HEX INPUT ====== */
+.hexRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #0d1117;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.hexHash {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  font-family: var(--font-mono, monospace);
+}
+
+.hexInput {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #e5e7eb;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  outline: none;
+  width: 100%;
+}
+
+/* ====== RGB / ALPHA SLIDERS ====== */
+.sliderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sliderLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6b7280;
+  font-family: var(--font-mono, monospace);
+  width: 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.slider {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--slider-color, #a855f7);
+  cursor: pointer;
+  border: 2px solid #111827;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--slider-color, #a855f7);
+  cursor: pointer;
+  border: 2px solid #111827;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.sliderValue {
+  font-size: 10px;
+  font-family: var(--font-mono, monospace);
+  color: #9ca3af;
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ====== PRESET SWATCHES ====== */
+.presetRow {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.presetSwatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  padding: 0;
+  transition: all 120ms ease;
+}
+
+.presetSwatch:hover {
+  transform: scale(1.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.presetSwatchActive {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
+}
+
+/* ====== ARRAY PICKER — Phase 4-B ====== */
+.arrayWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.arraySwatchRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.arraySwatchItem {
+  position: relative;
+}
+
+.removeSwatch {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: #9ca3af;
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 120ms ease;
+  padding: 0;
+  z-index: 5;
+}
+
+.arraySwatchItem:hover .removeSwatch {
+  opacity: 1;
+}
+
+.removeSwatch:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+.addSwatchBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px dashed rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.05);
+  color: #a855f7;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.addSwatchBtn:hover {
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.5);
+  transform: scale(1.08);
+}
+
+.moreCount {
+  font-size: 10px;
+  color: #6b7280;
+  font-family: var(--font-mono, monospace);
+}
+
+/* Swatch add/remove animation */
+@keyframes swatchIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.arraySwatchItem {
+  animation: swatchIn 150ms ease;
+}

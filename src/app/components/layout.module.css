@@ -1,0 +1,9 @@
+.layoutWrapper {
+  display: flex;
+  min-height: calc(100vh - 57px);
+}
+
+.contentArea {
+  flex: 1;
+  overflow: auto;
+}

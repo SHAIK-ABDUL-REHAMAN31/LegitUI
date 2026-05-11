@@ -1,0 +1,166 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+  user-select: none;
+  position: relative;
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.header {
+  font-size: 13px;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  font-weight: 400;
+  z-index: 10;
+}
+
+.stage {
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  z-index: 10;
+}
+
+.ring {
+  width: 0;
+  height: 0;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.centralText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  text-align: center;
+}
+
+.centralTitle {
+  font-size: 3.5rem;
+  margin: 0;
+  font-family: ' bebas Neue', sans-serif;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}
+
+.centralSubtitle {
+  font-size: 1rem;
+  margin: 4px 0 0 0;
+  letter-spacing: 0.3em;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.controls {
+  margin-top: 56px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+}
+
+.spinButton {
+  border-radius: 40px;
+  padding: 8px 22px;
+  font-size: 11px;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.dragHint {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  font-family: 'Georgia', serif;
+}
+
+.floorShadow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 80px;
+  pointer-events: none;
+}
+
+/* Card Styles */
+.cardContainer {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.cardInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.glossOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 55%, rgba(0,0,0,0.08) 100%);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.pageEdge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to right, rgba(0,0,0,0.15), rgba(255,255,255,0.25));
+  pointer-events: none;
+}
+
+.titleBadge {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 10px;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}

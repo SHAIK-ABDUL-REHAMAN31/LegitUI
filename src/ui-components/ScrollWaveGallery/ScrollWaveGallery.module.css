@@ -1,0 +1,52 @@
+.container {
+    position: relative;
+    width: 100%;
+    /* We make the container tall so the user can scroll through the animation */
+    height: 400vh;
+    background-color: transparent;
+}
+
+.stickyWrapper {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.card {
+    position: absolute;
+    /* Dimensions applied via inline style for alternating aspect ratios */
+    border-radius: 12px;
+    background-color: #1a1a1a;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    transform-origin: center center;
+    will-change: transform, opacity;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+}
+
+.centerGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+}

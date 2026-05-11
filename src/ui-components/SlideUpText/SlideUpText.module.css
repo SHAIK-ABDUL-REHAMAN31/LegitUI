@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.text {
+  font-family: 'Google Sans', 'Product Sans', 'Inter', system-ui, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: center;
+  padding: 0 2rem;
+  margin: 0;
+}
+
+.wordWrapper {
+  display: inline-flex;
+  overflow: hidden;
+  margin-right: 0.3em;
+  margin-bottom: 0.1em;
+}
+
+.word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}

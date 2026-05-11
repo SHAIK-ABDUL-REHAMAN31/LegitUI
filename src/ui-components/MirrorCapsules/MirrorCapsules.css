@@ -1,0 +1,41 @@
+/* MirrorCapsules.css
+   Container styles for the Three.js mirror-capsules component.
+   The Three.js canvas is appended into .mirror-capsules-root at runtime.
+*/
+
+.mirror-capsules-root {
+    display: block;
+    position: relative;
+    background: #000008;
+    border-radius: 12px;
+    overflow: hidden;
+    /* Ensure the component has a visible size */
+    min-height: 480px;
+    /* Prevent any scrollbar from appearing */
+    max-height: 100%;
+}
+
+/* Force the injected <canvas> to fill the container */
+.mirror-capsules-root>canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 12px;
+}
+
+/* Optional: loading shimmer shown before Three.js paints the first frame */
+.mirror-capsules-root::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #0a0a2a 0%, #000008 70%);
+    border-radius: 12px;
+    pointer-events: none;
+    /* Fade away once the canvas is rendered — canvas sits on top */
+    z-index: 0;
+}
+
+.mirror-capsules-root>canvas {
+    position: relative;
+    z-index: 1;
+}

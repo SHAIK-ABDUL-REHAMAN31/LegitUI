@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: transparent;
+}
+
+.canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

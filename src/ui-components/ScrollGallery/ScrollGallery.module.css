@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════
+   Gallery3D — Cinematic 3D Cylinder Carousel
+   ═══════════════════════════════════════════════════ */
+
+.gallery3d-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background: #ffffff;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ─── Three.js canvas layer ─── */
+.gallery3d-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+}
+
+.gallery3d-canvas canvas {
+    cursor: grab;
+}
+
+.gallery3d-canvas canvas:active {
+    cursor: grabbing;
+}
+
+/* ─── ambient background glow ─── */
+.gallery3d-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 55%, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ─── top / bottom / side vignette ─── */
+.gallery3d-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 25;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.05);
+}
+
+/* ─── subtle center highlight beam ─── */
+.gallery3d-center-beam {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    transform: translateX(-50%);
+    background: linear-gradient(to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.02) 30%,
+            rgba(0, 0, 0, 0.04) 50%,
+            rgba(0, 0, 0, 0.02) 70%,
+            transparent 100%);
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* ─── floor reflection glow ─── */
+.gallery3d-wrapper::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.06) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 2;
+}

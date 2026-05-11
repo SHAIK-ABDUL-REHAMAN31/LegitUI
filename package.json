@@ -1,0 +1,53 @@
+{
+  "name": "legitui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev",
+    "dev:clean": "rimraf .next && cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev",
+    "dev:fresh": "rimraf .next node_modules/.cache && cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev",
+    "clean": "rimraf .next",
+    "build": "npx tsx scripts/generate-js-variants.ts && npx tsx scripts/build-registry.ts && next build",
+    "start": "next start",
+    "lint": "eslint",
+    "generate:js": "npx tsx scripts/generate-js-variants.ts",
+    "registry:build": "npx tsx scripts/build-registry.ts",
+    "validate:registry": "npx tsx scripts/validate-registry.ts",
+    "record-previews": "npx tsx scripts/record-previews.ts",
+    "new:component": "npx tsx scripts/new-component.ts"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@types/prismjs": "^1.26.6",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.23",
+    "lucide-react": "^1.8.0",
+    "matter-js": "^0.20.0",
+    "next": "16.2.3",
+    "ogl": "^1.0.11",
+    "prismjs": "^1.30.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "split-type": "^0.3.4",
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^16.2.4",
+    "@tailwindcss/postcss": "^4",
+    "@types/matter-js": "^0.20.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.3",
+    "playwright": "^1.59.1",
+    "react-docgen-typescript": "^2.4.0",
+    "rimraf": "^6.1.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

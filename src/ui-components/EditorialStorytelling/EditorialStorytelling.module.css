@@ -1,0 +1,107 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.leftContent {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5vw 8vw;
+  position: relative;
+  z-index: 10;
+}
+
+.rightContent {
+  width: 55%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapterText {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 4.5vw;
+  font-weight: 200;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-transform: uppercase;
+  perspective: 1000px;
+}
+
+/* SplitType global char classes */
+.title :global(.char) {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: bottom center;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #a0a0a0;
+  max-width: 90%;
+  font-weight: 300;
+}
+
+.imageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  overflow: hidden;
+  will-change: opacity, transform;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.4);
+  filter: blur(20px);
+  will-change: transform, filter;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+  .leftContent {
+    width: 100%;
+    height: 50%;
+    padding: 10vw 5vw;
+  }
+  .rightContent {
+    width: 100%;
+    height: 50%;
+  }
+  .chapterText {
+    width: 90%;
+  }
+  .title {
+    font-size: 10vw;
+  }
+  .description {
+    font-size: 1rem;
+  }
+}

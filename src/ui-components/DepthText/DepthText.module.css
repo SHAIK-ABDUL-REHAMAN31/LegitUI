@@ -1,0 +1,46 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* CSS Perspective for 3D */
+    perspective: 1200px;
+    background-color: transparent;
+}
+
+.scene {
+    position: relative;
+    /* Preserve 3D allows children to have their own 3D transforms relative to this */
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Will be animated by GSAP */
+    will-change: transform;
+}
+
+.textLayer {
+    position: absolute;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-align: center;
+    /* Important for crisp rendering during 3D transforms */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* The frontmost layer is solid */
+.front {
+    color: var(--text-color, #ffffff);
+    z-index: 10;
+}
+
+/* Base layer sets the bounds of the scene container */
+.base {
+    position: relative;
+    color: transparent;
+}

@@ -1,0 +1,133 @@
+/* ====== Preview Component Styles — Phase 2 ====== */
+
+/* Wrapper: contains iframe + overlays + resize handle */
+.previewWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #09090b;
+}
+
+/* ====== LOADING STATE (2-B) ====== */
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  background: rgba(9, 9, 11, 0.85);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #a855f7;
+  animation: spinPreview 0.8s linear infinite;
+}
+
+@keyframes spinPreview {
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: 13px;
+  color: #6b7280;
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+}
+
+/* ====== ERROR STATE (2-B) ====== */
+.errorOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+  background: #1a0a0a;
+}
+
+.errorIcon {
+  font-size: 24px;
+  color: #ef4444;
+  line-height: 1;
+}
+
+.errorTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.errorMessage {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: #f87171;
+  max-width: 80%;
+  text-align: center;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.retryBtn {
+  margin-top: 8px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fafafa;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 150ms ease;
+}
+
+.retryBtn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* ====== IFRAME ====== */
+.iframe {
+  width: 100%;
+  border: none;
+  background: transparent;
+  transition: opacity 300ms ease;
+  display: block;
+}
+
+
+/* Legacy support: old loading dots (no longer used but kept for compat) */
+.loadingDots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+.errorBar {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.05);
+  font-size: 0.78rem;
+  color: #ef4444;
+  font-family: var(--font-mono);
+}

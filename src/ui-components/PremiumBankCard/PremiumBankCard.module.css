@@ -1,0 +1,233 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* 1. Plane Black Card (Base) - Creates the outer black rim */
+.cardBase {
+    position: relative;
+    width: 400px;
+    height: 290px;
+    background-color: #000000;
+    border-radius: 28px;
+    padding: 6px;
+    /* Thick black outer border */
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Inner container for layers */
+.innerCard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+/* 2. Gradient Green Layer */
+/* Full height, but bottom gets revealed as a stripe */
+.greenLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(145deg,
+            #b2fc55 0%,
+            #7be324 30%,
+            #41b80c 65%,
+            #1b8702 100%);
+    z-index: 1;
+}
+
+/* Glossy diagonal shine on green */
+.shineOverlay {
+    position: absolute;
+    top: -50px;
+    left: -30px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.15) 40%, transparent 70%);
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+
+/* Secondary light streak */
+.shineStreak {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 30%;
+    height: 60%;
+    background: linear-gradient(160deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.15) 40%,
+            rgba(255, 255, 255, 0.25) 50%,
+            rgba(255, 255, 255, 0.15) 60%,
+            transparent 100%);
+    pointer-events: none;
+    transform: skewX(-20deg);
+}
+
+/* 3 & 4. Third Short Layer & Fourth Tall Layer Combined */
+/* This single layer uses a perfect mathematical S-Curve to recreate the exact slope */
+.blackSlopeLayer {
+    position: absolute;
+    /* Shorter than the green layer by 4px to reveal the exact green accent stripe at the bottom! */
+    bottom: 6px;
+    left: 0;
+    right: 0;
+    height: 175px;
+    /* Taller on the left for the slope */
+    background-color: #050505;
+    z-index: 2;
+    border-radius: 0 0 16px 16px;
+    /* Parallel to innerCard's 22px radius */
+
+    /* The perfect S-curve: Flat on left (0 to 150), curves down 70px, flat on right (250 to 388) */
+    clip-path: polygon(0 0, 150px 0, 250px 70px, 388px 70px, 388px 200px, 0 200px);
+    /* Fallback */
+    -webkit-clip-path: path('M 0 0 L 150 0 C 190 0 210 70 250 70 L 388 70 L 388 200 L 0 200 Z');
+    clip-path: path('M 0 0 L 150 0 C 190 0 210 70 250 70 L 388 70 L 388 200 L 0 200 Z');
+}
+
+/* ── Content Elements ── */
+
+/* Chip / Logo Circles */
+.chipContainer {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 50px;
+    height: 32px;
+    z-index: 5;
+}
+
+.chipCircleBack {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.chipCircleFront {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Balance */
+.balanceContainer {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 5;
+}
+
+.balanceAmount {
+    font-size: 42px;
+    font-weight: 300;
+    /* Thin font to match the image perfectly */
+    color: #ffffff;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    line-height: 1;
+}
+
+.balanceLabel {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    text-transform: uppercase;
+}
+
+/* Premium Banking Text */
+.textContainer {
+    position: absolute;
+    bottom: 38px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 5;
+}
+
+.title {
+    font-size: 19px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0px;
+}
+
+.subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.2px;
+}
+
+/* Toggle Switch */
+.toggleArea {
+    position: absolute;
+    bottom: 26px;
+    right: 30px;
+    z-index: 6;
+}
+
+.toggleTrack {
+    width: 42px;
+    height: 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.25s ease;
+    padding: 0;
+    outline: none;
+}
+
+.toggleTrackActive {
+    background-color: #8bed2f;
+    /* Matches the vibrant green from the image */
+}
+
+.toggleTrackInactive {
+    background-color: #555;
+}
+
+.toggleThumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.toggleThumbActive {
+    transform: translateX(18px);
+}
+
+.toggleThumbInactive {
+    transform: translateX(0);
+}

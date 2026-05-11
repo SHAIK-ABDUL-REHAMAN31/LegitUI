@@ -1,0 +1,74 @@
+/* ═══════════════════════════════════════════════════════
+   AuroraBackground.module.css
+   Aurora borealis animated gradient background
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes aurora-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -50px) scale(1.1); }
+  66%       { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes aurora-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-40px, 30px) scale(1.15); }
+  66%       { transform: translate(30px, -40px) scale(0.95); }
+}
+
+@keyframes aurora-3 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  33%       { transform: translate(20px, 40px) scale(0.9); }
+  66%       { transform: translate(-30px, -20px) scale(1.1); }
+}
+
+.root {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-color, #09090b);
+}
+
+.blurLayer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  filter: blur(80px);
+}
+
+/* Aurora orbs — intensity controlled via --aurora-opacity CSS var */
+.orb1 {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 10%;
+  left: 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--color-1, 124, 58, 237), var(--aurora-opacity, 0.25)), transparent 70%);
+  animation: aurora-1 8s ease-in-out infinite;
+}
+
+.orb2 {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  top: 30%;
+  right: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--color-2, 168, 85, 247), var(--aurora-opacity, 0.25)), transparent 70%);
+  animation: aurora-2 10s ease-in-out infinite;
+}
+
+.orb3 {
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  bottom: 10%;
+  left: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--color-3, 192, 132, 252), var(--aurora-opacity, 0.25)), transparent 70%);
+  animation: aurora-3 12s ease-in-out infinite;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}

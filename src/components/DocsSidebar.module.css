@@ -1,0 +1,31 @@
+.sectionTitleFirst {
+  margin-top: 0;
+}
+
+.linkContent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badgeNew {
+  font-size: 0.6rem;
+  padding: 1px 5px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border-radius: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badgeUpdated {
+  font-size: 0.6rem;
+  padding: 1px 5px;
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+  border-radius: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

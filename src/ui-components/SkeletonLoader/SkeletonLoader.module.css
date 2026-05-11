@@ -1,0 +1,18 @@
+/* ═══════════════════════════════════════════════════════
+   SkeletonLoader.module.css
+   Shimmer loading placeholder
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  width: var(--sk-width, 100%);
+  height: var(--sk-height, 20px);
+  border-radius: var(--sk-radius, 8px);
+  background: linear-gradient(90deg, var(--sk-base-color, #1c1c22) 25%, var(--sk-highlight-color, #27272a) 50%, var(--sk-base-color, #1c1c22) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer var(--sk-speed, 1.5s) ease-in-out infinite;
+}

@@ -1,0 +1,51 @@
+.container {
+    display: inline-block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1.2;
+    position: relative;
+    letter-spacing: -0.02em;
+}
+
+.char {
+    display: none;
+    /* Controlled by GSAP */
+    white-space: pre;
+    opacity: 0;
+    will-change: transform, opacity, filter;
+    vertical-align: baseline;
+}
+
+.cursor {
+    display: inline-block;
+    width: 4px;
+    height: 1.1em;
+    background: linear-gradient(to bottom,
+            #4285f4,
+            #ea4335,
+            #fbbc05,
+            #34a853,
+            #4285f4);
+    background-size: 100% 300%;
+    animation: shimmer 3s linear infinite;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    box-shadow: 0 0 10px rgba(66, 133, 244, 0.4), 0 0 20px rgba(234, 67, 53, 0.2);
+    border-radius: 2px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 0% 300%;
+    }
+}
+
+.gradientText {
+    color: #000000;
+}

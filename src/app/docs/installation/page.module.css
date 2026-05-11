@@ -1,0 +1,71 @@
+.pageWrapper {
+  padding: 2.5rem;
+  max-width: 800px;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.introText {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* Section Titles */
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.sectionDesc {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.codeBlockWrapper {
+  margin-bottom: 2.5rem;
+}
+
+/* Prerequisites */
+.prerequisitesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.prerequisiteItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.6rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+}
+
+.prerequisiteDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+.prerequisiteLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.prerequisiteNote {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}

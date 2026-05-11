@@ -1,0 +1,149 @@
+.link {
+  text-decoration: none;
+}
+
+.glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1), transparent 70%);
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.badges {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  z-index: 5;
+}
+
+.badgeNew {
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border-radius: 4px;
+  font-weight: 700;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badgeUpdated {
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  background: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+  border-radius: 4px;
+  font-weight: 700;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.categoryIcon {
+  font-size: 3rem;
+  opacity: 0.25;
+  color: var(--accent-primary);
+  position: relative;
+  z-index: 1;
+  transition: transform 300ms ease, opacity 300ms ease;
+}
+
+.categoryIconHovered {
+  transform: scale(1.1);
+}
+
+.cardBodyWrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== VIDEO PREVIEW ========== */
+
+.previewVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 3;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  border-radius: 0;
+}
+
+.previewImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ========== LOADING SKELETON ========== */
+
+.videoSkeleton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  background: linear-gradient(
+    110deg,
+    rgba(31, 41, 55, 0.4) 25%,
+    rgba(55, 65, 81, 0.6) 37%,
+    rgba(31, 41, 55, 0.4) 63%
+  );
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    opacity: 0.4;
+    background-position: 200% 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+    background-position: -200% 0;
+  }
+}
+
+/* ========== ▶ PREVIEW BADGE ========== */
+
+.previewBadge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(168, 85, 247, 0.9);
+  text-transform: uppercase;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+.previewBadgeTriangle {
+  font-size: 0.5rem;
+  line-height: 1;
+  color: #a855f7;
+}

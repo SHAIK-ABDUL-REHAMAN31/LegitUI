@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@800&display=swap');
+
+.navInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+
+
+.desktopNavInner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navLink {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.navLinkActive {
+  color: var(--text-primary);
+}
+
+.navLinkInactive {
+  color: var(--text-tertiary);
+}
+
+.searchWrapper {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.searchLink {
+  display: block;
+  text-decoration: none;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.githubBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: border-color 150ms ease;
+}
+
+.mobileToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 57px;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-primary);
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 99;
+}
+
+.mobileLink {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.5rem 0;
+}
+
+.mobileLinkActive {
+  color: var(--text-primary);
+}
+
+.mobileLinkInactive {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .desktopNavInner {
+    display: none !important;
+  }
+
+  .mobileToggle {
+    display: block !important;
+  }
+}

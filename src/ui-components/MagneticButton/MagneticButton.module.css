@@ -1,0 +1,18 @@
+/* ═══════════════════════════════════════════════════════
+   MagneticButton.module.css
+   Button with magnetic cursor-attraction effect
+   ═══════════════════════════════════════════════════════ */
+
+.button {
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  /* transform is set inline — driven by JS mouse tracking */
+  transition: transform 200ms cubic-bezier(0.33, 1, 0.68, 1);
+  font-family: inherit;
+}

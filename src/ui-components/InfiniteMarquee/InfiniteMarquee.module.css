@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.layerContainer {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.scroller {
+  display: flex;
+  white-space: nowrap;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  width: max-content;
+  flex-shrink: 0;
+  /* Subtle text shadow to help layers stand out from each other */
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.scroller span {
+  display: block;
+  margin-right: 1.5rem;
+  letter-spacing: -0.03em;
+}

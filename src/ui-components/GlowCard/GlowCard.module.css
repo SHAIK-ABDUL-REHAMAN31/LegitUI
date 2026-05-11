@@ -1,0 +1,36 @@
+/* ═══════════════════════════════════════════════════════
+   GlowCard.module.css
+   Card with dynamic cursor-following glow effect
+   ═══════════════════════════════════════════════════════ */
+
+.card {
+  position: relative;
+  padding: 2rem;
+  background: var(--bg-color, #16161a);
+  border: 1px solid var(--border-color, #27272a);
+  border-radius: var(--border-radius, 16px);
+  overflow: hidden;
+  transition: border-color 250ms ease;
+}
+
+.card:hover {
+  border-color: rgba(var(--glow-color, 168, 85, 247), 0.3);
+}
+
+/* Glow orb — position and opacity controlled via inline CSS vars */
+.glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--glow-color, 168, 85, 247), 0.15), transparent 70%);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+  /* x/y position controlled via inline style={{ left, top }} */
+  transform: translate(-50%, -50%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}

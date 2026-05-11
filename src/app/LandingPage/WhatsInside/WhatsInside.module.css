@@ -1,0 +1,763 @@
+/* =============================================
+   WHAT'S INSIDE — Premium SaaS Developer Section
+   Dark cinematic glassmorphism layout
+   ============================================= */
+
+.section {
+  position: relative;
+  padding: 7rem 2rem 6rem;
+  overflow: hidden;
+  background: #050507;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, #000000, #050507 60%, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ====== BACKGROUND ====== */
+
+.bgEffects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+}
+
+.glowOrb1 {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.07), transparent 70%);
+  top: -250px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(100px);
+}
+
+.glowOrb2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.04), transparent 70%);
+  bottom: -150px;
+  right: -100px;
+  filter: blur(80px);
+}
+
+/* ====== CONTAINER ====== */
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* ====== HEADER ====== */
+
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: 100px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: rgba(168, 85, 247, 0.06);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #c4b5fd;
+  margin-bottom: 1.5rem;
+}
+
+.badgeIcon {
+  color: #a855f7;
+}
+
+.title {
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #fafafa;
+  margin-bottom: 1rem;
+}
+
+.titleAccent {
+  background: linear-gradient(135deg, #a855f7, #6366f1, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(161, 161, 170, 0.75);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════
+   SPOTLIGHT CARD (Feature 01)
+   ═══════════════════════════════════════ */
+
+.spotlightCard {
+  position: relative;
+  border-radius: 20px;
+  margin-bottom: 1.25rem;
+}
+
+.spotlightGlow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.15));
+  z-index: 0;
+  filter: blur(0.5px);
+}
+
+/* ── Shiny white rotating gradient border ── */
+.spotlightShine {
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.55;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.spotlightShine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.1) 70%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+}
+
+/* Inner mask so only the border area shows the gradient */
+.spotlightShine::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 20px;
+  background: #0d0d12;
+}
+
+.spotlightCard:hover .spotlightShine {
+  opacity: 1;
+}
+
+.spotlightInner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 0;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #0d0d12, #0a0a0f);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  min-height: 380px;
+}
+
+/* Spotlight — Left */
+
+.spotlightLeft {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featureNumber {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(168, 85, 247, 0.5);
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.featureLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(161, 161, 170, 0.4);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.spotlightTitle {
+  font-size: 1.65rem;
+  font-weight: 750;
+  color: #fafafa;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.spotlightDesc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(161, 161, 170, 0.65);
+  margin-bottom: 1.5rem;
+}
+
+.spotlightBadges {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.spotlightBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(161, 161, 170, 0.6);
+}
+
+.spotlightBadge svg {
+  color: rgba(168, 85, 247, 0.5);
+}
+
+/* Spotlight — Right (preview) */
+
+.spotlightRight {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.previewTagline {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(168, 85, 247, 0.45);
+  z-index: 5;
+}
+
+.previewWindow {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 1.5rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #08080c;
+  overflow: hidden;
+}
+
+.previewChrome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.previewDots {
+  display: flex;
+  gap: 5px;
+}
+
+.dotRed {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  opacity: 0.7;
+}
+
+.dotYellow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #eab308;
+  opacity: 0.7;
+}
+
+.dotGreen {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  opacity: 0.7;
+}
+
+.previewUrl {
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  color: rgba(161, 161, 170, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Nebula visual */
+
+.previewBody {
+  flex: 1;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.nebulaVisual {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 40% 50%, rgba(88, 28, 135, 0.15), transparent 60%),
+    radial-gradient(ellipse at 60% 40%, rgba(59, 130, 246, 0.08), transparent 50%);
+}
+
+.nebulaCore {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.2), transparent 70%);
+  filter: blur(12px);
+  animation: nebulaPulse 4s ease-in-out infinite;
+}
+
+.nebulaRing1 {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%) rotate(30deg);
+  border-radius: 50%;
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  animation: nebulaRotate 12s linear infinite;
+}
+
+.nebulaRing2 {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  animation: nebulaRotate 18s linear infinite reverse;
+}
+
+.nebulaRing3 {
+  position: absolute;
+  width: 260px;
+  height: 130px;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%) rotate(10deg);
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.06);
+  animation: nebulaRotate 25s linear infinite;
+}
+
+.nebulaStar {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  animation: starTwinkle 2.5s ease-in-out infinite;
+}
+
+/* Controls panel */
+
+.controlsPanel {
+  width: 160px;
+  min-width: 160px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.controlsTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(250, 250, 250, 0.8);
+  margin-bottom: 2px;
+}
+
+.controlRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controlLabel {
+  font-size: 10px;
+  color: rgba(161, 161, 170, 0.5);
+  min-width: 45px;
+}
+
+.controlSlider {
+  flex: 1;
+}
+
+.controlTrack {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.controlFill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.controlValue {
+  font-size: 10px;
+  color: rgba(161, 161, 170, 0.4);
+  font-family: var(--font-mono, monospace);
+  min-width: 28px;
+  text-align: right;
+}
+
+.colorSwatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #8b5cf6;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   3-CARD ROW — White Gradient Glow Cards
+   Same glow structure as before but with
+   a unified white/silver gradient
+   ═══════════════════════════════════════ */
+
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* ── Individual glow card ── */
+
+.glowCard {
+  position: relative;
+  border-radius: 20px;
+  min-height: 290px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glowCard:hover {
+  transform: translateY(-6px);
+}
+
+/* Bottom glow effect — white light rising from beneath */
+.glowCardGlow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.04) 30%, rgba(255, 255, 255, 0.15) 65%, rgba(255, 255, 255, 0.35) 100%);
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  filter: blur(1px);
+}
+
+/* Extra soft glow bloom behind the card */
+.glowCard::before {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 10%;
+  right: 10%;
+  height: 80px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2), transparent 70%);
+  border-radius: 50%;
+  filter: blur(25px);
+  z-index: -1;
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+}
+
+.glowCard:hover::before {
+  opacity: 1;
+}
+
+.glowCard:hover .glowCardGlow {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* Subtle border glow */
+.glowCardBorder {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  pointer-events: none;
+  transition: border-color 0.4s ease;
+}
+
+.glowCard:hover .glowCardBorder {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Shiny white rotating gradient border ── */
+.glowCardShine {
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.55;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+/* The static shiny gradient border */
+.glowCardShine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.1) 70%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+}
+
+/* Inner mask so only the border area shows the gradient */
+.glowCardShine::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 20px;
+  background: #0d0d12;
+}
+
+.glowCard:hover .glowCardShine {
+  opacity: 1;
+}
+
+@keyframes shineRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Card content layer */
+.glowCardContent {
+  position: relative;
+  z-index: 2;
+  padding: 1.75rem 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg,
+      rgba(13, 13, 18, 0.98) 0%,
+      rgba(13, 13, 18, 0.96) 40%,
+      rgba(13, 13, 18, 0.82) 75%,
+      rgba(13, 13, 18, 0.55) 100%);
+  border-radius: 20px;
+}
+
+/* Icon container — white/silver tinted */
+.glowCardIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.glowCard:hover .glowCardIcon {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Title */
+.glowCardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f0f0f2;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+}
+
+/* Description */
+.glowCardDesc {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(161, 161, 170, 0.6);
+  flex: 1;
+}
+
+/* CTA link — white */
+.glowCardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: gap 0.3s ease, opacity 0.3s ease;
+  opacity: 0.85;
+}
+
+.glowCardCta:hover {
+  gap: 8px;
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════ */
+
+@keyframes nebulaPulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+@keyframes nebulaRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes starTwinkle {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .spotlightInner {
+    grid-template-columns: 1fr;
+  }
+
+  .spotlightRight {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    min-height: 300px;
+  }
+
+  .cardRow {
+    grid-template-columns: 1fr;
+  }
+
+  .glowCard {
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 5rem 1rem 4rem;
+  }
+
+  .spotlightLeft {
+    padding: 1.5rem;
+  }
+
+  .controlsPanel {
+    display: none;
+  }
+}

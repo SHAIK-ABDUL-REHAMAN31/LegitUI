@@ -1,0 +1,162 @@
+/* ====== PROP TABLE — Phase 9 ====== */
+.propTableWrapper {
+  margin-top: 2.5rem;
+}
+
+.propTableTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.propCount {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.tableContainer {
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.thead {
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.th {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.row {
+  transition: background 150ms ease;
+}
+
+.row:hover {
+  background: rgba(139, 92, 246, 0.03);
+}
+
+/* Prop Name Cell */
+.nameCell {
+  padding: 0.65rem 1rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.requiredStar {
+  color: #ef4444;
+  margin-left: 2px;
+  font-weight: 700;
+}
+
+/* Type Cell — syntax-colored by type category */
+.typeCell {
+  padding: 0.65rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.typeBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Type colors */
+.typeString {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.typeNumber {
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.typeBoolean {
+  background: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.typeReactNode {
+  background: rgba(139, 92, 246, 0.1);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.typeFunction {
+  background: rgba(236, 72, 153, 0.1);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.typeEnum {
+  background: rgba(20, 184, 166, 0.1);
+  color: #2dd4bf;
+  border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.typeOther {
+  background: rgba(148, 163, 184, 0.08);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* Default Value Cell */
+.defaultCell {
+  padding: 0.65rem 1rem;
+}
+
+.defaultValue {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #c9d1d9;
+  background: #161b22;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.defaultNone {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+/* Description Cell */
+.descCell {
+  padding: 0.65rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-width: 360px;
+}

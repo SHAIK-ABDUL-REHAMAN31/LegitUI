@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════
+   ShimmerButton.module.css
+   Gradient button with animated shimmer sweep
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.button {
+  position: relative;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background: var(--bg, linear-gradient(135deg, #7c3aed, #a855f7));
+  border: none;
+  border-radius: var(--border-radius, 10px);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  font-family: inherit;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--shimmer-color, rgba(255, 255, 255, 0.2)), transparent);
+  background-size: 200% 100%;
+  animation: shimmer var(--shimmer-duration, 2s) infinite;
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}

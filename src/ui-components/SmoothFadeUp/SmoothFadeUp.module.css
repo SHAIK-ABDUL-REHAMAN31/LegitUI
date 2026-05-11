@@ -1,0 +1,114 @@
+/* ═══════════════════════════════════════════════════
+   SmoothFadeUp — CSS Module
+   ═══════════════════════════════════════════════════ */
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  background: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 720px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* ── Badge ─────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #000000;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  will-change: transform, opacity;
+}
+
+/* ── Heading ───────────────────────────────────── */
+.heading {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #000000;
+  margin: 0;
+  will-change: transform, opacity;
+}
+
+/* ── Subheading ────────────────────────────────── */
+.subheading {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000000;
+  margin: 0;
+  max-width: 540px;
+  will-change: transform, opacity;
+}
+
+/* ── Description ───────────────────────────────── */
+.description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #333333;
+  margin: 0;
+  max-width: 520px;
+  will-change: transform, opacity;
+}
+
+/* ── Decorative divider ────────────────────────── */
+.divider {
+  width: 48px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #000000, #333333);
+  will-change: transform, opacity;
+}
+
+/* ── CTA Button Group ──────────────────────────── */
+.buttonGroup {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+/* ── Primary CTA ───────────────────────────────── */
+.primaryBtn {
+  padding: 0.7rem 1.8rem;
+  border-radius: 0.6rem;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #000000, #333333);
+}
+
+/* ── Secondary / Ghost CTA ─────────────────────── */
+.secondaryBtn {
+  padding: 0.7rem 1.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #000000;
+  background: transparent;
+  transition: border-color 0.2s, color 0.2s;
+}

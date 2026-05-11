@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.textWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.prefix, .suffix {
+  display: inline-block;
+}
+
+.morphBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.3em;
+  border-radius: 0;
+  background: rgba(147, 197, 253, 0.4); /* Solid light blue glassy */
+  border-left: 0.08em solid #0055ff;
+  border-right: 0.08em solid #0055ff;
+  border-top: none;
+  border-bottom: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: none;
+  color: #ffffff;
+  will-change: transform, filter, opacity, width;
+  overflow: visible; /* Important: allow dots to render outside */
+  position: relative;
+}
+
+.morphBox::before {
+  content: "";
+  position: absolute;
+  top: -0.16em;
+  left: -0.20em; /* Perfectly centers dot on the 0.08em border */
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background-color: #0055ff;
+}
+
+.morphBox::after {
+  content: "";
+  position: absolute;
+  bottom: -0.16em;
+  right: -0.20em; /* Perfectly centers dot on the 0.08em border */
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background-color: #0055ff;
+}

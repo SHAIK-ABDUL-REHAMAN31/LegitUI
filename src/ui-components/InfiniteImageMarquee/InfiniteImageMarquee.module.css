@@ -1,0 +1,82 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #050505;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Perspective Wrapper */
+.perspectiveWrapper {
+  width: 150vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* Rotate in 3D space */
+  transform: rotateZ(-8deg) rotateY(15deg) rotateX(10deg);
+  transform-style: preserve-3d;
+  perspective: 2000px;
+}
+
+.row {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  will-change: transform, filter;
+  /* We use transform-origin center to make skew symmetric */
+  transform-origin: center center;
+}
+
+.track {
+  display: flex;
+  gap: 2rem;
+  padding-right: 2rem; /* Ensures gap at the end of the track for seamless loop */
+}
+
+.imageBox {
+  width: 250px;
+  height: 160px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  filter: brightness(0.8) contrast(1.1);
+}
+
+.imageBox:hover .image {
+  transform: scale(1.15);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+@media (min-width: 768px) {
+  .perspectiveWrapper {
+    gap: 3rem;
+  }
+  .track {
+    gap: 3rem;
+    padding-right: 3rem;
+  }
+  .imageBox {
+    width: 400px;
+    height: 260px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .imageBox {
+    width: 500px;
+    height: 320px;
+  }
+}

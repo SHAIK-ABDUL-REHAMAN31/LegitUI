@@ -1,0 +1,54 @@
+.container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+}
+
+.countWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 24px;
+    box-shadow:
+        0 4px 20px -5px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.countWrapper:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 20px 40px -15px rgba(0, 0, 0, 0.1),
+        0 8px 20px -10px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #888;
+}
+
+.number {
+    display: inline-block;
+    will-change: transform, filter, opacity;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.suffix {
+    font-size: 0.5em;
+    margin-left: 0.2em;
+    color: #555;
+}

@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+.fixedText {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.wordsContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+}
+
+.word {
+  grid-area: 1 / 1 / 2 / 2;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  transform-origin: left center;
+  will-change: transform, opacity, filter;
+}

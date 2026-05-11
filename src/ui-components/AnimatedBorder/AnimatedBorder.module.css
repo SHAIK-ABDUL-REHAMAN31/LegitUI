@@ -1,0 +1,32 @@
+/* ═══════════════════════════════════════════════════════
+   AnimatedBorder.module.css
+   Animated conic-gradient border with rotating hue
+   ═══════════════════════════════════════════════════════ */
+
+/* Hoist @property so the custom property is animatable */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate-gradient {
+  0%   { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+.wrapper {
+  position: relative;
+  border-radius: 16px;
+  /* Dynamic values via CSS custom properties set inline */
+  padding: var(--border-width, 2px);
+  background: conic-gradient(from var(--angle), var(--color-1, #7c3aed), var(--color-2, #a855f7), var(--color-3, #c084fc), var(--color-1, #7c3aed));
+  animation: rotate-gradient var(--speed, 3s) linear infinite;
+}
+
+.inner {
+  background: var(--inner-color, #16161a);
+  border-radius: var(--inner-radius, 14px);
+  padding: 1.5rem;
+  height: 100%;
+}

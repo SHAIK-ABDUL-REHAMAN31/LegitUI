@@ -1,0 +1,78 @@
+.container {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Optional: padding to prevent displacement clipping */
+    padding: 0.2em 0.5em; 
+}
+
+.textWrapper {
+    position: relative;
+    display: inline-block;
+    filter: url(#glitch-displacement);
+    /* Ensure the wrapper respects text sizing */
+    line-height: 1;
+}
+
+.channel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    user-select: none;
+}
+
+.red {
+    color: #ff0000;
+    z-index: 3;
+}
+
+.green {
+    color: #00ff00;
+    z-index: 2;
+}
+
+.blue {
+    color: #0000ff;
+    z-index: 1;
+}
+
+.base {
+    /* The base element provides the layout dimensions.
+       It is invisible but maintains accessibility and selection. */
+    color: transparent;
+    position: relative;
+    z-index: 0;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.4)
+    );
+    background-size: 100% 6px;
+    z-index: 10;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.8;
+}
+
+.svgFilter {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
