@@ -6,6 +6,7 @@
     "dev": "cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev",
     "dev:clean": "rimraf .next && cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev",
     "dev:fresh": "rimraf .next node_modules/.cache && cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev",
+    "dev:warm": "node scripts/warm-previews.js",
     "clean": "rimraf .next",
     "build": "npx tsx scripts/generate-js-variants.ts && npx tsx scripts/build-registry.ts && next build",
     "start": "next start",

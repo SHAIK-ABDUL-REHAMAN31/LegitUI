@@ -1,47 +1,44 @@
-/* ====== Preview Component Styles — Phase 2 ====== */
+/* ====== Preview Component Styles ====== */
 
-/* Wrapper: contains iframe + overlays + resize handle */
+/* Wrapper: contains iframe + overlays */
 .previewWrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: #09090b;
+  background: #000000;
 }
 
-/* ====== LOADING STATE (2-B) ====== */
+/* ====== LOADING OVERLAY ====== */
 .loadingOverlay {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   z-index: 10;
-  background: rgba(9, 9, 11, 0.85);
+  background: #000000;
 }
 
-.spinner {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: #a855f7;
-  animation: spinPreview 0.8s linear infinite;
+/* ====== SKELETON — Full-screen shimmer ====== */
+.skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #0a0a0a 25%,
+    #141414 50%,
+    #0a0a0a 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
 }
 
-@keyframes spinPreview {
-  to { transform: rotate(360deg); }
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-.loadingText {
-  font-size: 13px;
-  color: #6b7280;
-  font-family: var(--font-sans);
-  letter-spacing: 0.01em;
-}
-
-/* ====== ERROR STATE (2-B) ====== */
+/* ====== ERROR STATE ====== */
 .errorOverlay {
   position: absolute;
   inset: 0;
@@ -106,28 +103,4 @@
   background: transparent;
   transition: opacity 300ms ease;
   display: block;
-}
-
-
-/* Legacy support: old loading dots (no longer used but kept for compat) */
-.loadingDots {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-}
-
-.errorBar {
-  padding: 0.75rem 1rem;
-  border-top: 1px solid rgba(239, 68, 68, 0.2);
-  background: rgba(239, 68, 68, 0.05);
-  font-size: 0.78rem;
-  color: #ef4444;
-  font-family: var(--font-mono);
 }

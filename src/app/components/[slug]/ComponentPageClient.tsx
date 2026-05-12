@@ -418,6 +418,7 @@ export default function ComponentPageClient({
                   showDemoContent={showDemoContent}
                   componentName={component.name}
                   componentDesc={component.description}
+                  componentCategory={component.category}
                 />
               </div>
 

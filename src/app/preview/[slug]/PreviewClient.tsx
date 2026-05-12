@@ -152,7 +152,7 @@ class ComponentErrorBoundary extends React.Component<
 }
 
 // ────────────────────────────────────────────────────
-// Loading Skeleton
+// Loading Skeleton (inner — for React.lazy Suspense)
 // ────────────────────────────────────────────────────
 function PreviewSkeleton() {
   return (
@@ -161,24 +161,25 @@ function PreviewSkeleton() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        width: "100%",
         height: "100vh",
-        background: "#0a0a0a",
+        background: "#000000",
       }}
     >
       <div
         style={{
-          width: "48px",
-          height: "48px",
-          borderRadius: "50%",
-          background: "rgba(168, 85, 247, 0.1)",
-          boxShadow: "0 0 20px rgba(168, 85, 247, 0.2)",
-          animation: "preview-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+          width: "100%",
+          height: "100%",
+          background:
+            "linear-gradient(90deg, #0a0a0a 25%, #141414 50%, #0a0a0a 75%)",
+          backgroundSize: "200% 100%",
+          animation: "preview-shimmer 1.5s ease-in-out infinite",
         }}
       />
       <style>{`
-        @keyframes preview-pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: .5; transform: scale(0.9); }
+        @keyframes preview-shimmer {
+          0%   { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
       `}</style>
     </div>
@@ -201,15 +202,15 @@ function ComponentRenderer({
   demoTitle: string;
   demoDesc: string;
 }) {
-  const loader = PREVIEW_MAP[slug as keyof typeof PREVIEW_MAP];
+  const entry = PREVIEW_MAP[slug as keyof typeof PREVIEW_MAP];
 
-  if (!loader) {
+  if (!entry) {
     throw new Error(`Component "${slug}" not found in preview map.`);
   }
 
   // React.lazy handles the dynamic import + suspense integration natively.
   // We use useMemo so we don't recreate the lazy component on every render.
-  const LazyComponent = React.useMemo(() => React.lazy(loader), [loader]);
+  const LazyComponent = React.useMemo(() => React.lazy(entry.load), [entry]);
 
   // Signal parent that we rendered successfully
   useEffect(() => {

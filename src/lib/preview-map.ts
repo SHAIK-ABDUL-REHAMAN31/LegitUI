@@ -1,71 +1,92 @@
 // ════════════════════════════════════════════════════
-// LegitUI — Preview Map (slug → dynamic import)
+// LegitUI — Preview Map (slug → dynamic import + weight)
 // ════════════════════════════════════════════════════
-// Maps every component slug to a dynamic import of its actual source component.
-// Used by the preview route (/preview/[slug]) to render components natively.
+// Maps every component slug to a dynamic import and weight metadata.
+// Weight determines loading strategy and prefetch priority.
+//
+// Weights:
+//   light   — Pure CSS/JS, no heavy deps. Loads instantly.
+//   medium  — GSAP or Framer Motion. Loads in 1–2 seconds.
+//   heavy   — Three.js, OGL, or R3F. Loads in 2–4 seconds.
+//   extreme — R3F + postprocessing, physics, or multiple heavy deps.
+// ════════════════════════════════════════════════════
 
-export const PREVIEW_MAP: Record<string, () => Promise<{ default: React.ComponentType<any> }>> = {
-  'shimmer-button': () => import('@/ui-components/ShimmerButton/ShimmerButtonUsage'),
-  'glow-card': () => import('@/ui-components/GlowCard/GlowCardUsage'),
-  'pulse-loader': () => import('@/ui-components/PulseLoader/PulseLoaderUsage'),
-  'typewriter-text': () => import('@/ui-components/TypewriterText/TypewriterTextUsage'),
-  'animated-border': () => import('@/ui-components/AnimatedBorder/AnimatedBorderUsage'),
-  'floating-input': () => import('@/ui-components/FloatingInput/FloatingInputUsage'),
-  'aurora-background': () => import('@/ui-components/AuroraBackground/AuroraBackgroundUsage'),
-  'magnetic-button': () => import('@/ui-components/MagneticButton/MagneticButton'),
-  'spotlight-card': () => import('@/ui-components/SpotlightCard/SpotlightCardUsage'),
-  'skeleton-loader': () => import('@/ui-components/SkeletonLoader/SkeletonLoaderUsage'),
-  'ripple-button': () => import('@/ui-components/RippleButton/RippleButton'),
-  'particles-background': () => import('@/ui-components/Particles/SpaceParticles'),
-  'neon-waves': () => import('@/ui-components/NeonWaves/NeonWaves'),
-  'mirror-capsules': () => import('@/ui-components/MirrorCapsules/MirrorCapsule'),
-  'fractal-haze': () => import('@/ui-components/FractalHaze/FractalHaze'),
-  'liquid-nebula': () => import('@/ui-components/LiquidNebula/LiquidNebula'),
-  'space-nebula-v1': () => import('@/ui-components/SpaceNebulav1/SpaceNebulav1'),
-  'space-nebula-v2': () => import('@/ui-components/SpaceNebulaV2/SpaceNebulaV2'),
-  'green-wave-ribbons': () => import('@/ui-components/GreenWaveRibbons/GreenWaveRibbonsUsage'),
-  'cinematic-black-hole': () => import('@/ui-components/BlackHole/BlackHoleUsage'),
-  '3d-gallery': () => import('@/ui-components/3DGallery/3DGalleryUsage'),
-  'scroll-gallery': () => import('@/ui-components/ScrollGallery/ScrollGalleryUsage'),
-  'text-reveal': () => import('@/ui-components/TextReveal/TextRevealUsage'),
-  'smooth-fade-up': () => import('@/ui-components/SmoothFadeUp/SmoothFadeUpUsage'),
-  'cinematic-text': () => import('@/ui-components/CinematicText/CinematicTextUsage'),
-  'scale-blur': () => import('@/ui-components/ScaleBlur/ScaleBlurUsage'),
-  'staggered-word-slide': () => import('@/ui-components/StaggeredWordSlide/StaggeredWordSlideUsage'),
-  'typing-cursor': () => import('@/ui-components/TypingCursor/TypingCursorUsage'),
-  'typewriter-text-new': () => import('@/ui-components/TypewriterText/TypewriterTextUsage'),
-  'pixelify-text': () => import('@/ui-components/PixelifyText/PixelifyUsage'),
-  'numbers-count': () => import('@/ui-components/NumbersCount/NumbersCountUsage'),
-  'premium-bank-card': () => import('@/ui-components/PremiumBankCard/PremiumBankCardUsage'),
-  'animated-gradient-text': () => import('@/ui-components/AnimatedGradient/AnimatedGradientUsage'),
-  'liquid-wave-text': () => import('@/ui-components/LiquidText/LiquidTextUsage'),
-  'flip-text': () => import('@/ui-components/FlipText/FlipTextUsage'),
-  'infinite-marquee': () => import('@/ui-components/InfiniteMarquee/InfiniteMarqueeUsage'),
-  'text-morph': () => import('@/ui-components/TextMorph/TextMorphUsage'),
-  'scroll-reveal-text': () => import('@/ui-components/ScrollRevealText/ScrollRevealTextUsage'),
-  'slide-up-text': () => import('@/ui-components/SlideUpText/SlideUpTextUsage'),
-  'text-roller': () => import('@/ui-components/TextRoller/TextRollerUsage'),
-  'magnetic-hover-text': () => import('@/ui-components/MagneticHoverText/MagneticHoverTextUsage'),
-  'hover-reveal-card': () => import('@/ui-components/HoverRevealCard/HoverRevealCardUsage'),
-  'rotating-text': () => import('@/ui-components/RotatingText/RotatingTextUsage'),
-  'ascii-text': () => import('@/ui-components/AsciiText/AsciiTextUsage'),
-  'kinetic-split-text': () => import('@/ui-components/KineticSplitText/KineticSplitTextUsage'),
-  'curved-typography': () => import('@/ui-components/CurvedTypography/CurvedTypographyUsage'),
-  'glitch-text': () => import('@/ui-components/GlitchText/GlitchTextUsage'),
-  'physics-text': () => import('@/ui-components/PhysicsText/PhysicsTextUsage'),
-  'depth-text': () => import('@/ui-components/DepthText/DepthTextUsage'),
-  'true-3d-text': () => import('@/ui-components/True3DText/True3DTextUsage'),
-  'scroll-wave-gallery': () => import('@/ui-components/ScrollWaveGallery/ScrollWaveGalleryUsage'),
-  'ascii-motion-text': () => import('@/ui-components/AsciiMotionText/AsciiMotionTextUsage'),
-  'stacked-card-reveal': () => import('@/ui-components/StackedCardReveal/StackedCardRevealUsage'),
-  'cinematic-scroll': () => import('@/ui-components/CinematicScroll/CinematicScrollUsage'),
-  'curved-typography-gallery': () => import('@/ui-components/CurvedTypographyGallery/CurvedTypographyGalleryUsage'),
-  'infinite-image-marquee': () => import('@/ui-components/InfiniteImageMarquee/InfiniteImageMarqueeUsage'),
-  'editorial-storytelling': () => import('@/ui-components/EditorialStorytelling/EditorialStorytellingUsage'),
-  'cursor-image-trail': () => import('@/ui-components/CursorImageTrail/CursorImageTrailUsage'),
-  'orbit-gallery': () => import('@/ui-components/OrbitGallery/OrbitGalleryUsage'),
-  'magnetic-dock': () => import('@/ui-components/MagneticDock/MagneticDockUsage'),
-  'horizon-gradient': () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'),
-} as const;
+export type ComponentWeight = 'light' | 'medium' | 'heavy' | 'extreme';
+
+export interface PreviewEntry {
+  load: () => Promise<{ default: React.ComponentType<any> }>;
+  weight: ComponentWeight;
+}
+
+export const PREVIEW_MAP: Record<string, PreviewEntry> = {
+  // ── LIGHT — Pure CSS/JS, no heavy deps ──
+  'shimmer-button':       { load: () => import('@/ui-components/ShimmerButton/ShimmerButtonUsage'),       weight: 'light' },
+  'glow-card':            { load: () => import('@/ui-components/GlowCard/GlowCardUsage'),                weight: 'light' },
+  'pulse-loader':         { load: () => import('@/ui-components/PulseLoader/PulseLoaderUsage'),           weight: 'light' },
+  'typewriter-text':      { load: () => import('@/ui-components/TypewriterText/TypewriterTextUsage'),     weight: 'light' },
+  'animated-border':      { load: () => import('@/ui-components/AnimatedBorder/AnimatedBorderUsage'),     weight: 'light' },
+  'floating-input':       { load: () => import('@/ui-components/FloatingInput/FloatingInputUsage'),       weight: 'light' },
+  'spotlight-card':       { load: () => import('@/ui-components/SpotlightCard/SpotlightCardUsage'),       weight: 'light' },
+  'skeleton-loader':      { load: () => import('@/ui-components/SkeletonLoader/SkeletonLoaderUsage'),     weight: 'light' },
+  'ripple-button':        { load: () => import('@/ui-components/RippleButton/RippleButton'),              weight: 'light' },
+  'magnetic-button':      { load: () => import('@/ui-components/MagneticButton/MagneticButton'),          weight: 'light' },
+  'premium-bank-card':    { load: () => import('@/ui-components/PremiumBankCard/PremiumBankCardUsage'),   weight: 'light' },
+  'typewriter-text-new':  { load: () => import('@/ui-components/TypewriterText/TypewriterTextUsage'),     weight: 'light' },
+  'hover-reveal-card':    { load: () => import('@/ui-components/HoverRevealCard/HoverRevealCardUsage'),   weight: 'light' },
+
+  // ── MEDIUM — GSAP or Framer Motion ──
+  'aurora-background':       { load: () => import('@/ui-components/AuroraBackground/AuroraBackgroundUsage'),   weight: 'medium' },
+  'text-reveal':             { load: () => import('@/ui-components/TextReveal/TextRevealUsage'),               weight: 'medium' },
+  'smooth-fade-up':          { load: () => import('@/ui-components/SmoothFadeUp/SmoothFadeUpUsage'),           weight: 'medium' },
+  'cinematic-text':          { load: () => import('@/ui-components/CinematicText/CinematicTextUsage'),         weight: 'medium' },
+  'scale-blur':              { load: () => import('@/ui-components/ScaleBlur/ScaleBlurUsage'),                 weight: 'medium' },
+  'staggered-word-slide':    { load: () => import('@/ui-components/StaggeredWordSlide/StaggeredWordSlideUsage'), weight: 'medium' },
+  'typing-cursor':           { load: () => import('@/ui-components/TypingCursor/TypingCursorUsage'),           weight: 'medium' },
+  'pixelify-text':           { load: () => import('@/ui-components/PixelifyText/PixelifyUsage'),               weight: 'medium' },
+  'numbers-count':           { load: () => import('@/ui-components/NumbersCount/NumbersCountUsage'),           weight: 'medium' },
+  'animated-gradient-text':  { load: () => import('@/ui-components/AnimatedGradient/AnimatedGradientUsage'),   weight: 'medium' },
+  'liquid-wave-text':        { load: () => import('@/ui-components/LiquidText/LiquidTextUsage'),               weight: 'medium' },
+  'flip-text':               { load: () => import('@/ui-components/FlipText/FlipTextUsage'),                   weight: 'medium' },
+  'infinite-marquee':        { load: () => import('@/ui-components/InfiniteMarquee/InfiniteMarqueeUsage'),     weight: 'medium' },
+  'text-morph':              { load: () => import('@/ui-components/TextMorph/TextMorphUsage'),                 weight: 'medium' },
+  'scroll-reveal-text':      { load: () => import('@/ui-components/ScrollRevealText/ScrollRevealTextUsage'),   weight: 'medium' },
+  'slide-up-text':           { load: () => import('@/ui-components/SlideUpText/SlideUpTextUsage'),             weight: 'medium' },
+  'text-roller':             { load: () => import('@/ui-components/TextRoller/TextRollerUsage'),               weight: 'medium' },
+  'magnetic-hover-text':     { load: () => import('@/ui-components/MagneticHoverText/MagneticHoverTextUsage'), weight: 'medium' },
+  'rotating-text':           { load: () => import('@/ui-components/RotatingText/RotatingTextUsage'),           weight: 'medium' },
+  'glitch-text':             { load: () => import('@/ui-components/GlitchText/GlitchTextUsage'),               weight: 'medium' },
+  'kinetic-split-text':      { load: () => import('@/ui-components/KineticSplitText/KineticSplitTextUsage'),   weight: 'medium' },
+  'magnetic-dock':           { load: () => import('@/ui-components/MagneticDock/MagneticDockUsage'),           weight: 'medium' },
+  'stacked-card-reveal':     { load: () => import('@/ui-components/StackedCardReveal/StackedCardRevealUsage'), weight: 'medium' },
+  'horizon-gradient':        { load: () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'),     weight: 'medium' },
+
+  // ── HEAVY — OGL / Three.js ──
+  'particles-background':    { load: () => import('@/ui-components/Particles/SpaceParticles'),                       weight: 'heavy' },
+  'neon-waves':              { load: () => import('@/ui-components/NeonWaves/NeonWaves'),                             weight: 'heavy' },
+  'fractal-haze':            { load: () => import('@/ui-components/FractalHaze/FractalHaze'),                         weight: 'heavy' },
+  'liquid-nebula':           { load: () => import('@/ui-components/LiquidNebula/LiquidNebula'),                       weight: 'heavy' },
+  'space-nebula-v1':         { load: () => import('@/ui-components/SpaceNebulav1/SpaceNebulav1'),                     weight: 'heavy' },
+  'space-nebula-v2':         { load: () => import('@/ui-components/SpaceNebulaV2/SpaceNebulaV2'),                     weight: 'heavy' },
+  'green-wave-ribbons':      { load: () => import('@/ui-components/GreenWaveRibbons/GreenWaveRibbonsUsage'),           weight: 'heavy' },
+  'ascii-text':              { load: () => import('@/ui-components/AsciiText/AsciiTextUsage'),                         weight: 'heavy' },
+  'depth-text':              { load: () => import('@/ui-components/DepthText/DepthTextUsage'),                         weight: 'heavy' },
+  'physics-text':            { load: () => import('@/ui-components/PhysicsText/PhysicsTextUsage'),                     weight: 'heavy' },
+  'curved-typography':       { load: () => import('@/ui-components/CurvedTypography/CurvedTypographyUsage'),           weight: 'heavy' },
+  'ascii-motion-text':       { load: () => import('@/ui-components/AsciiMotionText/AsciiMotionTextUsage'),             weight: 'heavy' },
+  'cinematic-scroll':        { load: () => import('@/ui-components/CinematicScroll/CinematicScrollUsage'),             weight: 'heavy' },
+  'editorial-storytelling':  { load: () => import('@/ui-components/EditorialStorytelling/EditorialStorytellingUsage'), weight: 'heavy' },
+  'cursor-image-trail':      { load: () => import('@/ui-components/CursorImageTrail/CursorImageTrailUsage'),           weight: 'heavy' },
+  'infinite-image-marquee':  { load: () => import('@/ui-components/InfiniteImageMarquee/InfiniteImageMarqueeUsage'),   weight: 'heavy' },
+
+  // ── EXTREME — R3F + postprocessing / multiple heavy deps ──
+  'mirror-capsules':              { load: () => import('@/ui-components/MirrorCapsules/MirrorCapsule'),                               weight: 'extreme' },
+  'cinematic-black-hole':         { load: () => import('@/ui-components/BlackHole/BlackHoleUsage'),                                   weight: 'extreme' },
+  '3d-gallery':                   { load: () => import('@/ui-components/3DGallery/3DGalleryUsage'),                                   weight: 'extreme' },
+  'scroll-gallery':               { load: () => import('@/ui-components/ScrollGallery/ScrollGalleryUsage'),                           weight: 'extreme' },
+  'true-3d-text':                 { load: () => import('@/ui-components/True3DText/True3DTextUsage'),                                 weight: 'extreme' },
+  'scroll-wave-gallery':          { load: () => import('@/ui-components/ScrollWaveGallery/ScrollWaveGalleryUsage'),                   weight: 'extreme' },
+  'curved-typography-gallery':    { load: () => import('@/ui-components/CurvedTypographyGallery/CurvedTypographyGalleryUsage'),       weight: 'extreme' },
+  'orbit-gallery':                { load: () => import('@/ui-components/OrbitGallery/OrbitGalleryUsage'),                             weight: 'extreme' },
+};
 
 export type ComponentSlug = keyof typeof PREVIEW_MAP;

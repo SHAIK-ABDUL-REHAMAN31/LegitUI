@@ -69,13 +69,20 @@ export default async function ComponentDetailPage({
     meta.fileName
   );
 
+  // Build the preview URL for prefetching
+  const previewUrl = `/preview/${slug}`;
+
   return (
-    <ComponentPageClient
-      slug={slug}
-      metadata={meta}
-      tsxCode={tsxCode}
-      jsxCode={jsxCode}
-      cssCode={cssCode}
-    />
+    <>
+      {/* Prefetch the preview route so the iframe loads faster */}
+      <link rel="prefetch" href={previewUrl} as="document" />
+      <ComponentPageClient
+        slug={slug}
+        metadata={meta}
+        tsxCode={tsxCode}
+        jsxCode={jsxCode}
+        cssCode={cssCode}
+      />
+    </>
   );
 }

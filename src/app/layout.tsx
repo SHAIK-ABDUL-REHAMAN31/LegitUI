@@ -4,6 +4,7 @@ import "./globals.css";
 import { ComponentProvider } from "@/lib/component-store";
 import { UserPreferencesProvider } from "@/lib/user-preferences";
 import Navbar from "@/components/Navbar";
+import PreviewWarmer from "@/components/PreviewWarmer";
 import styles from "./layout.module.css";
 
 const geistSans = Geist({
@@ -38,6 +39,7 @@ export default function RootLayout({
           <UserPreferencesProvider>
             <Navbar />
             <main className={styles.main}>{children}</main>
+            <PreviewWarmer />
           </UserPreferencesProvider>
         </ComponentProvider>
       </body>

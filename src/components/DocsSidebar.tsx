@@ -3,11 +3,41 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useComponentStore } from "@/lib/component-store";
+import { useRef, useCallback } from "react";
 import styles from "./DocsSidebar.module.css";
+
+/* ── Hover-based preview prefetching ── */
+const prefetchedSlugs = new Set<string>();
+
+function prefetchPreview(slug: string) {
+  if (prefetchedSlugs.has(slug)) return;
+  prefetchedSlugs.add(slug);
+
+  const link = document.createElement("link");
+  link.rel = "prefetch";
+  link.href = `/preview/${slug}`;
+  link.as = "document";
+  document.head.appendChild(link);
+}
 
 export default function DocsSidebar() {
   const pathname = usePathname();
   const { categories, components } = useComponentStore();
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = useCallback((slug: string) => {
+    // Debounce: only prefetch after 100ms of sustained hover
+    hoverTimerRef.current = setTimeout(() => {
+      prefetchPreview(slug);
+    }, 100);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+  }, []);
 
   const getStartedLinks = [
     { label: "Introduction", href: "/docs" },
@@ -47,6 +77,8 @@ export default function DocsSidebar() {
                 href={`/components/${comp.slug}`}
                 className={`sidebar-link ${pathname === `/components/${comp.slug}` ? "active" : ""
                   }`}
+                onMouseEnter={() => handleMouseEnter(comp.slug)}
+                onMouseLeave={handleMouseLeave}
               >
                 <span className={styles.linkContent}>
                   {comp.name}

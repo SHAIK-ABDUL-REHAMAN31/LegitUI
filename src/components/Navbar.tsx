@@ -65,7 +65,7 @@ export default function Navbar() {
 
           {/* GitHub Star Badge */}
           <a
-            href="https://github.com"
+            href="https://github.com/SHAIK-ABDUL-REHAMAN31/LegitUI"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.githubBadge}

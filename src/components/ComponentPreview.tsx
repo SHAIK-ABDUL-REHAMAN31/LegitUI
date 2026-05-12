@@ -4,6 +4,13 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import styles from "./ComponentPreview.module.css";
 
 /* ────────────────────────────────────────────────────
+   Preview Skeleton — Full-screen shimmer loading state
+   ──────────────────────────────────────────────────── */
+function PreviewSkeleton() {
+  return <div className={styles.skeleton} />;
+}
+
+/* ────────────────────────────────────────────────────
    ComponentPreview — Phase 1 Production Upgrade
    ────────────────────────────────────────────────────
    Uses a native Next.js route (/preview/[slug]) inside
@@ -22,6 +29,7 @@ interface ComponentPreviewProps {
   showDemoContent?: boolean;
   componentName?: string;
   componentDesc?: string;
+  componentCategory?: string;
   height?: number;
   className?: string;
   // Legacy props (kept for backward compat, but no longer drive behavior)
@@ -36,6 +44,7 @@ export default function ComponentPreview({
   showDemoContent = true,
   componentName,
   componentDesc,
+  componentCategory,
   height = 480,
   className,
   // Legacy destructure — `customProps` is aliased to currentProps for compat
@@ -117,13 +126,17 @@ export default function ComponentPreview({
 
   return (
     <div className={`${styles.previewWrapper} ${className || ''}`} style={{ height }}>
-      {/* Loading State */}
-      {previewState === "loading" && (
-        <div className={styles.loadingOverlay}>
-          <div className={styles.spinner} />
-          <span className={styles.loadingText}>Rendering component...</span>
-        </div>
-      )}
+      {/* Loading State — Category-aware skeleton with smooth fade-out */}
+      <div
+        className={styles.loadingOverlay}
+        style={{
+          opacity: previewState === "loading" ? 1 : 0,
+          pointerEvents: previewState === "loading" ? "auto" : "none",
+          transition: "opacity 0.3s ease",
+        }}
+      >
+        <PreviewSkeleton />
+      </div>
 
       {/* Error State */}
       {previewState === "error" && (
@@ -149,6 +162,9 @@ export default function ComponentPreview({
           height: height,
         }}
         title="Component Preview"
+        loading="eager"
+        // @ts-expect-error — fetchPriority is valid but not yet in React types
+        fetchPriority="high"
         onLoad={() => {
           // The iframe's own JS will send READY via postMessage
           // This is a fallback safety net
