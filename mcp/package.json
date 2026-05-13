@@ -1,0 +1,60 @@
+{
+  "name": "@legitui/mcp",
+  "version": "1.0.0",
+  "description": "MCP server for LegitUI component library — lets AI assistants like Claude, Cursor, and Windsurf query, search, and install 61+ premium React components",
+  "type": "module",
+  "bin": {
+    "legitui-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CLAUDE_SYSTEM_PROMPT.md",
+    "scripts"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "legitui",
+    "components",
+    "react",
+    "webgl",
+    "three.js",
+    "gsap",
+    "framer-motion",
+    "claude",
+    "cursor",
+    "ai-tools"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SHAIK-ABDUL-REHAMAN31/LegitUI.git",
+    "directory": "mcp"
+  },
+  "homepage": "https://github.com/SHAIK-ABDUL-REHAMAN31/LegitUI/tree/main/mcp#readme",
+  "bugs": {
+    "url": "https://github.com/SHAIK-ABDUL-REHAMAN31/LegitUI/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

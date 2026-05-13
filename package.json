@@ -15,7 +15,16 @@
     "registry:build": "npx tsx scripts/build-registry.ts",
     "validate:registry": "npx tsx scripts/validate-registry.ts",
     "record-previews": "npx tsx scripts/record-previews.ts",
-    "new:component": "npx tsx scripts/new-component.ts"
+    "new:component": "npx tsx scripts/new-component.ts",
+    "mcp:build": "cd mcp && npm run build",
+    "mcp:start": "node mcp/dist/index.js",
+    "mcp:dev": "cd mcp && npm run dev",
+    "mcp:setup:claude": "node mcp/scripts/setup-claude.js",
+    "mcp:setup:cursor": "node mcp/scripts/setup-cursor.js",
+    "mcp:setup:windsurf": "node mcp/scripts/setup-windsurf.js",
+    "mcp:setup:all": "node mcp/scripts/setup-all.js",
+    "mcp:publish": "cd mcp && npm run build && npm publish",
+    "mcp:test": "node mcp/scripts/test-tools.js"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

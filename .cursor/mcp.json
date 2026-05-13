@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "legitui": {
+      "command": "node",
+      "args": [
+        "./mcp/dist/index.js"
+      ],
+      "env": {
+        "LEGITUI_PROJECT_ROOT": ".",
+        "NODE_ENV": "development"
+      },
+      "description": "LegitUI component library — query, search, and install 61+ premium React components via AI"
+    }
+  }
+}
