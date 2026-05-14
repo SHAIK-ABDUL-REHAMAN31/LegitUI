@@ -1,0 +1,298 @@
+/* =============================================
+   GET STARTED — Premium Developer Section
+   Vertical Timeline Layout
+   ============================================= */
+
+.section {
+  position: relative;
+  padding: 7rem 2rem 6rem;
+  overflow: hidden;
+  background: linear-gradient(135deg,
+      #050505 0%,
+      #18191e 25%,
+      #020202 50%,
+      #121316 75%,
+      #000000 100%);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* ====== BACKGROUND ====== */
+.bgEffects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 10%, transparent 70%);
+}
+
+.glowOrb {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(circle at center, rgba(168, 85, 247, 0.08), transparent 60%);
+  filter: blur(80px);
+}
+
+/* ====== HEADER ====== */
+.header {
+  text-align: center;
+  margin-bottom: 6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: badgeShine 2.5s infinite linear;
+}
+
+@keyframes badgeShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(150%); }
+}
+
+.badgeIcon {
+  color: #ffffff;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.titleAccent {
+  background: linear-gradient(180deg, #ffffff 30%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(161, 161, 170, 0.8);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ====== TIMELINE ====== */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.timelineWrapper {
+  position: relative;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.timelineTrail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.timelineDot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5), 0 0 40px 10px rgba(255, 255, 255, 0.2);
+  z-index: 3;
+}
+
+.timelineSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  position: relative;
+  z-index: 4;
+}
+
+.stepRow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.rowLeft {
+  justify-content: flex-start;
+}
+
+.rowRight {
+  justify-content: flex-end;
+}
+
+.stepCard {
+  position: relative;
+  width: 45%;
+  background: linear-gradient(180deg, rgba(13, 13, 18, 0.9) 0%, rgba(13, 13, 18, 0.4) 100%);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.connectorLine {
+  position: absolute;
+  top: 50%;
+  width: 5%; /* Spans the gap between 50% center line and the 45% wide card */
+  border-top: 2px dotted rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.rowLeft .connectorLine {
+  right: 50%;
+}
+
+.rowRight .connectorLine {
+  left: 50%;
+}
+
+.stepCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px; /* border thickness */
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.03) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.stepIconWrapper {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a855f7;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stepTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.stepNumber {
+  color: rgba(168, 85, 247, 0.8);
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.stepDesc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .timelineLine {
+    left: 20px;
+  }
+  
+  .timelineDot {
+    left: 20px;
+  }
+
+  .stepCard {
+    width: calc(100% - 60px);
+    margin-left: 60px;
+  }
+  
+  .rowLeft, .rowRight {
+    justify-content: flex-start;
+  }
+
+  .connectorLine {
+    left: 20px !important;
+    right: auto !important;
+    width: 40px !important;
+  }
+}

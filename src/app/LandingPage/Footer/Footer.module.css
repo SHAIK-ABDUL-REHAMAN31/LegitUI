@@ -1,0 +1,122 @@
+/* =============================================
+   FOOTER — Massive Typography Layout
+   ============================================= */
+
+.footer {
+  position: relative;
+  background: #000000;
+  padding: 6rem 2rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.footerTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  width: 100%;
+}
+
+.footerLove {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pixelHeart {
+  fill: #a855f7;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.footerMiddle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footerCopy {
+  padding-left: 2rem;
+}
+
+/* Massive Text Logic */
+.massiveTextWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* Pull the text down to clip exactly at the bottom edge */
+  margin-bottom: -1%;
+}
+
+.massiveText {
+  font-size: 20vw;
+  /* Decreased size */
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.75;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+
+  /* Black and White Gradient */
+  background: linear-gradient(180deg, #ffffff 0%, #18181b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Mask to smoothly fade into black at the far left and right edges */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+
+  user-select: none;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .footer {
+    padding: 4rem 1rem 0;
+  }
+
+  .footerMiddle {
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .footerCopy {
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .massiveText {
+    font-size: 22vw;
+  }
+}

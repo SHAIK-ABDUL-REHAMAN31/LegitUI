@@ -1,93 +1,259 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  Sparkles,
-  Shield,
-  Code2,
-  Globe,
-  Copy,
-  Zap,
-  Eye,
-  Paintbrush,
-  Terminal,
-  Newspaper,
-  Wrench,
-  Lightbulb,
-  ArrowRight,
-} from "lucide-react";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Sparkles, Check, Copy } from "lucide-react";
 import styles from "./WhatsInside.module.css";
 
 /* ── animation variants ── */
-
 const stagger = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
   },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 60 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.96, y: 24 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const },
-  },
+/* ── Visual Components ── */
+
+// 1. Live Previews Visual (Carousel style)
+const PreviewCarouselVisual = () => (
+  <div className={styles.previewCarousel}>
+    <motion.div
+      className={styles.previewCarouselTrack}
+      animate={{ x: ["0%", "-50%"] }}
+      transition={{ duration: 15, ease: "linear", repeat: Infinity }}
+    >
+      {[1, 2, 3, 1, 2, 3].map((item, i) => (
+        <div key={i} className={styles.previewCarouselItem}>
+          <div className={styles.mockImg} />
+          <div className={styles.mockTextRow}>
+            <div className={styles.mockLineShort} />
+            <div className={styles.mockLineLong} />
+          </div>
+        </div>
+      ))}
+    </motion.div>
+  </div>
+);
+
+// 2. Editor Visual (Monochrome code exact match with Typewriter)
+// 2. Editor Visual (Monochrome code exact match with Typewriter)
+const snippets = [
+  { prompt: "animate hero text", code: 'import Hero from "./Hero"\n<Hero animation="fadeUp" />' },
+  { prompt: "add glow card", code: 'import Card from "./Card"\n<Card variant="glass" />' },
+  { prompt: "insert marquee", code: 'import Mrq from "./Mrq"\n<Mrq speed="fast" />' }
+];
+
+const EditorVisual = () => {
+  const [text, setText] = useState("");
+  const [snippetIdx, setSnippetIdx] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    const currentSnippet = snippets[snippetIdx].code;
+
+    if (isDeleting) {
+      if (text === "") {
+        setIsDeleting(false);
+        setSnippetIdx((prev) => (prev + 1) % snippets.length);
+        timer = setTimeout(() => { }, 400);
+      } else {
+        timer = setTimeout(() => {
+          setText((prev) => prev.slice(0, -1));
+        }, 15);
+      }
+    } else {
+      if (text === currentSnippet) {
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000);
+      } else {
+        timer = setTimeout(() => {
+          setText((prev) => currentSnippet.slice(0, prev.length + 1));
+        }, 40);
+      }
+    }
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, snippetIdx]);
+
+  const lines = text.split('\n');
+  const displayLines = [lines[0] || "", lines.length > 1 ? lines[1] : ""];
+
+  return (
+    <div className={styles.editorVisual}>
+      <div className={styles.previewVisualChrome}>
+        <div className={styles.previewVisualDots}>
+          <span className={styles.dotRed} />
+          <span className={styles.dotYellow} />
+          <span className={styles.dotGreen} />
+        </div>
+        <div className={styles.previewUrl}>Editor</div>
+      </div>
+      <div className={styles.editorBody}>
+        <div className={styles.codePrompt}>
+          <span className={styles.promptIcon}>$</span> {snippets[snippetIdx].prompt}
+        </div>
+        <div className={styles.codeLinesWrapper}>
+          {displayLines.map((line, i) => (
+            <div className={styles.editorLine} key={i}>
+              <span className={styles.lineNumber}>{i + 1}</span>
+              <span className={styles.codeContent} style={{ whiteSpace: "pre" }}>{line}</span>
+              {i === lines.length - 1 && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                  style={{ color: "#fff", marginLeft: "2px" }}
+                >
+                  |
+                </motion.span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
-/* ── card data ── */
+// 3. Marquee Visual
+const ComponentsMarquee = () => {
+  const components1 = ["Button", "Card", "Modal", "Hero", "Navbar"];
+  const components2 = ["Avatar", "Tooltip", "Footer", "Slider", "Badge"];
 
-const featureCards = [
+  return (
+    <div className={styles.marqueeVisual}>
+      <div className={styles.marqueeTrackWrapper}>
+        <motion.div
+          className={styles.marqueeTrack}
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+        >
+          {[...components1, ...components1].map((comp, i) => (
+            <div key={i} className={styles.marqueePill}>{comp}</div>
+          ))}
+        </motion.div>
+      </div>
+      <div className={styles.marqueeTrackWrapper}>
+        <motion.div
+          className={styles.marqueeTrack}
+          animate={{ x: ["-50%", "0%"] }}
+          transition={{ duration: 12, ease: "linear", repeat: Infinity }}
+        >
+          {[...components2, ...components2].map((comp, i) => (
+            <div key={i} className={styles.marqueePillAlt}>{comp}</div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+// 4. Zero Dependencies Visual
+const ZeroDepVisual = () => {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className={styles.zeroDepVisual}>
+      <div className={styles.snippetCard}>
+        <div className={styles.snippetHeader}>
+          <span className={styles.snippetName}>Hero.tsx</span>
+          <div className={styles.copyBtn}>
+            <AnimatePresence mode="wait">
+              {copied ? (
+                <motion.div
+                  key="check"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                >
+                  <Check size={12} color="#10b981" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="copy"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                >
+                  <Copy size={12} color="#a1a1aa" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+        <div className={styles.snippetBody}>
+          <div className={styles.snippetLine} style={{ width: "80%" }} />
+          <div className={styles.snippetLine} style={{ width: "60%" }} />
+          <div className={styles.snippetLine} style={{ width: "90%" }} />
+          <div className={styles.snippetLine} style={{ width: "40%" }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── Main Component ── */
+
+const cardsData = [
   {
-    icon: Eye,
+    id: "live-preview",
+    label: "01 CORE ADVANTAGE",
+    title: "Isolated Live Previews",
+    description:
+      "Every component runs in a sandboxed iframe environment, ensuring animations, backgrounds, styles, and scripts never interfere with your app. Crash-proof. Conflict-free.",
+    visual: <PreviewCarouselVisual />,
+  },
+  {
+    id: "source-access",
+    label: "02 OPEN SOURCE",
     title: "Full Source Access",
     description:
       "Every component ships with TSX, JSX, and CSS source code. View it, copy it, paste it — no installs, no black boxes.",
-    cta: "View Source →",
+    visual: <EditorVisual />,
   },
   {
-    icon: Wrench,
+    id: "components",
+    label: "03 GROWING LIBRARY",
     title: "33+ Interactive Components",
     description:
       "WebGL effects, animated gradients, magnetic buttons, skeleton loaders, and more — all production-ready and fully customizable.",
-    cta: "Browse Components →",
+    visual: <ComponentsMarquee />,
   },
   {
-    icon: Lightbulb,
-    title: "Zero Dependencies",
+    id: "modern-stack",
+    label: "04 MODERN STACK",
+    title: "Seamless Integration",
     description:
-      "Pure React components. No npm installs, no external libraries required. Just copy the code and ship it.",
-    cta: "Get Started →",
+      "Built with standard modern libraries like Framer Motion and Lucide React. Designed to drop into your Next.js or Vite projects effortlessly.",
+    visual: <ZeroDepVisual />,
   },
 ];
 
 export default function WhatsInside() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <section ref={ref} className={styles.section} id="whats-inside">
-      {/* ── bg layer ── */}
-      <div className={styles.bgEffects}>
-        <div className={styles.gridOverlay} />
-        <div className={styles.glowOrb1} />
-        <div className={styles.glowOrb2} />
-      </div>
-
       <div className={styles.container}>
-        {/* ══════ HEADER ══════ */}
         <motion.div
           className={styles.header}
           initial="hidden"
@@ -110,181 +276,22 @@ export default function WhatsInside() {
           </motion.p>
         </motion.div>
 
-        {/* ══════ SPOTLIGHT CARD — Live Previews ══════ */}
-        <motion.div
-          className={styles.spotlightCard}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={scaleIn}
-        >
-          <div className={styles.spotlightGlow} />
-          <div className={styles.spotlightShine} />
-          <div className={styles.spotlightInner}>
-            {/* left column */}
-            <div className={styles.spotlightLeft}>
-              <div className={styles.featureNumber}>01</div>
-              <span className={styles.featureLabel}>CORE ADVANTAGE</span>
-              <h3 className={styles.spotlightTitle}>
-                Isolated Live Previews
-              </h3>
-              <p className={styles.spotlightDesc}>
-                Every component runs in a sandboxed iframe environment, ensuring
-                WebGL, styles, and scripts never interfere with your app.
-                Crash-proof. Conflict-free.
-              </p>
-              <div className={styles.spotlightBadges}>
-                <div className={styles.spotlightBadge}>
-                  <Shield size={14} />
-                  <span>Crash Protection</span>
-                </div>
-                <div className={styles.spotlightBadge}>
-                  <Code2 size={14} />
-                  <span>Style Isolation</span>
-                </div>
-                <div className={styles.spotlightBadge}>
-                  <Globe size={14} />
-                  <span>WebGL Safe</span>
-                </div>
-              </div>
-            </div>
-
-            {/* right column — mock preview */}
-            <div className={styles.spotlightRight}>
-              <div className={styles.previewTagline}>
-                <Zap size={12} />
-                Powered by iframe sandbox
-              </div>
-              <div className={styles.previewWindow}>
-                {/* browser chrome */}
-                <div className={styles.previewChrome}>
-                  <div className={styles.previewDots}>
-                    <span className={styles.dotRed} />
-                    <span className={styles.dotYellow} />
-                    <span className={styles.dotGreen} />
-                  </div>
-                  <div className={styles.previewUrl}>
-                    <span>🔒</span> /preview/liquid-nebula
-                  </div>
-                </div>
-                {/* preview body */}
-                <div className={styles.previewBody}>
-                  {/* nebula visual */}
-                  <div className={styles.nebulaVisual}>
-                    <div className={styles.nebulaCore} />
-                    <div className={styles.nebulaRing1} />
-                    <div className={styles.nebulaRing2} />
-                    <div className={styles.nebulaRing3} />
-                    {/* particles — deterministic to avoid hydration mismatch */}
-                    {[
-                      { l: 12, t: 8, d: 0.2, s: 1.4 },
-                      { l: 85, t: 15, d: 1.1, s: 2.1 },
-                      { l: 45, t: 22, d: 0.6, s: 1.8 },
-                      { l: 72, t: 35, d: 2.3, s: 1.2 },
-                      { l: 28, t: 42, d: 1.5, s: 2.5 },
-                      { l: 91, t: 50, d: 0.4, s: 1.6 },
-                      { l: 55, t: 58, d: 2.0, s: 1.3 },
-                      { l: 18, t: 65, d: 0.9, s: 2.8 },
-                      { l: 78, t: 72, d: 1.8, s: 1.1 },
-                      { l: 35, t: 80, d: 0.3, s: 2.2 },
-                      { l: 62, t: 88, d: 2.5, s: 1.5 },
-                      { l: 8, t: 30, d: 1.2, s: 1.9 },
-                      { l: 95, t: 45, d: 0.7, s: 2.4 },
-                      { l: 42, t: 55, d: 2.1, s: 1.7 },
-                      { l: 68, t: 12, d: 1.4, s: 2.0 },
-                      { l: 22, t: 92, d: 0.1, s: 1.3 },
-                      { l: 50, t: 38, d: 2.8, s: 2.6 },
-                      { l: 82, t: 62, d: 0.5, s: 1.1 },
-                      { l: 15, t: 48, d: 1.7, s: 2.3 },
-                      { l: 58, t: 75, d: 0.8, s: 1.6 },
-                    ].map((star, i) => (
-                      <div
-                        key={i}
-                        className={styles.nebulaStar}
-                        style={{
-                          left: `${star.l}%`,
-                          top: `${star.t}%`,
-                          animationDelay: `${star.d}s`,
-                          width: `${star.s}px`,
-                          height: `${star.s}px`,
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* controls panel */}
-                  <div className={styles.controlsPanel}>
-                    <div className={styles.controlsTitle}>Controls</div>
-                    {[
-                      { label: "Speed", value: "1.25" },
-                      { label: "Density", value: "2.40" },
-                      { label: "Intensity", value: "1.80" },
-                    ].map((ctrl) => (
-                      <div key={ctrl.label} className={styles.controlRow}>
-                        <span className={styles.controlLabel}>
-                          {ctrl.label}
-                        </span>
-                        <div className={styles.controlSlider}>
-                          <div className={styles.controlTrack}>
-                            <div
-                              className={styles.controlFill}
-                              style={{
-                                width: `${(parseFloat(ctrl.value) / 3) * 100}%`,
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <span className={styles.controlValue}>
-                          {ctrl.value}
-                        </span>
-                      </div>
-                    ))}
-                    <div className={styles.controlRow}>
-                      <span className={styles.controlLabel}>Color</span>
-                      <div className={styles.colorSwatch} />
-                      <span className={styles.controlValue}>#8B5CF6</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ══════ 3 FEATURE CARDS — Premium glow style ══════ */}
         <motion.div
           className={styles.cardRow}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={stagger}
         >
-          {featureCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <motion.div
-                key={card.title}
-                className={styles.glowCard}
-                variants={scaleIn}
-              >
-                {/* Bottom glow layer */}
-                <div className={styles.glowCardGlow} />
-                {/* Border glow layer */}
-                <div className={styles.glowCardBorder} />
-                {/* Shiny white rotating gradient border layer */}
-                <div className={styles.glowCardShine} />
-                {/* Content */}
-                <div className={styles.glowCardContent}>
-                  <div className={styles.glowCardIcon}>
-                    <Icon size={20} />
-                  </div>
-                  <h4 className={styles.glowCardTitle}>{card.title}</h4>
-                  <p className={styles.glowCardDesc}>{card.description}</p>
-                  <a className={styles.glowCardCta} href="#">
-                    {card.cta}
-                  </a>
-                </div>
-              </motion.div>
-            );
-          })}
+          {cardsData.map((card) => (
+            <motion.div key={card.id} className={styles.card} variants={fadeUp}>
+              <div className={styles.cardVisualArea}>{card.visual}</div>
+              <div className={styles.cardContent}>
+                <div className={styles.cardLabel}>{card.label}</div>
+                <h3 className={styles.cardTitle}>{card.title}</h3>
+                <p className={styles.cardDesc}>{card.description}</p>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

@@ -7,7 +7,14 @@
   position: relative;
   padding: 7rem 2rem 6rem;
   overflow: hidden;
-  background: #050507;
+  /* Premium Dark Metallic Gradient Background */
+  background: linear-gradient(135deg,
+      #050505 0%,
+      #18191e 25%,
+      #020202 50%,
+      #121316 75%,
+      #000000 100%);
+  font-family: var(--font-geist-sans), sans-serif;
 }
 
 .section::before {
@@ -16,8 +23,8 @@
   top: -2px;
   left: 0;
   right: 0;
-  height: 180px;
-  background: linear-gradient(to bottom, #000000, #050507 60%, transparent);
+  height: 250px;
+  background: linear-gradient(to bottom, #000000, transparent);
   pointer-events: none;
   z-index: 2;
 }
@@ -35,33 +42,32 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 50%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 10%, transparent 70%);
 }
 
 .glowOrb1 {
+  display: block;
   position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.07), transparent 70%);
-  top: -250px;
-  left: 50%;
-  transform: translateX(-50%);
-  filter: blur(100px);
+  top: -20%;
+  left: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle at center, rgba(160, 160, 180, 0.15), transparent 70%);
+  filter: blur(80px);
 }
 
 .glowOrb2 {
+  display: block;
   position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.04), transparent 70%);
-  bottom: -150px;
-  right: -100px;
+  bottom: -20%;
+  right: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle at center, rgba(200, 200, 220, 0.1), transparent 70%);
   filter: blur(80px);
 }
 
@@ -70,7 +76,7 @@
 .container {
   position: relative;
   z-index: 1;
-  max-width: 1140px;
+  max-width: 90%;
   margin: 0 auto;
 }
 
@@ -78,43 +84,71 @@
 
 .header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 18px;
+  padding: 6px 16px;
   border-radius: 100px;
-  border: 1px solid rgba(168, 85, 247, 0.2);
-  background: rgba(168, 85, 247, 0.06);
-  font-size: 12px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #c4b5fd;
+  letter-spacing: 0.2em;
+  color: #ffffff;
   margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: badgeShine 2.5s infinite linear;
+}
+
+@keyframes badgeShine {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(150%);
+  }
 }
 
 .badgeIcon {
-  color: #a855f7;
+  color: #ffffff;
 }
 
 .title {
-  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
-  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 200;
   letter-spacing: -0.04em;
   line-height: 1.1;
-  color: #fafafa;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
 .titleAccent {
-  background: linear-gradient(135deg, #a855f7, #6366f1, #3b82f6);
+  background: linear-gradient(180deg, #ffffff 30%, #a855f7 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 400;
 }
 
 .subtitle {
@@ -126,638 +160,388 @@
 }
 
 /* ═══════════════════════════════════════
-   SPOTLIGHT CARD (Feature 01)
+   4-CARD ROW — Premium single line grid
    ═══════════════════════════════════════ */
 
-.spotlightCard {
-  position: relative;
-  border-radius: 20px;
-  margin-bottom: 1.25rem;
-}
-
-.spotlightGlow {
-  position: absolute;
-  inset: -1px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.15));
-  z-index: 0;
-  filter: blur(0.5px);
-}
-
-/* ── Shiny white rotating gradient border ── */
-.spotlightShine {
-  position: absolute;
-  inset: -1px;
-  border-radius: 21px;
-  z-index: 0;
-  overflow: hidden;
-  opacity: 0.55;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-}
-
-.spotlightShine::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.1) 30%,
-    rgba(255, 255, 255, 0) 50%,
-    rgba(255, 255, 255, 0.1) 70%,
-    rgba(255, 255, 255, 0.4) 100%
-  );
-}
-
-/* Inner mask so only the border area shows the gradient */
-.spotlightShine::after {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  border-radius: 20px;
-  background: #0d0d12;
-}
-
-.spotlightCard:hover .spotlightShine {
-  opacity: 1;
-}
-
-.spotlightInner {
-  position: relative;
-  z-index: 1;
+.cardRow {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 0;
-  border-radius: 20px;
-  background: linear-gradient(145deg, #0d0d12, #0a0a0f);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-  min-height: 380px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
 }
 
-/* Spotlight — Left */
-
-.spotlightLeft {
-  padding: 2.5rem;
+.card {
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(13, 13, 18, 0.98) 0%, rgba(13, 13, 18, 0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.108);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  min-height: 420px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.232);
+}
+
+.cardVisualArea {
+  height: 180px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.featureNumber {
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(168, 85, 247, 0.5);
-  margin-bottom: 4px;
-  font-variant-numeric: tabular-nums;
+.cardContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.featureLabel {
+.cardLabel {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(161, 161, 170, 0.4);
-  margin-bottom: 1rem;
-  display: block;
+  margin-bottom: 0.8rem;
 }
 
-.spotlightTitle {
-  font-size: 1.65rem;
-  font-weight: 750;
-  color: #fafafa;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
   margin-bottom: 0.75rem;
 }
 
-.spotlightDesc {
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: rgba(161, 161, 170, 0.65);
-  margin-bottom: 1.5rem;
+.cardDesc {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.65);
 }
 
-.spotlightBadges {
+/* ═══════════════════════════════════════
+   VISUAL COMPONENTS
+   ═══════════════════════════════════════ */
+
+/* 1. Preview Carousel Visual */
+.previewCarousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.spotlightBadge {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
+  mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+}
+
+.previewCarouselTrack {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  padding: 0 16px;
+}
+
+.previewCarouselItem {
+  width: 140px;
+  height: 110px;
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(161, 161, 170, 0.6);
-}
-
-.spotlightBadge svg {
-  color: rgba(168, 85, 247, 0.5);
-}
-
-/* Spotlight — Right (preview) */
-
-.spotlightRight {
-  position: relative;
-  background: rgba(0, 0, 0, 0.3);
-  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.previewTagline {
-  position: absolute;
-  top: 12px;
-  right: 16px;
+.mockImg {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+
+.mockTextRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mockLineShort {
+  width: 40%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.mockLineLong {
+  width: 80%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+/* 2. Editor Visual */
+.editorVisual {
+  width: 85%;
+  height: 80%;
+  background: #08080c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-mono, monospace);
+}
+
+.previewVisualChrome {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(168, 85, 247, 0.45);
-  z-index: 5;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.previewWindow {
+.previewVisualDots {
+  display: flex;
+  gap: 6px;
+}
+
+.dotRed,
+.dotYellow,
+.dotGreen {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+}
+
+.previewUrl {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.3);
+  margin-left: 6px;
+}
+
+.editorBody {
+  padding: 16px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin: 2rem 1.5rem 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: #08080c;
+  gap: 16px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.02), transparent 70%);
+}
+
+.codePrompt {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.promptIcon {
+  color: rgba(255, 255, 255, 0.3);
+  margin-right: 6px;
+}
+
+.codeLinesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editorLine {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  min-height: 16px;
+}
+
+.lineNumber {
+  color: rgba(255, 255, 255, 0.15);
+  width: 16px;
+  text-align: right;
+  margin-right: 12px;
+  user-select: none;
+}
+
+.codeContent {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* 3. Marquee */
+.marqueeVisual {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+}
+
+.marqueeTrackWrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  padding-right: 10px;
+}
+
+.marqueePill,
+.marqueePillAlt {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.marqueePill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.marqueePillAlt {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 4. Zero Dep */
+.zeroDepVisual {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.03) 0%, transparent 60%);
+}
+
+.snippetCard {
+  width: 70%;
+  background: #0d0d12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
 
-.previewChrome {
+.snippetHeader {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.previewDots {
-  display: flex;
-  gap: 5px;
-}
-
-.dotRed {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ef4444;
-  opacity: 0.7;
-}
-
-.dotYellow {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #eab308;
-  opacity: 0.7;
-}
-
-.dotGreen {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #22c55e;
-  opacity: 0.7;
-}
-
-.previewUrl {
-  font-size: 11px;
-  font-family: var(--font-mono, monospace);
-  color: rgba(161, 161, 170, 0.4);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-/* Nebula visual */
-
-.previewBody {
-  flex: 1;
-  position: relative;
-  display: flex;
-  overflow: hidden;
-}
-
-.nebulaVisual {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 40% 50%, rgba(88, 28, 135, 0.15), transparent 60%),
-    radial-gradient(ellipse at 60% 40%, rgba(59, 130, 246, 0.08), transparent 50%);
-}
-
-.nebulaCore {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  top: 50%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.2), transparent 70%);
-  filter: blur(12px);
-  animation: nebulaPulse 4s ease-in-out infinite;
-}
-
-.nebulaRing1 {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  top: 50%;
-  left: 40%;
-  transform: translate(-50%, -50%) rotate(30deg);
-  border-radius: 50%;
-  border: 1px solid rgba(168, 85, 247, 0.15);
-  animation: nebulaRotate 12s linear infinite;
-}
-
-.nebulaRing2 {
-  position: absolute;
-  width: 200px;
-  height: 100px;
-  top: 50%;
-  left: 40%;
-  transform: translate(-50%, -50%) rotate(-15deg);
-  border-radius: 50%;
-  border: 1px solid rgba(99, 102, 241, 0.1);
-  animation: nebulaRotate 18s linear infinite reverse;
-}
-
-.nebulaRing3 {
-  position: absolute;
-  width: 260px;
-  height: 130px;
-  top: 50%;
-  left: 40%;
-  transform: translate(-50%, -50%) rotate(10deg);
-  border-radius: 50%;
-  border: 1px solid rgba(59, 130, 246, 0.06);
-  animation: nebulaRotate 25s linear infinite;
-}
-
-.nebulaStar {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.7);
-  animation: starTwinkle 2.5s ease-in-out infinite;
-}
-
-/* Controls panel */
-
-.controlsPanel {
-  width: 160px;
-  min-width: 160px;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.02);
-  border-left: 1px solid rgba(255, 255, 255, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.controlsTitle {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(250, 250, 250, 0.8);
-  margin-bottom: 2px;
-}
-
-.controlRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.controlLabel {
+.snippetName {
   font-size: 10px;
-  color: rgba(161, 161, 170, 0.5);
-  min-width: 45px;
-}
-
-.controlSlider {
-  flex: 1;
-}
-
-.controlTrack {
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-
-.controlFill {
-  height: 100%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #7c3aed, #a855f7);
-}
-
-.controlValue {
-  font-size: 10px;
-  color: rgba(161, 161, 170, 0.4);
   font-family: var(--font-mono, monospace);
-  min-width: 28px;
-  text-align: right;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.colorSwatch {
+.copyBtn {
   width: 16px;
   height: 16px;
-  border-radius: 4px;
-  background: #8b5cf6;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;
-}
-
-/* ═══════════════════════════════════════
-   3-CARD ROW — White Gradient Glow Cards
-   Same glow structure as before but with
-   a unified white/silver gradient
-   ═══════════════════════════════════════ */
-
-.cardRow {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-
-/* ── Individual glow card ── */
-
-.glowCard {
-  position: relative;
-  border-radius: 20px;
-  min-height: 290px;
-  cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.glowCard:hover {
-  transform: translateY(-6px);
-}
-
-/* Bottom glow effect — white light rising from beneath */
-.glowCardGlow {
-  position: absolute;
-  inset: -2px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.04) 30%, rgba(255, 255, 255, 0.15) 65%, rgba(255, 255, 255, 0.35) 100%);
-  z-index: 0;
-  opacity: 1;
-  transition: opacity 0.5s ease, filter 0.5s ease;
-  filter: blur(1px);
-}
-
-/* Extra soft glow bloom behind the card */
-.glowCard::before {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 10%;
-  right: 10%;
-  height: 80px;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2), transparent 70%);
-  border-radius: 50%;
-  filter: blur(25px);
-  z-index: -1;
-  opacity: 0.6;
-  transition: opacity 0.5s ease;
-}
-
-.glowCard:hover::before {
-  opacity: 1;
-}
-
-.glowCard:hover .glowCardGlow {
-  opacity: 1;
-  filter: blur(0px);
-}
-
-/* Subtle border glow */
-.glowCardBorder {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 1;
-  pointer-events: none;
-  transition: border-color 0.4s ease;
-}
-
-.glowCard:hover .glowCardBorder {
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
-/* ── Shiny white rotating gradient border ── */
-.glowCardShine {
-  position: absolute;
-  inset: -1px;
-  border-radius: 21px;
-  z-index: 0;
-  overflow: hidden;
-  opacity: 0.55;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-}
-
-/* The static shiny gradient border */
-.glowCardShine::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.1) 30%,
-    rgba(255, 255, 255, 0) 50%,
-    rgba(255, 255, 255, 0.1) 70%,
-    rgba(255, 255, 255, 0.4) 100%
-  );
-}
-
-/* Inner mask so only the border area shows the gradient */
-.glowCardShine::after {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  border-radius: 20px;
-  background: #0d0d12;
-}
-
-.glowCard:hover .glowCardShine {
-  opacity: 1;
-}
-
-@keyframes shineRotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Card content layer */
-.glowCardContent {
-  position: relative;
-  z-index: 2;
-  padding: 1.75rem 1.5rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(180deg,
-      rgba(13, 13, 18, 0.98) 0%,
-      rgba(13, 13, 18, 0.96) 40%,
-      rgba(13, 13, 18, 0.82) 75%,
-      rgba(13, 13, 18, 0.55) 100%);
-  border-radius: 20px;
-}
-
-/* Icon container — white/silver tinted */
-.glowCardIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1.25rem;
-  flex-shrink: 0;
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.glowCard:hover .glowCardIcon {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-/* Title */
-.glowCardTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #f0f0f2;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-  margin-bottom: 0.6rem;
-}
-
-/* Description */
-.glowCardDesc {
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: rgba(161, 161, 170, 0.6);
-  flex: 1;
-}
-
-/* CTA link — white */
-.glowCardCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 1rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: gap 0.3s ease, opacity 0.3s ease;
-  opacity: 0.85;
-}
-
-.glowCardCta:hover {
+.snippetBody {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  opacity: 1;
 }
 
-/* ═══════════════════════════════════════
-   ANIMATIONS
-   ═══════════════════════════════════════ */
-
-@keyframes nebulaPulse {
-
-  0%,
-  100% {
-    opacity: 0.7;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15);
-  }
-}
-
-@keyframes nebulaRotate {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes starTwinkle {
-
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-
-  50% {
-    opacity: 1;
-  }
+.snippetLine {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
 }
 
 /* ═══════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════ */
 
-@media (max-width: 900px) {
-  .spotlightInner {
-    grid-template-columns: 1fr;
-  }
-
-  .spotlightRight {
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    min-height: 300px;
-  }
-
-  .cardRow {
-    grid-template-columns: 1fr;
-  }
-
-  .glowCard {
-    min-height: 240px;
+@media (max-width: 1200px) {
+  .container {
+    max-width: 95%;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1100px) {
+  .cardRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
   .section {
-    padding: 5rem 1rem 4rem;
+    padding: 5rem 1.5rem 4rem;
   }
-
-  .spotlightLeft {
-    padding: 1.5rem;
+  .title {
+    font-size: clamp(2.2rem, 7vw, 3rem);
   }
+  .subtitle {
+    font-size: 0.95rem;
+    padding: 0 1rem;
+  }
+  .cardRow {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .card {
+    min-height: auto;
+  }
+  .cardVisualArea {
+    height: 180px;
+  }
+  .editorVisual {
+    width: 95%;
+  }
+}
 
-  .controlsPanel {
-    display: none;
+@media (max-width: 480px) {
+  .section {
+    padding: 4rem 1rem 3rem;
+  }
+  .cardVisualArea {
+    height: 160px;
+  }
+  .cardContent {
+    padding: 1.25rem;
+  }
+  .cardTitle {
+    font-size: 1.15rem;
+  }
+  .cardDesc {
+    font-size: 0.85rem;
+  }
+  .editorLine {
+    font-size: 10px;
   }
 }

@@ -56,8 +56,10 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'rotating-text':           { load: () => import('@/ui-components/RotatingText/RotatingTextUsage'),           weight: 'medium' },
   'glitch-text':             { load: () => import('@/ui-components/GlitchText/GlitchTextUsage'),               weight: 'medium' },
   'kinetic-split-text':      { load: () => import('@/ui-components/KineticSplitText/KineticSplitTextUsage'),   weight: 'medium' },
+  'shine-text':              { load: () => import('@/ui-components/ShineText/ShineTextUsage'),                 weight: 'medium' },
   'magnetic-dock':           { load: () => import('@/ui-components/MagneticDock/MagneticDockUsage'),           weight: 'medium' },
   'stacked-card-reveal':     { load: () => import('@/ui-components/StackedCardReveal/StackedCardRevealUsage'), weight: 'medium' },
+  'network-nodes':           { load: () => import('@/ui-components/NetworkNodes/NetworkNodesUsage'),           weight: 'medium' },
   'horizon-gradient':        { load: () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'),     weight: 'medium' },
 
   // ── HEAVY — OGL / Three.js ──

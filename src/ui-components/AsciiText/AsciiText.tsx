@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
 import styles from "./AsciiText.module.css";
 
 export interface AsciiTextProps {
   text?: string;
   className?: string;
+  hoverRadius?: number;
+  fontSize?: number;
+  charWidth?: number;
+  charHeight?: number;
+  textColor?: string;
 }
 
 const ON_CHARS = ["█", "▓", "▒", "░", "■"];
@@ -14,8 +18,13 @@ const SCRAMBLE_CHARS = ["@", "#", "$", "%", "&", "*", "!", "?", "~", "^", "<", "
 const OFF_CHARS = ["·", " "];
 
 export const AsciiText: React.FC<AsciiTextProps> = ({
-  text = "ASCII",
+  text = "LEGIT",
   className = "",
+  hoverRadius = 40,
+  fontSize = 12,
+  charWidth = 8,
+  charHeight = 12,
+  textColor = "#ffffff",
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -32,10 +41,6 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
     let height = 0;
     let cols = 0;
     let rows = 0;
-    
-    const FONT_SIZE = 12;
-    const charWidth = 8;
-    const charHeight = 12;
 
     interface Cell {
       col: number;
@@ -46,7 +51,7 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
       baseY: number;
       char: string;
       isOn: boolean;
-      state: "scramble" | "resolved" | "exploded";
+      state: "scramble" | "resolved";
       resolveTime: number;
       opacity: number;
       rot: number;
@@ -58,7 +63,6 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
     let animationFrameId: number;
 
     const initGrid = () => {
-      cells.forEach(c => gsap.killTweensOf(c));
       cells = [];
       
       if (width === 0 || height === 0) return;
@@ -124,46 +128,8 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
       mouseY = -1000;
     };
 
-    const handleClick = () => {
-      cells.forEach(cell => {
-        if (cell.isOn && cell.state === "resolved") {
-          cell.state = "exploded";
-          
-          const cx = width / 2;
-          const cy = height / 2;
-          const angle = Math.atan2(cell.baseY - cy, cell.baseX - cx) + (Math.random() - 0.5);
-          const force = 100 + Math.random() * 250;
-          const targetX = cell.baseX + Math.cos(angle) * force;
-          const targetY = cell.baseY + Math.sin(angle) * force;
-          const targetRot = (Math.random() - 0.5) * Math.PI * 4;
-
-          gsap.to(cell, {
-            x: targetX,
-            y: targetY,
-            rot: targetRot,
-            duration: 0.6,
-            ease: "power2.out",
-            onComplete: () => {
-              gsap.to(cell, {
-                x: cell.baseX,
-                y: cell.baseY,
-                rot: 0,
-                duration: 1.5,
-                delay: Math.random() * 0.4,
-                ease: "back.out(1.5)",
-                onComplete: () => {
-                  cell.state = "resolved";
-                }
-              });
-            }
-          });
-        }
-      });
-    };
-
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
-    canvas.addEventListener("click", handleClick);
 
     const resizeObserver = new ResizeObserver(() => {
       width = container.clientWidth;
@@ -182,7 +148,7 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
       
-      ctx.font = `${FONT_SIZE}px "Courier New", Courier, monospace`;
+      ctx.font = `${fontSize}px "Courier New", Courier, monospace`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
@@ -231,14 +197,14 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
         if (isHovering && cell.state !== "scramble") {
           const dx = cell.baseX - mouseX;
           const dy = cell.baseY - mouseY;
-          if (dx * dx + dy * dy < 6400) {
+          if (dx * dx + dy * dy < hoverRadius * hoverRadius) {
             cell.rippleTime = now + 400;
           }
         }
 
         if (opacity > 0) {
           ctx.globalAlpha = opacity;
-          ctx.fillStyle = "#ffffff";
+          ctx.fillStyle = textColor;
           
           if (cell.rot !== 0) {
             ctx.save();
@@ -262,10 +228,8 @@ export const AsciiText: React.FC<AsciiTextProps> = ({
       resizeObserver.disconnect();
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
-      canvas.removeEventListener("click", handleClick);
-      cells.forEach(c => gsap.killTweensOf(c));
     };
-  }, [text]);
+  }, [text, hoverRadius, fontSize, charWidth, charHeight, textColor]);
 
   return (
     <div ref={containerRef} className={`${styles.container} ${className}`}>

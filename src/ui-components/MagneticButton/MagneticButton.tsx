@@ -10,12 +10,15 @@ interface MagneticButtonProps {
   onClick?: () => void;
   /** Magnetic pull intensity multiplier. @default 0.3 */
   strength?: number;
+  /** Additional CSS classes. @default "" */
+  className?: string;
 }
 
 const MagneticButton: React.FC<MagneticButtonProps> = ({
   children,
   onClick,
   strength = 0.3,
+  className = '',
 }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -39,7 +42,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={styles.button}
+      className={`${styles.button} ${className}`}
       style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
     >
       {children}
