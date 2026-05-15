@@ -61,6 +61,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'stacked-card-reveal':     { load: () => import('@/ui-components/StackedCardReveal/StackedCardRevealUsage'), weight: 'medium' },
   'network-nodes':           { load: () => import('@/ui-components/NetworkNodes/NetworkNodesUsage'),           weight: 'medium' },
   'horizon-gradient':        { load: () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'),     weight: 'medium' },
+  'timeline-steps':          { load: () => import('@/ui-components/TimelineSteps/TimelineStepsUsage'),         weight: 'medium' },
 
   // ── HEAVY — OGL / Three.js ──
   'particles-background':    { load: () => import('@/ui-components/Particles/SpaceParticles'),                       weight: 'heavy' },

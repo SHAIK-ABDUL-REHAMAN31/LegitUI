@@ -1317,6 +1317,23 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["network", "nodes", "particles", "svg", "framer-motion", "connections"],
     isNew: true,
     createdAt: "2026-05-15",
+  },
+  {
+    id: "73",
+    name: "Timeline Steps",
+    slug: "timeline-steps",
+    folder: "TimelineSteps",
+    fileName: "TimelineSteps",
+    category: "LegitComponents",
+    description: "A premium vertical timeline component with scroll-linked progress and staggered 3D card reveals.",
+    dependencies: ["framer-motion", "lucide-react"],
+    props: [
+      { name: "steps", type: "TimelineStep[]", description: "Array of step objects" },
+      { name: "className", type: "string", description: "Optional CSS class" }
+    ],
+    tags: ["timeline", "steps", "scroll", "framer-motion", "cards", "vertical"],
+    isNew: true,
+    createdAt: "2026-05-15",
   }
 ];
 // ────────────────────────────────────────────────────
