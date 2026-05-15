@@ -4,7 +4,7 @@ import styles from "./AsciiText.module.css";
 const ON_CHARS = ["█", "▓", "▒", "░", "■"];
 const SCRAMBLE_CHARS = ["@", "#", "$", "%", "&", "*", "!", "?", "~", "^", "<", ">"];
 const OFF_CHARS = ["·", " "];
-export const AsciiText = ({ text = "LEGIT", className = "", hoverRadius = 40, fontSize = 12, charWidth = 8, charHeight = 12, textColor = "#ffffff" }) => {
+export const AsciiText = ({ text = "LEGIT", className = "", hoverRadius = 40, fontSize = 12, charWidth = 8, charHeight = 12, textColor = "#ffffff", }) => {
     const containerRef = useRef(null);
     const canvasRef = useRef(null);
     useEffect(() => {

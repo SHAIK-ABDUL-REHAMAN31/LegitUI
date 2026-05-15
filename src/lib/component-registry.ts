@@ -1334,6 +1334,31 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["timeline", "steps", "scroll", "framer-motion", "cards", "vertical"],
     isNew: true,
     createdAt: "2026-05-15",
+  },
+  {
+    id: "74",
+    name: "Chromatic Gradient",
+    slug: "chromatic-gradient",
+    folder: "ChromaticGradient",
+    fileName: "ChromaticGradient",
+    category: "Backgrounds",
+    description: "A lightweight, pure-CSS animated chromatic gradient background with soft floating blooms, film grain, and a cinematic Apple-event aesthetic.",
+    dependencies: [],
+    props: [
+      { name: "className", type: "string", description: "Additional CSS class for the container", default: '""' },
+      { name: "color1", type: "string", description: "Primary bloom colour", default: '"#6b21ff"' },
+      { name: "color2", type: "string", description: "Secondary bloom colour", default: '"#0ea5e9"' },
+      { name: "color3", type: "string", description: "Tertiary bloom colour", default: '"#06b6d4"' },
+      { name: "color4", type: "string", description: "Ambient accent colour", default: '"#7c3aed"' },
+      { name: "duration", type: "number", description: "Animation duration in seconds (higher = slower)", default: "20" },
+      { name: "blurAmount", type: "number", description: "Bloom blur radius in vw units", default: "20" },
+      { name: "blobSize", type: "number", description: "Bloom size in vw units", default: "45" },
+      { name: "grain", type: "boolean", description: "Show subtle film-grain overlay", default: "true" },
+      { name: "children", type: "React.ReactNode", description: "Content rendered above the gradient" }
+    ],
+    tags: ["background", "gradient", "chromatic", "css", "cinematic", "premium", "lightweight"],
+    isNew: true,
+    createdAt: "2026-05-15",
   }
 ];
 // ────────────────────────────────────────────────────

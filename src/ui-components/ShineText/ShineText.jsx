@@ -6,7 +6,7 @@ import styles from './ShineText.module.css';
  * ShineText
  * A dynamic text component that creates a shine effect sliding from left to right or right to left.
  */
-export default function ShineText({ text = "Shine Effect", className = "", baseColor = "#6b7280", shineColor = "#ffffff", shineWidth = 200, speed = 0.5, direction = "left-to-right", }) {
+export default function ShineText({ text = "Shine Effect", className = "", baseColor = "#b5b5b5", shineColor = "#ffffff", shineWidth = 200, speed = 0.5, direction = "left-to-right", }) {
     const textRef = useRef(null);
     const progress = useMotionValue(0);
     useAnimationFrame((time, delta) => {

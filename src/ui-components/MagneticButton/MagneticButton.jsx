@@ -1,7 +1,7 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import styles from './MagneticButton.module.css';
-const MagneticButton = ({ children, onClick, strength = 0.3, }) => {
+const MagneticButton = ({ children, onClick, strength = 0.3, className = '', }) => {
     const btnRef = useRef(null);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const handleMouseMove = (e) => {
@@ -16,7 +16,7 @@ const MagneticButton = ({ children, onClick, strength = 0.3, }) => {
         });
     };
     const handleMouseLeave = () => setOffset({ x: 0, y: 0 });
-    return (<button ref={btnRef} onClick={onClick} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className={styles.button} style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}>
+    return (<button ref={btnRef} onClick={onClick} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className={`${styles.button} ${className}`} style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}>
       {children}
     </button>);
 };

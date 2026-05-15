@@ -33,6 +33,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'premium-bank-card':    { load: () => import('@/ui-components/PremiumBankCard/PremiumBankCardUsage'),   weight: 'light' },
   'typewriter-text-new':  { load: () => import('@/ui-components/TypewriterText/TypewriterTextUsage'),     weight: 'light' },
   'hover-reveal-card':    { load: () => import('@/ui-components/HoverRevealCard/HoverRevealCardUsage'),   weight: 'light' },
+  'chromatic-gradient':   { load: () => import('@/ui-components/ChromaticGradient/ChromaticGradientUsage'), weight: 'light' },
 
   // ── MEDIUM — GSAP or Framer Motion ──
   'aurora-background':       { load: () => import('@/ui-components/AuroraBackground/AuroraBackgroundUsage'),   weight: 'medium' },
