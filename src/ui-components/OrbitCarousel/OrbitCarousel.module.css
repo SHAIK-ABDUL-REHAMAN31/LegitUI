@@ -1,0 +1,91 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.orbitContainer {
+  position: relative;
+  width: 0;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardPositioner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Dynamic centering based on card size */
+  margin-top: calc(var(--card-h, 160px) / -2);
+  margin-left: calc(var(--card-w, 120px) / -2);
+}
+
+.card {
+  position: relative;
+  width: var(--card-w, 120px);
+  height: var(--card-h, 160px);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.05);
+}
+
+.cardFallback {
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 70%);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+
+.cardTitle {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(124, 58, 237, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}

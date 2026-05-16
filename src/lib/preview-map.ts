@@ -63,6 +63,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'network-nodes':           { load: () => import('@/ui-components/NetworkNodes/NetworkNodesUsage'),           weight: 'medium' },
   'horizon-gradient':        { load: () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'),     weight: 'medium' },
   'timeline-steps':          { load: () => import('@/ui-components/TimelineSteps/TimelineStepsUsage'),         weight: 'medium' },
+  'orbit-carousel':          { load: () => import('@/ui-components/OrbitCarousel/OrbitCarouselUsage'),         weight: 'medium' },
 
   // ── HEAVY — OGL / Three.js ──
   'particles-background':    { load: () => import('@/ui-components/Particles/SpaceParticles'),                       weight: 'heavy' },
@@ -81,6 +82,10 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'editorial-storytelling':  { load: () => import('@/ui-components/EditorialStorytelling/EditorialStorytellingUsage'), weight: 'heavy' },
   'cursor-image-trail':      { load: () => import('@/ui-components/CursorImageTrail/CursorImageTrailUsage'),           weight: 'heavy' },
   'infinite-image-marquee':  { load: () => import('@/ui-components/InfiniteImageMarquee/InfiniteImageMarqueeUsage'),   weight: 'heavy' },
+  'silk-gradient':           { load: () => import('@/ui-components/SilkGradient/SilkGradientUsage'),                   weight: 'heavy' },
+  'dark-ambient-gradient':   { load: () => import('@/ui-components/DarkAmbientGradient/DarkAmbientGradientUsage'),     weight: 'heavy' },
+  'hyperspeed-light-tunnel': { load: () => import('@/ui-components/HyperspeedLightTunnel/HyperspeedLightTunnelUsage'),   weight: 'heavy' },
+  'liquid-chrome-particles': { load: () => import('@/ui-components/LiquidChrome/LiquidChromeParticlesUsage'),          weight: 'extreme' },
 
   // ── EXTREME — R3F + postprocessing / multiple heavy deps ──
   'mirror-capsules':              { load: () => import('@/ui-components/MirrorCapsules/MirrorCapsule'),                               weight: 'extreme' },

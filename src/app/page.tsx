@@ -8,7 +8,7 @@ import {
   Box,
 } from "lucide-react";
 import styles from "./page.module.css";
-import LiquidChromium from "./LandingPage/HeroSection/LuquidChromuim";
+import LiquidChromiumParticles from "@/ui-components/LiquidChrome/LiquidChromeParticles";
 import Hero from "./LandingPage/HeroSection/Hero";
 import WhatsInside from "./LandingPage/WhatsInside/WhatsInside";
 import LiveAction from "./LandingPage/LiveAction/LiveAction";
@@ -25,7 +25,7 @@ export default function HomePage() {
     <div className={styles.pageWrapper}>
       {/* ====== HERO SECTION ====== */}
       <section style={{ position: "relative", minHeight: "100vh" }}>
-        <LiquidChromium />
+        <LiquidChromiumParticles />
         <Hero />
       </section>
 

@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { Points, PointMaterial } from "@react-three/drei";
-
-const PARTICLE_COUNT = 40000;
+import styles from "./LiquidChromeParticles.module.css";
 
 const vertexShader = `
   varying vec2 vUv;
@@ -15,6 +13,8 @@ const vertexShader = `
   uniform float uTime;
   uniform vec2 uMouse;
   uniform float uPixelRatio;
+  uniform float uSpeed;
+  uniform float uParticleSize;
 
   // Simple noise function
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -56,11 +56,11 @@ const vertexShader = `
     vec3 pos = position;
     
     // Calm ocean flow
-    float wave = snoise(pos.xy * 0.2 + uTime * 0.3);
+    float wave = snoise(pos.xy * 0.2 + uTime * uSpeed);
     pos.z += wave * 0.4;
 
     // Cursor interaction (Glow only)
-    float dist = distance(pos.xy, uMouse * 15.0);
+    float dist = distance(pos.xy, uMouse);
     vDistance = dist;
     
     // No XY displacement to ensure full fill
@@ -68,7 +68,7 @@ const vertexShader = `
     pos.z += lift;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-    gl_PointSize = (12.0 + wave * 5.0 + lift * 8.0) * (1.0 / -mvPosition.z) * uPixelRatio;
+    gl_PointSize = (uParticleSize + wave * 5.0 + lift * 8.0) * (1.0 / -mvPosition.z) * uPixelRatio;
     gl_Position = projectionMatrix * mvPosition;
   }
 `;
@@ -77,6 +77,9 @@ const fragmentShader = `
   varying float vDistance;
   varying vec3 vPosition;
   uniform float uTime;
+  uniform vec3 uBaseColor;
+  uniform vec3 uHighlightColor;
+  uniform vec3 uGlowColor;
 
   void main() {
     // Circle shape with soft edges
@@ -96,34 +99,65 @@ const fragmentShader = `
     // Fresnel-like edge highlight
     float fresnel = pow(d * 2.0, 4.0);
     
-    // Base colors - Deep Metallic Chrome
-    vec3 baseColor = vec3(0.02, 0.02, 0.04); 
-    vec3 highlightColor = vec3(1.0, 1.0, 1.0);
-    
-    vec3 color = mix(baseColor, highlightColor, reflection * 0.7);
-    color = mix(color, highlightColor, fresnel * 0.3);
+    vec3 color = mix(uBaseColor, uHighlightColor, reflection * 0.7);
+    color = mix(color, uHighlightColor, fresnel * 0.3);
     
     // Cursor Glow (Highlight the particles near mouse)
     float glow = exp(-vDistance * vDistance * 1.5);
-    color += vec3(0.4, 0.6, 1.0) * glow * 0.6;
+    color += uGlowColor * glow * 0.6;
     
     gl_FragColor = vec4(color, alpha * (0.8 + reflection * 0.2 + glow * 0.2));
   }
 `;
 
-function Particles() {
+export interface LiquidChromeParticlesProps {
+    className?: string;
+    particleCount?: number;
+    baseColor?: string;
+    highlightColor?: string;
+    glowColor?: string;
+    speed?: number;
+    particleSize?: number;
+    background?: string;
+}
+
+const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+        ? new THREE.Color(
+              parseInt(result[1], 16) / 255,
+              parseInt(result[2], 16) / 255,
+              parseInt(result[3], 16) / 255
+          )
+        : new THREE.Color();
+};
+
+function Particles({
+    particleCount,
+    baseColor,
+    highlightColor,
+    glowColor,
+    speed,
+    particleSize,
+}: {
+    particleCount: number;
+    baseColor: string;
+    highlightColor: string;
+    glowColor: string;
+    speed: number;
+    particleSize: number;
+}) {
     const meshRef = useRef<THREE.Points>(null);
     const { size, viewport } = useThree();
     const dpr = viewport.dpr;
 
     const particles = useMemo(() => {
-        const temp = new Float32Array(PARTICLE_COUNT * 3);
-        const side = Math.sqrt(PARTICLE_COUNT);
-        const rows = 200;
-        const cols = 200;
-        const spacing = 0.15; // Sufficient to cover large viewports
+        const temp = new Float32Array(particleCount * 3);
+        const cols = Math.floor(Math.sqrt(particleCount));
+        const rows = cols;
+        const spacing = 0.15;
 
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
+        for (let i = 0; i < particleCount; i++) {
             const row = Math.floor(i / cols);
             const col = i % cols;
 
@@ -135,25 +169,52 @@ function Particles() {
             temp[i * 3 + 2] = 0;
         }
         return temp;
-    }, []);
+    }, [particleCount]);
 
     const uniforms = useMemo(
         () => ({
             uTime: { value: 0 },
             uMouse: { value: new THREE.Vector2(0, 0) },
             uPixelRatio: { value: dpr },
+            uBaseColor: { value: hexToRgb(baseColor) },
+            uHighlightColor: { value: hexToRgb(highlightColor) },
+            uGlowColor: { value: hexToRgb(glowColor) },
+            uSpeed: { value: speed },
+            uParticleSize: { value: particleSize },
         }),
-        [dpr]
+        [dpr, baseColor, highlightColor, glowColor, speed, particleSize]
     );
 
-    useFrame((state) => {
+    const targetMouse = useRef(new THREE.Vector2(0, 0));
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            // Normalized coordinates (-1 to 1)
+            const nx = (e.clientX / window.innerWidth) * 2 - 1;
+            const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+            targetMouse.current.set(nx, ny);
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
+
+    useFrame((state, delta) => {
         if (!meshRef.current) return;
 
-        const { clock, mouse } = state;
-        // @ts-ignore
-        meshRef.current.material.uniforms.uTime.value = clock.getElapsedTime();
-        // @ts-ignore
-        meshRef.current.material.uniforms.uMouse.value.lerp(mouse, 0.1);
+        const { clock, viewport } = state;
+        
+        const material = meshRef.current.material as THREE.ShaderMaterial;
+        material.uniforms.uTime.value = clock.getElapsedTime();
+
+        // Convert normalized mouse coords to world coordinates at z=0
+        const worldX = (targetMouse.current.x * viewport.width) / 2;
+        const worldY = (targetMouse.current.y * viewport.height) / 2;
+
+        // Apply ultra-smooth, framerate-independent damping to the uniform
+        const uMouse = material.uniforms.uMouse.value;
+        uMouse.x = THREE.MathUtils.damp(uMouse.x, worldX, 4, delta);
+        uMouse.y = THREE.MathUtils.damp(uMouse.y, worldY, 4, delta);
     });
 
     return (
@@ -176,14 +237,33 @@ function Particles() {
     );
 }
 
-export default function LiquidChromiumParticles() {
+export default function LiquidChromeParticles({
+    className = "",
+    particleCount = 40000,
+    baseColor = "#05050a",
+    highlightColor = "#ffffff",
+    glowColor = "#6699ff",
+    speed = 0.3,
+    particleSize = 12.0,
+    background = "#050505",
+}: LiquidChromeParticlesProps) {
     return (
-        <div className="absolute inset-0 w-full h-full -z-10 bg-[#050505]">
+        <div 
+            className={`${styles.container} ${className}`}
+            style={{ backgroundColor: background }}
+        >
             <Canvas
                 camera={{ position: [0, 0, 5], fov: 75 }}
                 dpr={[1, 2]}
             >
-                <Particles />
+                <Particles 
+                    particleCount={particleCount}
+                    baseColor={baseColor}
+                    highlightColor={highlightColor}
+                    glowColor={glowColor}
+                    speed={speed}
+                    particleSize={particleSize}
+                />
             </Canvas>
         </div>
     );
