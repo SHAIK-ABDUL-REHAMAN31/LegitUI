@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import type { ComponentMeta } from "@/lib/component-registry";
 import ComponentPreview from "@/components/ComponentPreview";
 import CodeBlock from "@/components/CodeBlock";
 import PropTable from "@/components/PropTable";
 import ColorPicker, { ColorArrayPicker } from "@/components/ColorPicker";
 import {
+  ArrowRight,
   ArrowLeft,
   Eye,
   Code2,
@@ -425,22 +427,47 @@ export default function ComponentPageClient({
               {/* Demo content toggle */}
               <div className={styles.demoToggleBar}>
                 <span className={styles.demoToggleLabel}>Demo Content</span>
-                <button
-                  className={
-                    showDemoContent
-                      ? styles.toggleSwitchOn
-                      : styles.toggleSwitch
-                  }
+                <motion.button
+                  className={styles.toggleSwitch}
                   onClick={() => setShowDemoContent(!showDemoContent)}
                   aria-label="Toggle demo content"
-                  suppressHydrationWarning
+                  whileTap={{ scale: 0.95 }}
+                  animate={{
+                    background: showDemoContent
+                      ? "linear-gradient(135deg, #111113 0%, #2a2a2d 50%, #1a1a1c 100%)"
+                      : "#050505",
+                    borderColor: showDemoContent ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.04)",
+
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 >
-                  <span
-                    className={
-                      showDemoContent ? styles.toggleKnobOn : styles.toggleKnob
-                    }
-                  />
-                </button>
+                  <motion.span
+                    className={styles.toggleKnob}
+                    initial={false}
+                    animate={{
+                      x: showDemoContent ? 28 : 0,
+                      background: showDemoContent ? "#ffffff" : "#2d2d30",
+                      borderColor: showDemoContent ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 450,
+                      damping: 35,
+                      mass: 1
+                    }}
+                  >
+                    <motion.div
+                      animate={{
+                        rotate: showDemoContent ? 0 : -90,
+                        color: showDemoContent ? "#000000" : "rgba(255, 255, 255, 0.2)"
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                      className={styles.toggleIcon}
+                    >
+                      <ArrowRight size={14} />
+                    </motion.div>
+                  </motion.span>
+                </motion.button>
               </div>
             </>
           )}
@@ -650,23 +677,48 @@ export default function ComponentPageClient({
                     )}
 
                     {controlType === "boolean" && (
-                      <button
-                        className={
-                          currentValue
-                            ? styles.toggleSwitchOn
-                            : styles.toggleSwitch
-                        }
+                      <motion.button
+                        className={styles.toggleSwitch}
                         onClick={() => updateProp(prop.name, !currentValue)}
-                        suppressHydrationWarning
+                        whileTap={{ scale: 0.95 }}
+                        animate={{
+                          background: currentValue
+                            ? "linear-gradient(135deg, #111113 0%, #2a2a2d 50%, #1a1a1c 100%)"
+                            : "#050505",
+                          borderColor: currentValue ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.04)",
+                          boxShadow: currentValue
+                            ? "inset 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 255, 255, 0.15)"
+                            : "inset 0 3px 10px rgba(0, 0, 0, 0.95), 0 1px 1px rgba(255, 255, 255, 0.02)"
+                        }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       >
-                        <span
-                          className={
-                            currentValue
-                              ? styles.toggleKnobOn
-                              : styles.toggleKnob
-                          }
-                        />
-                      </button>
+                        <motion.span
+                          className={styles.toggleKnob}
+                          initial={false}
+                          animate={{
+                            x: currentValue ? 28 : 0,
+                            background: currentValue ? "#ffffff" : "#2d2d30",
+                            borderColor: currentValue ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 450,
+                            damping: 35,
+                            mass: 1
+                          }}
+                        >
+                          <motion.div
+                            animate={{
+                              rotate: currentValue ? 0 : -90,
+                              color: currentValue ? "#000000" : "rgba(255, 255, 255, 0.2)"
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                            className={styles.toggleIcon}
+                          >
+                            <ArrowRight size={12} />
+                          </motion.div>
+                        </motion.span>
+                      </motion.button>
                     )}
 
                     {controlType === "color" && (

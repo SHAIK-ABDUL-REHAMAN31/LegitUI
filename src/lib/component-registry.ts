@@ -819,10 +819,10 @@ export const defaultComponents: ComponentMeta[] = [
     props: [
       { name: "text", type: "string", default: '"Shine Effect"', description: "Text to display" },
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
-      { name: "baseColor", type: "string", default: '"#b5b5b5"', description: "Base color of the text" },
+      { name: "baseColor", type: "string", default: '"#78B54E"', description: "Base color of the text" },
       { name: "shineColor", type: "string", default: '"#ffffff"', description: "Color of the shine effect" },
       { name: "shineWidth", type: "number", default: "200", description: "Width of the shine effect in percentage" },
-      { name: "speed", type: "number", default: "0.5", description: "Speed of the shine animation" },
+      { name: "speed", type: "number", default: "0.65", description: "Speed of the shine animation" },
       { name: "direction", type: "string", default: '"left-to-right"', description: "Direction of the shine ('left-to-right' | 'right-to-left')" },
     ],
     tags: ["text", "shine", "animation", "framer-motion", "motion", "effect"],
