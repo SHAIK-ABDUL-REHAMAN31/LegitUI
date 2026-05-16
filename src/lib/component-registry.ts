@@ -1448,7 +1448,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "streakColor1", type: "string", description: "Primary energy streaks", default: '"#ff007f"' },
       { name: "streakColor2", type: "string", description: "Secondary energy streaks", default: '"#7000ff"' },
       { name: "streakColor3", type: "string", description: "Thin highlight streaks", default: '"#00f0ff"' },
-      { name: "speed", type: "number", description: "Animation speed multiplier", default: "1.5" },
+      { name: "speed", type: "number", description: "Animation speed multiplier", default: "30" },
       { name: "density", type: "number", description: "Density of the light streaks", default: "30.0" },
       { name: "curve", type: "number", description: "Tunnel trumpet curve (1.0 to 3.0)", default: "1.5" },
       { name: "children", type: "React.ReactNode", description: "Content rendered above the background" }

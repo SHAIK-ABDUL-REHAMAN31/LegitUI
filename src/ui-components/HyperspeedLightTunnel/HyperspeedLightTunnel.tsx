@@ -71,74 +71,64 @@ void main() {
     float x = max(distX, 0.001);
     
     // Funnel curve mapping!
-    // pow(x, 1.5) ensures the lines curve smoothly and become perfectly horizontal at the focus (x=0)
-    float curve = pow(x, 1.5);
+    float curve = pow(x, uCurve);
     float rayY = distY / curve;
     float rayX = 1.0 / x - t * 2.0;
     
     // Pack many thin lines into the visible funnel space
-    vec2 rayUv = vec2(rayX * 0.02, rayY * 30.0);
+    vec2 rayUv = vec2(rayX * 0.02, rayY * uDensity);
     
-    // 1. Pink Rays (Main)
+    // 1. Streak 1 Rays
     float val1 = fbm(vec2(rayUv.x, rayUv.y));
-    float pinkCore = smoothstep(0.65, 0.75, val1);
-    float pinkGlow = smoothstep(0.4, 0.8, val1);
-    float streak1 = pinkCore * 2.0 + pinkGlow * 0.6;
+    float core1 = smoothstep(0.65, 0.75, val1);
+    float glow1 = smoothstep(0.4, 0.8, val1);
+    float streak1 = core1 * 2.0 + glow1 * 0.6;
     
-    // 2. Violet Rays (Denser)
+    // 2. Streak 2 Rays
     float val2 = fbm(vec2(rayUv.x + t * 0.01, rayUv.y * 1.5 + 10.0));
-    float violetCore = smoothstep(0.7, 0.8, val2);
-    float violetGlow = smoothstep(0.5, 0.85, val2);
-    float streak2 = violetCore * 2.0 + violetGlow * 0.6;
+    float core2 = smoothstep(0.7, 0.8, val2);
+    float glow2 = smoothstep(0.5, 0.85, val2);
+    float streak2 = core2 * 2.0 + glow2 * 0.6;
     
-    // 3. Cyan Rays (Thinner, sharp)
+    // 3. Streak 3 Rays
     float val3 = fbm(vec2(rayUv.x * 2.0 + t * 0.02, rayUv.y * 2.5 + 20.0));
-    float cyanCore = smoothstep(0.75, 0.85, val3);
-    float cyanGlow = smoothstep(0.6, 0.9, val3);
-    float streak3 = cyanCore * 2.5 + cyanGlow * 0.5;
-    
-    // 4. Orange/Gold focal bursts
-    float val4 = fbm(vec2(rayUv.x * 3.0 - t * 0.01, rayUv.y * 3.0 + 30.0));
-    float orangeCore = smoothstep(0.75, 0.85, val4);
-    float orangeGlow = smoothstep(0.6, 0.9, val4);
-    float streak4 = orangeCore * 2.5 + orangeGlow * 0.5;
+    float core3 = smoothstep(0.75, 0.85, val3);
+    float glow3 = smoothstep(0.6, 0.9, val3);
+    float streak3 = core3 * 2.5 + glow3 * 0.5;
     
     // Color composition
     vec3 col = uBackground;
     
     // Add the discrete curved lines
-    col += uColor1 * streak1;
-    col += uColor2 * streak2;
-    col += uColor3 * streak3;
-    col += uColor4 * streak4;
+    col += uStreakColor1 * streak1;
+    col += uStreakColor2 * streak2;
+    col += uStreakColor3 * streak3;
     
     // Straight central glowing beam
-    float beamThickness = x * 0.02 + 0.001; // Sleek and slim
+    float beamThickness = x * 0.02 + 0.001; 
     float beamDist = abs(distY);
     float beamCore = exp(-beamDist / (beamThickness * 0.2));
-    float beamPink = exp(-beamDist / (beamThickness * 0.8));
-    float beamCyan = exp(-beamDist / (beamThickness * 1.5));
+    float beamGlow1 = exp(-beamDist / (beamThickness * 0.8));
+    float beamGlow2 = exp(-beamDist / (beamThickness * 1.5));
     
     // Pulse the beam along X
     float beamPulse = smoothstep(0.3, 0.7, noise(vec2(rayX * 0.05 - t, 0.0)));
     
-    col += uColor1 * beamPink * (0.5 + 0.5 * beamPulse);
-    col += uColor3 * beamCyan * (0.3 + 0.7 * beamPulse);
+    col += uStreakColor1 * beamGlow1 * (0.5 + 0.5 * beamPulse);
+    col += uStreakColor3 * beamGlow2 * (0.3 + 0.7 * beamPulse);
     col += vec3(1.0) * beamCore * (0.8 + 0.5 * beamPulse) * 1.5;
     
     // Central glowing core at the focal point
-    float coreDist = length(vec2(distX, distY * 2.0)); // Oval core
-    float core = exp(-coreDist * 10.0);
-    col += uColor4 * core * 2.0; // Bright orange core
-    col += vec3(1.0) * core * 1.0; // White hot center
+    float centralCoreDist = length(vec2(distX, distY * 2.0)); 
+    float centralCore = exp(-centralCoreDist * 10.0);
+    col += uCoreColor * centralCore * 2.0; 
+    col += vec3(1.0) * centralCore * 1.0; 
     
-    // *CRITICAL FIX*: Fade out vertically exactly at the screen corners!
-    // rayY = 0.5 corresponds EXACTLY to the top-left and bottom-left corners.
-    // A sharp crop from 0.48 to 0.52 ensures lines fill the edge but don't leak out.
+    // Vertical fade
     float verticalFade = smoothstep(0.52, 0.45, abs(rayY));
     col *= verticalFade;
     
-    // Subtle vignette to frame the scene
+    // Subtle vignette
     float v = 1.0 - dot(uv - 0.5, uv - 0.5) * 1.2;
     col *= clamp(v, 0.0, 1.0);
     
@@ -156,22 +146,26 @@ const hexToVec3 = (hex: string): [number, number, number] => {
 export interface HyperspeedLightTunnelProps {
   className?: string;
   background?: string;
-  color1?: string;   // Pink
-  color2?: string;   // Violet
-  color3?: string;   // Cyan
-  color4?: string;   // Orange
+  streakColor1?: string;   // Pink
+  streakColor2?: string;   // Violet
+  streakColor3?: string;   // Cyan
+  coreColor?: string;      // Orange/Gold
   speed?: number;
+  density?: number;
+  curve?: number;
   children?: React.ReactNode;
 }
 
 export default function HyperspeedLightTunnel({
   className = "",
   background = "#05000a",
-  color1 = "#ff007f",
-  color2 = "#7000ff",
-  color3 = "#00f0ff",
-  color4 = "#ffaa00",
+  streakColor1 = "#ff007f",
+  streakColor2 = "#7000ff",
+  streakColor3 = "#00f0ff",
+  coreColor = "#ffaa00",
   speed = 1.5,
+  density = 30.0,
+  curve = 1.5,
   children,
 }: HyperspeedLightTunnelProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -179,14 +173,14 @@ export default function HyperspeedLightTunnel({
   const programRef = useRef<any>(null);
 
   const uniformsRef = useRef({
-    background, color1, color2, color3, color4, speed,
+    background, streakColor1, streakColor2, streakColor3, coreColor, speed, density, curve,
   });
 
   useEffect(() => {
     uniformsRef.current = {
-      background, color1, color2, color3, color4, speed,
+      background, streakColor1, streakColor2, streakColor3, coreColor, speed, density, curve,
     };
-  }, [background, color1, color2, color3, color4, speed]);
+  }, [background, streakColor1, streakColor2, streakColor3, coreColor, speed, density, curve]);
 
   useEffect(() => {
     let renderer: any, mesh: any, startTime: number;
@@ -210,14 +204,16 @@ export default function HyperspeedLightTunnel({
         vertex: VERT,
         fragment: FRAG,
         uniforms: {
-          uTime:        { value: 0 },
-          uResolution:  { value: [canvas.width, canvas.height] },
-          uBackground:  { value: hexToVec3(uniformsRef.current.background) },
-          uColor1:      { value: hexToVec3(uniformsRef.current.color1) },
-          uColor2:      { value: hexToVec3(uniformsRef.current.color2) },
-          uColor3:      { value: hexToVec3(uniformsRef.current.color3) },
-          uColor4:      { value: hexToVec3(uniformsRef.current.color4) },
-          uSpeed:       { value: uniformsRef.current.speed },
+          uTime:         { value: 0 },
+          uResolution:   { value: [canvas.width, canvas.height] },
+          uBackground:   { value: hexToVec3(uniformsRef.current.background) },
+          uStreakColor1: { value: hexToVec3(uniformsRef.current.streakColor1) },
+          uStreakColor2: { value: hexToVec3(uniformsRef.current.streakColor2) },
+          uStreakColor3: { value: hexToVec3(uniformsRef.current.streakColor3) },
+          uCoreColor:    { value: hexToVec3(uniformsRef.current.coreColor) },
+          uSpeed:        { value: uniformsRef.current.speed },
+          uDensity:      { value: uniformsRef.current.density },
+          uCurve:        { value: uniformsRef.current.curve },
         },
       });
       programRef.current = program;
@@ -243,11 +239,13 @@ export default function HyperspeedLightTunnel({
 
         u.uTime.value = (now - startTime) * 0.001;
         u.uBackground.value = hexToVec3(cur.background);
-        u.uColor1.value = hexToVec3(cur.color1);
-        u.uColor2.value = hexToVec3(cur.color2);
-        u.uColor3.value = hexToVec3(cur.color3);
-        u.uColor4.value = hexToVec3(cur.color4);
+        u.uStreakColor1.value = hexToVec3(cur.streakColor1);
+        u.uStreakColor2.value = hexToVec3(cur.streakColor2);
+        u.uStreakColor3.value = hexToVec3(cur.streakColor3);
+        u.uCoreColor.value = hexToVec3(cur.coreColor);
         u.uSpeed.value = cur.speed;
+        u.uDensity.value = cur.density;
+        u.uCurve.value = cur.curve;
 
         renderer.render({ scene: mesh });
       }
@@ -270,3 +268,4 @@ export default function HyperspeedLightTunnel({
     </div>
   );
 }
+
