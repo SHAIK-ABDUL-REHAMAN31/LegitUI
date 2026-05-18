@@ -2,9 +2,9 @@
 
 .wrapper {
   position: relative;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid var(--border-primary);
+  border: none;
   background: var(--bg-primary);
 }
 
@@ -114,28 +114,32 @@
 /* ====== CODE CONTENT — Phase 3-C ====== */
 .codeContent {
   overflow: auto;
-
-  /* Custom thin scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: #374151 #111827;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
 .codeContent::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
 }
 
 .codeContent::-webkit-scrollbar-track {
-  background: #111827;
+  background: transparent;
 }
 
 .codeContent::-webkit-scrollbar-thumb {
-  background: #374151;
-  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 0;
 }
 
 .codeContent::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.codeContent::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
 }
 
 .codeInner {

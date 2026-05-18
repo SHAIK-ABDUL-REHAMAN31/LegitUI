@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { ComponentMeta } from "@/lib/component-registry";
 import ComponentPreview from "@/components/ComponentPreview";
@@ -75,6 +75,90 @@ function getSliderConfig(defaultVal: number) {
   if (defaultVal <= 10) return { min: 0, max: 50, step: 0.5 };
   if (defaultVal <= 100) return { min: 0, max: 500, step: 1 };
   return { min: 0, max: 2000, step: 10 };
+}
+
+/* ────────────────────────────────────────────────────
+   Premium Slider Component
+   ──────────────────────────────────────────────────── */
+function PremiumSlider({
+  value,
+  min,
+  max,
+  step,
+  onChange,
+}: {
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (val: number) => void;
+}) {
+  const [isDragging, setIsDragging] = useState(false);
+  const percentage = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
+
+  return (
+    <div className={styles.premiumSliderContainer}>
+      <div className={styles.premiumSliderTrackWrap}>
+        <div className={styles.premiumSliderTrackBg} />
+        <div
+          className={styles.premiumSliderActiveTrack}
+          style={{ width: `${percentage}%` }}
+        />
+        
+        <input
+          type="range"
+          className={styles.premiumSliderInput}
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(parseFloat(e.target.value))}
+          onPointerDown={() => setIsDragging(true)}
+          onPointerUp={() => setIsDragging(false)}
+          onPointerLeave={() => setIsDragging(false)}
+        />
+        
+        <div 
+          className={styles.premiumSliderCustomThumb}
+          style={{ left: `${percentage}%`, transform: `translate(-50%, -50%) scale(${isDragging ? 1.1 : 1})` }}
+        />
+        
+        <div
+          className={styles.premiumSliderTooltip}
+          style={{ 
+            left: `${percentage}%`,
+            opacity: isDragging ? 1 : 0,
+            transform: `translateX(-50%) translateY(${isDragging ? '-4px' : '4px'})` 
+          }}
+        >
+          {Number.isInteger(value) ? value : value.toFixed(2)}
+        </div>
+      </div>
+
+      <div className={styles.premiumSliderTicksRow}>
+        {Array.from({ length: 5 }).map((_, i) => {
+          const tickVal = min + (max - min) * (i / 4);
+          return (
+            <Fragment key={i}>
+              <div className={styles.premiumSliderTickMajorCol}>
+                <div className={styles.premiumSliderTickMajor} />
+                <span className={styles.premiumSliderTickLabel}>
+                  {Number.isInteger(tickVal) ? tickVal : tickVal.toFixed(1)}
+                </span>
+              </div>
+              {i < 4 && (
+                <>
+                  <div className={styles.premiumSliderTickMinor} />
+                  <div className={styles.premiumSliderTickMinor} />
+                  <div className={styles.premiumSliderTickMinor} />
+                </>
+              )}
+            </Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 /* ────────────────────────────────────────────────────
@@ -352,26 +436,38 @@ export default function ComponentPageClient({
             <div className={styles.panelLeft}>
               <div className={styles.pillTabs}>
                 <button
-                  className={
-                    activeTab === "preview"
-                      ? styles.pillTabActive
-                      : styles.pillTab
-                  }
+                  className={styles.pillTab}
                   onClick={() => setActiveTab("preview")}
                   suppressHydrationWarning
                 >
-                  <Eye size={13} />
-                  Preview
+                  {activeTab === "preview" && (
+                    <motion.div
+                      layoutId="active-tab-bg"
+                      className={styles.pillTabActiveBg}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+                  <span className={styles.pillTabContent}>
+                    <Eye size={13} className={activeTab === "preview" ? styles.iconActive : styles.iconInactive} />
+                    <span className={activeTab === "preview" ? styles.textActive : styles.textInactive}>Preview</span>
+                  </span>
                 </button>
                 <button
-                  className={
-                    activeTab === "code" ? styles.pillTabActive : styles.pillTab
-                  }
+                  className={styles.pillTab}
                   onClick={() => setActiveTab("code")}
                   suppressHydrationWarning
                 >
-                  <Code2 size={13} />
-                  Code
+                  {activeTab === "code" && (
+                    <motion.div
+                      layoutId="active-tab-bg"
+                      className={styles.pillTabActiveBg}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+                  <span className={styles.pillTabContent}>
+                    <Code2 size={13} className={activeTab === "code" ? styles.iconActive : styles.iconInactive} />
+                    <span className={activeTab === "code" ? styles.textActive : styles.textInactive}>Code</span>
+                  </span>
                 </button>
               </div>
             </div>
@@ -403,15 +499,6 @@ export default function ComponentPageClient({
           {activeTab === "preview" && (
             <>
               <div className={styles.previewCanvas}>
-                <span className={`${styles.cornerDot} ${styles.cornerDotTL}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotTR}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotBL}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotBR}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotMT}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotMB}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotML}`} />
-                <span className={`${styles.cornerDot} ${styles.cornerDotMR}`} />
-
                 <ComponentPreview
                   key={reloadKey}
                   slug={slug}
@@ -486,6 +573,13 @@ export default function ComponentPageClient({
                 >
                   TypeScript
                   <span className={styles.langBadge}>.TSX</span>
+                  {codeSubTab === "ts" && (
+                    <motion.div
+                      layoutId="activeCodeSubTab"
+                      className={styles.activeSubTabIndicator}
+                      transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
+                    />
+                  )}
                 </button>
                 <button
                   className={
@@ -497,6 +591,13 @@ export default function ComponentPageClient({
                 >
                   JavaScript
                   <span className={styles.langBadge}>.JSX</span>
+                  {codeSubTab === "js" && (
+                    <motion.div
+                      layoutId="activeCodeSubTab"
+                      className={styles.activeSubTabIndicator}
+                      transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
+                    />
+                  )}
                 </button>
                 <button
                   className={
@@ -508,6 +609,13 @@ export default function ComponentPageClient({
                 >
                   CSS
                   <span className={styles.langBadge}>.CSS</span>
+                  {codeSubTab === "css" && (
+                    <motion.div
+                      layoutId="activeCodeSubTab"
+                      className={styles.activeSubTabIndicator}
+                      transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
+                    />
+                  )}
                 </button>
                 <button
                   className={
@@ -518,6 +626,13 @@ export default function ComponentPageClient({
                   onClick={() => setCodeSubTab("usage")}
                 >
                   Usage
+                  {codeSubTab === "usage" && (
+                    <motion.div
+                      layoutId="activeCodeSubTab"
+                      className={styles.activeSubTabIndicator}
+                      transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
+                    />
+                  )}
                 </button>
                 <button
                   className={
@@ -529,6 +644,13 @@ export default function ComponentPageClient({
                 >
                   CLI
                   <span className={styles.cliBadge}>↓</span>
+                  {codeSubTab === "cli" && (
+                    <motion.div
+                      layoutId="activeCodeSubTab"
+                      className={styles.activeSubTabIndicator}
+                      transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
+                    />
+                  )}
                 </button>
               </div>
 
@@ -653,27 +775,11 @@ export default function ComponentPageClient({
                     </div>
 
                     {controlType === "number" && (
-                      <div className={styles.sliderRow}>
-                        <input
-                          type="range"
-                          className={styles.slider}
-                          value={Number(currentValue) || 0}
-                          {...getSliderConfig(
-                            parseFloat(prop.default || "0") || 0
-                          )}
-                          onChange={(e) =>
-                            updateProp(prop.name, parseFloat(e.target.value))
-                          }
-                        />
-                        <input
-                          type="number"
-                          className={styles.numberInput}
-                          value={Number(currentValue) || 0}
-                          onChange={(e) =>
-                            updateProp(prop.name, parseFloat(e.target.value) || 0)
-                          }
-                        />
-                      </div>
+                      <PremiumSlider
+                        value={Number(currentValue) || 0}
+                        {...getSliderConfig(parseFloat(prop.default || "0") || 0)}
+                        onChange={(val) => updateProp(prop.name, val)}
+                      />
                     )}
 
                     {controlType === "boolean" && (
@@ -815,34 +921,98 @@ export default function ComponentPageClient({
 
       {/* ====== SPONSORS SIDEBAR ====== */}
       <aside className={styles.sponsorsSidebar}>
-        <div className={styles.sponsorCard}>
-          <div className={styles.sponsorTitle}>
-            <Heart size={14} className={styles.sponsorTitleIcon} />
-            Sponsors
-          </div>
+        <div className={styles.sponsorGlowWrap}>
+          {/* Rotating glow border */}
+          <div className={styles.sponsorGlowBorder} />
+          <div className={styles.sponsorCardInner}>
+            {/* Header */}
+            <div className={styles.sponsorHeader}>
+              <span className={styles.sponsorLabel}>
+                Sponsors <span style={{ color: "rgba(255,255,255,0.7)", filter: "drop-shadow(0 0 4px rgba(255,255,255,0.8))" }}>✦</span>
+              </span>
+              <a href="#" className={styles.sponsorBecome}>
+                Become a sponsor
+                <ExternalLink size={9} />
+              </a>
+            </div>
 
-          <div className={styles.sponsorSlot}>
-            <span className={styles.sponsorSlotText}>Your logo here</span>
-            <a href="#" className={styles.sponsorSlotCTA}>
-              Become a sponsor →
-            </a>
-          </div>
+            {/* Attention copy */}
+            <p className={styles.sponsorPitch}>
+              Get your brand in front of <strong>thousands of developers</strong> building
+              with modern React every week.
+            </p>
 
-          <div className={styles.sponsorSlot}>
-            <span className={styles.sponsorSlotText}>Support open source</span>
-            <a href="#" className={styles.sponsorSlotCTA}>
-              Learn more →
-            </a>
-          </div>
+            {/* Diamond */}
+            <div className={styles.sponsorTierBlock}>
+              <div className={`${styles.sponsorTierTag} ${styles.tierDiamond}`}>
+                <span className={styles.tierIcon}>💎</span>
+                <span>DIAMOND</span>
+              </div>
+              <a href="#" className={`${styles.sponsorSlot} ${styles.slotDiamond}`}>
+                <svg className={styles.slotIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span className={styles.slotText}>Your logo here</span>
+              </a>
+            </div>
 
-          <div className={styles.sponsorDivider} />
+            {/* Gold */}
+            <div className={styles.sponsorTierBlock}>
+              <div className={`${styles.sponsorTierTag} ${styles.tierGold}`}>
+                <span className={styles.tierIcon}>⭐</span>
+                <span>GOLD</span>
+              </div>
+              <a href="#" className={`${styles.sponsorSlot} ${styles.slotGold}`}>
+                <svg className={styles.slotIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span className={styles.slotText}>Your logo here</span>
+              </a>
+            </div>
 
-          <div className={styles.sponsorFooter}>
-            LegitUI is free and open source.{" "}
-            <a href="#" className={styles.sponsorFooterLink}>
-              Sponsor us
-            </a>{" "}
-            to support development.
+            {/* Silver */}
+            <div className={styles.sponsorTierBlock}>
+              <div className={`${styles.sponsorTierTag} ${styles.tierSilver}`}>
+                <span className={styles.tierIcon}>⭐</span>
+                <span>SILVER</span>
+              </div>
+              <div className={styles.sponsorSlotDuo}>
+                <a href="#" className={`${styles.sponsorSlot} ${styles.slotSilver} ${styles.slotSmall}`}>
+                  <svg className={styles.slotIconSmall} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                  <span className={styles.slotTextSmall}>Your logo here</span>
+                </a>
+                <a href="#" className={`${styles.sponsorSlot} ${styles.slotSilver} ${styles.slotSmall}`}>
+                  <svg className={styles.slotIconSmall} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                  <span className={styles.slotTextSmall}>Your logo here</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className={styles.sponsorDivLine} />
+
+            {/* Footer */}
+            <div className={styles.sponsorFoot}>
+              <span className={styles.sponsorFootText}>
+                Limited spots · High-intent audience
+              </span>
+              <a href="#" className={styles.sponsorFootBtn}>
+                <span>Reserve your spot</span>
+                <ArrowRight size={12} />
+              </a>
+            </div>
           </div>
         </div>
       </aside>

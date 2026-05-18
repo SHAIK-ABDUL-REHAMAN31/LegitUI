@@ -1476,7 +1476,8 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["animation", "carousel", "orbit", "circular", "framer-motion", "gallery", "premium"],
     isNew: true,
     createdAt: "2026-05-16",
-  }
+  },
+  
 ];
 // ────────────────────────────────────────────────────
 // Helper: look up a component by slug
