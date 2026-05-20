@@ -41,13 +41,13 @@
   height: 200%;
   background: conic-gradient(from 0deg,
       transparent 0deg,
-      transparent 60deg,
-      rgba(255, 255, 255, 0.15) 120deg,
-      rgba(255, 255, 255, 0.35) 180deg,
-      rgba(255, 255, 255, 0.15) 240deg,
-      transparent 300deg,
+      transparent 80deg,
+      rgba(168, 85, 247, 0.3) 140deg,
+      rgba(199, 198, 201, 0.4) 180deg,
+      rgba(168, 85, 247, 0.3) 220deg,
+      transparent 280deg,
       transparent 360deg);
-  animation: sponsorGlowSpin 6s linear infinite;
+  animation: sponsorGlowSpin 10s linear infinite;
   z-index: 0;
 }
 
@@ -65,41 +65,43 @@
 .sponsorCardInner {
   position: relative;
   z-index: 1;
-  background: #0a0a0a;
+  background: rgba(10, 10, 12, 0.8);
+  backdrop-filter: blur(16px);
   border-radius: 15px;
-  padding: 1.1rem;
+  padding: 1.25rem 1.1rem;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* Header */
 .sponsorHeader {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
 }
 
 .sponsorLabel {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: 0.01em;
-}
-
-.sponsorBecome {
-  font-size: 0.55rem;
-  color: rgba(255, 255, 255, 0.3);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 3px;
-  transition: color 200ms ease;
+  gap: 6px;
 }
 
-.sponsorBecome:hover {
-  color: rgba(255, 255, 255, 0.6);
+.sponsorStar {
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.85));
+  display: inline-block;
+  font-size: 0.85rem;
 }
 
 /* Pitch paragraph */
@@ -175,81 +177,208 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 10px;
   position: relative;
   text-decoration: none;
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: all var(--transition-base);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.02);
 }
 
-.sponsorSlot:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+/* Shimmer effect overlay */
+.slotShimmer {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.06),
+      transparent);
+  transform: skewX(-20deg);
+  transition: none;
 }
 
-.slotIcon {
-  width: 20px;
-  height: 20px;
-  color: rgba(255, 255, 255, 0.3);
+.sponsorSlot:hover .slotShimmer {
+  animation: shimmerSweep 1.2s ease-in-out;
 }
 
-.slotText {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.3);
+@keyframes shimmerSweep {
+  0% {
+    left: -150%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+/* Dotted mesh overlay inside slot */
+.slotGridPattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Title and Subtitle styling */
+.slotTitle {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  z-index: 2;
+  margin-top: 4px;
+}
+
+.slotSubtitle {
+  font-size: 0.5rem;
   font-weight: 500;
-}
-
-.slotIconSmall {
-  width: 16px;
-  height: 16px;
   color: rgba(255, 255, 255, 0.3);
+  z-index: 2;
 }
 
-.slotTextSmall {
-  font-size: 0.55rem;
+.slotTitleSmall {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  z-index: 2;
+}
+
+.slotSubtitleSmall {
+  font-size: 0.45rem;
   color: rgba(255, 255, 255, 0.3);
-  font-weight: 500;
+  z-index: 2;
 }
 
-/* Diamond Slot */
+/* Diamond Slot Redesign */
 .slotDiamond {
-  height: 64px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: inset 0 1px 10px rgba(255, 255, 255, 0.05);
+  height: 76px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1px 15px rgba(255, 255, 255, 0.04),
+    0 0 0px rgba(168, 85, 247, 0);
 }
 
-/* Gold Slot */
+.slotDiamond .slotTitle {
+  color: #fafafa;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.slotIconDiamond {
+  color: rgba(255, 255, 255, 0.6);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+  transition: transform 300ms ease;
+  z-index: 2;
+}
+
+.slotDiamond:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  border-top-color: #fafafa;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  box-shadow:
+    inset 0 1px 15px rgba(255, 255, 255, 0.08),
+    0 8px 24px -8px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.slotDiamond:hover .slotIconDiamond {
+  transform: scale(1.15) rotate(5deg);
+  color: #fff;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+/* Gold Slot Redesign */
 .slotGold {
-  height: 64px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(229, 181, 103, 0.5);
-  box-shadow: inset 0 1px 10px rgba(229, 181, 103, 0.05);
+  height: 70px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(229, 181, 103, 0.4);
+  box-shadow: inset 0 1px 15px rgba(229, 181, 103, 0.02);
 }
 
-/* Silver Slots */
+.slotGold .slotTitle {
+  color: #e5b567;
+}
+
+.slotIconGold {
+  color: rgba(229, 181, 103, 0.5);
+  filter: drop-shadow(0 0 4px rgba(229, 181, 103, 0.1));
+  transition: transform 300ms ease;
+  z-index: 2;
+}
+
+.slotGold:hover {
+  border-color: rgba(229, 181, 103, 0.2);
+  border-top-color: #e5b567;
+  background: linear-gradient(180deg, rgba(229, 181, 103, 0.05) 0%, rgba(229, 181, 103, 0) 100%);
+  box-shadow:
+    inset 0 1px 15px rgba(229, 181, 103, 0.06),
+    0 8px 20px -8px rgba(229, 181, 103, 0.2);
+  transform: translateY(-1px);
+}
+
+.slotGold:hover .slotIconGold {
+  transform: scale(1.15) translateY(-2px);
+  color: #ffca72;
+  filter: drop-shadow(0 0 8px rgba(229, 181, 103, 0.5));
+}
+
+/* Silver Slot Redesign */
 .sponsorSlotDuo {
   display: flex;
   gap: 8px;
 }
 
 .slotSilver {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 1px 10px rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(156, 163, 175, 0.3);
+  box-shadow: inset 0 1px 10px rgba(156, 163, 175, 0.01);
+}
+
+.slotSilver .slotTitleSmall {
+  color: #9ca3af;
+}
+
+.slotIconSilver {
+  color: rgba(156, 163, 175, 0.45);
+  transition: transform 300ms ease;
+  z-index: 2;
+  margin-bottom: 2px;
 }
 
 .slotSmall {
   flex: 1;
-  height: 54px;
+  height: 58px;
+}
+
+.slotSilver:hover {
+  border-color: rgba(156, 163, 175, 0.2);
+  border-top-color: #e5e7eb;
+  background: linear-gradient(180deg, rgba(156, 163, 175, 0.05) 0%, rgba(156, 163, 175, 0) 100%);
+  box-shadow:
+    inset 0 1px 10px rgba(156, 163, 175, 0.04),
+    0 6px 15px -8px rgba(156, 163, 175, 0.15);
+  transform: translateY(-1px);
+}
+
+.slotSilver:hover .slotIconSilver {
+  transform: scale(1.15) rotate(-10deg);
+  color: #f3f4f6;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
 }
 
 /* Divider */
 .sponsorDivLine {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  margin-top: 8px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  margin: 6px 0;
 }
 
 /* Footer */
@@ -258,39 +387,68 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  margin-top: 2px;
 }
 
 .sponsorFootText {
   font-size: 0.5rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.25);
   text-align: center;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.sponsorFootBtn {
+.sponsorButton {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: 600;
   color: #fff;
   text-decoration: none;
-  padding: 10px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 11px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-  transition: all 220ms ease;
-  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  position: relative;
+  transition: all var(--transition-base);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.sponsorFootBtn:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-  border-color: rgba(255, 255, 255, 0.2);
-  border-top-color: rgba(255, 255, 255, 0.5);
+.sponsorButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(214, 208, 220, 0.15), transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.sponsorButton:hover {
+  border-color: rgba(206, 203, 208, 0.3);
+  background: linear-gradient(180deg, rgba(233, 227, 227, 0.08) 0%, rgba(230, 227, 227, 0.02) 100%);
+  box-shadow:
+    0 4px 16px rgba(192, 182, 202, 0.15),
+    inset 0 1px 0 rgba(168, 164, 164, 0.05);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.sponsorButton:hover::before {
+  opacity: 1;
+}
+
+.footArrow {
+  transition: transform 200ms ease;
+  z-index: 1;
+}
+
+.sponsorButton:hover .footArrow {
+  transform: translateX(3px);
+  color: var(--accent-primary);
 }
 
 /* Not Found */

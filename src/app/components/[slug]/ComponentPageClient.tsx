@@ -19,6 +19,10 @@ import {
   Terminal,
   Download,
   ExternalLink,
+  Gem,
+  Crown,
+  Star,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 import styles from "./page.module.css";
@@ -928,11 +932,11 @@ export default function ComponentPageClient({
             {/* Header */}
             <div className={styles.sponsorHeader}>
               <span className={styles.sponsorLabel}>
-                Sponsors <span style={{ color: "rgba(255,255,255,0.7)", filter: "drop-shadow(0 0 4px rgba(255,255,255,0.8))" }}>✦</span>
+                Sponsors <span className={styles.sponsorStar}>✦</span>
               </span>
-              <a href="#" className={styles.sponsorBecome}>
-                Become a sponsor
-                <ExternalLink size={9} />
+              <a href="#" className={styles.sponsorButton}>
+                <span>Become a sponsor</span>
+                <ArrowRight size={12} className={styles.footArrow} />
               </a>
             </div>
 
@@ -945,57 +949,50 @@ export default function ComponentPageClient({
             {/* Diamond */}
             <div className={styles.sponsorTierBlock}>
               <div className={`${styles.sponsorTierTag} ${styles.tierDiamond}`}>
-                <span className={styles.tierIcon}>💎</span>
+                <span className={styles.tierIcon}><Gem size={10} /></span>
                 <span>DIAMOND</span>
               </div>
               <a href="#" className={`${styles.sponsorSlot} ${styles.slotDiamond}`}>
-                <svg className={styles.slotIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="M21 15l-5-5L5 21" />
-                </svg>
-                <span className={styles.slotText}>Your logo here</span>
+                <div className={styles.slotShimmer} />
+                <div className={styles.slotGridPattern} />
+                <Gem size={20} className={styles.slotIconDiamond} />
+                <span className={styles.slotTitle}>DIAMOND SPONSOR</span>
+                <span className={styles.slotSubtitle}>Available Slot</span>
               </a>
             </div>
 
             {/* Gold */}
             <div className={styles.sponsorTierBlock}>
               <div className={`${styles.sponsorTierTag} ${styles.tierGold}`}>
-                <span className={styles.tierIcon}>⭐</span>
+                <span className={styles.tierIcon}><Crown size={10} /></span>
                 <span>GOLD</span>
               </div>
               <a href="#" className={`${styles.sponsorSlot} ${styles.slotGold}`}>
-                <svg className={styles.slotIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="M21 15l-5-5L5 21" />
-                </svg>
-                <span className={styles.slotText}>Your logo here</span>
+                <div className={styles.slotShimmer} />
+                <Crown size={18} className={styles.slotIconGold} />
+                <span className={styles.slotTitle}>GOLD SPONSOR</span>
+                <span className={styles.slotSubtitle}>Available Slot</span>
               </a>
             </div>
 
             {/* Silver */}
             <div className={styles.sponsorTierBlock}>
               <div className={`${styles.sponsorTierTag} ${styles.tierSilver}`}>
-                <span className={styles.tierIcon}>⭐</span>
+                <span className={styles.tierIcon}><Star size={10} /></span>
                 <span>SILVER</span>
               </div>
               <div className={styles.sponsorSlotDuo}>
                 <a href="#" className={`${styles.sponsorSlot} ${styles.slotSilver} ${styles.slotSmall}`}>
-                  <svg className={styles.slotIconSmall} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <path d="M21 15l-5-5L5 21" />
-                  </svg>
-                  <span className={styles.slotTextSmall}>Your logo here</span>
+                  <div className={styles.slotShimmer} />
+                  <Star size={12} className={styles.slotIconSilver} />
+                  <span className={styles.slotTitleSmall}>SILVER SLOT</span>
+                  <span className={styles.slotSubtitleSmall}>Apply</span>
                 </a>
                 <a href="#" className={`${styles.sponsorSlot} ${styles.slotSilver} ${styles.slotSmall}`}>
-                  <svg className={styles.slotIconSmall} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <path d="M21 15l-5-5L5 21" />
-                  </svg>
-                  <span className={styles.slotTextSmall}>Your logo here</span>
+                  <div className={styles.slotShimmer} />
+                  <Star size={12} className={styles.slotIconSilver} />
+                  <span className={styles.slotTitleSmall}>SILVER SLOT</span>
+                  <span className={styles.slotSubtitleSmall}>Apply</span>
                 </a>
               </div>
             </div>
@@ -1008,9 +1005,9 @@ export default function ComponentPageClient({
               <span className={styles.sponsorFootText}>
                 Limited spots · High-intent audience
               </span>
-              <a href="#" className={styles.sponsorFootBtn}>
+              <a href="#" className={styles.sponsorButton}>
                 <span>Reserve your spot</span>
-                <ArrowRight size={12} />
+                <ArrowRight size={12} className={styles.footArrow} />
               </a>
             </div>
           </div>
