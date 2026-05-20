@@ -20,6 +20,10 @@ interface AnimatedBorderProps {
   color3?: string;
   /** Inner background color. @default '#16161a' */
   innerColor?: string;
+  /** Enable outer neon glow effect. @default true */
+  glow?: boolean;
+  /** Corner radius in pixels. @default 16 */
+  borderRadius?: number;
 }
 
 const AnimatedBorder: React.FC<AnimatedBorderProps> = ({
@@ -31,6 +35,8 @@ const AnimatedBorder: React.FC<AnimatedBorderProps> = ({
   color2 = '#a855f7',
   color3 = '#c084fc',
   innerColor = '#16161a',
+  glow = true,
+  borderRadius = 16,
 }) => {
   return (
     <div
@@ -39,13 +45,15 @@ const AnimatedBorder: React.FC<AnimatedBorderProps> = ({
         // Dynamic values passed as CSS custom properties
         '--border-width': `${borderWidth}px`,
         '--speed': `${speed}s`,
-        '--inner-radius': `${16 - borderWidth}px`,
+        '--border-radius': `${borderRadius}px`,
+        '--inner-radius': `${Math.max(0, borderRadius - borderWidth)}px`,
         '--color-1': color1,
         '--color-2': color2,
         '--color-3': color3,
         '--inner-color': innerColor,
       } as React.CSSProperties}
     >
+      {glow && <div className={styles.glow} />}
       <div className={styles.inner}>
         {children}
       </div>
@@ -54,3 +62,4 @@ const AnimatedBorder: React.FC<AnimatedBorderProps> = ({
 };
 
 export default AnimatedBorder;
+

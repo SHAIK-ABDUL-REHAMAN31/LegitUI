@@ -1,17 +1,19 @@
 'use client';
 import React from 'react';
 import styles from './AnimatedBorder.module.css';
-const AnimatedBorder = ({ children, borderWidth = 2, className = '', speed = 3, color1 = '#7c3aed', color2 = '#a855f7', color3 = '#c084fc', innerColor = '#16161a', }) => {
+const AnimatedBorder = ({ children, borderWidth = 2, className = '', speed = 3, color1 = '#7c3aed', color2 = '#a855f7', color3 = '#c084fc', innerColor = '#16161a', glow = true, borderRadius = 16, }) => {
     return (<div className={`${styles.wrapper} ${className}`} style={{
             // Dynamic values passed as CSS custom properties
             '--border-width': `${borderWidth}px`,
             '--speed': `${speed}s`,
-            '--inner-radius': `${16 - borderWidth}px`,
+            '--border-radius': `${borderRadius}px`,
+            '--inner-radius': `${Math.max(0, borderRadius - borderWidth)}px`,
             '--color-1': color1,
             '--color-2': color2,
             '--color-3': color3,
             '--inner-color': innerColor,
         }}>
+      {glow && <div className={styles.glow}/>}
       <div className={styles.inner}>
         {children}
       </div>

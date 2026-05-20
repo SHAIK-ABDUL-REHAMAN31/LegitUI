@@ -17,16 +17,35 @@
 
 .wrapper {
   position: relative;
-  border-radius: 16px;
+  border-radius: var(--border-radius, 16px);
   /* Dynamic values via CSS custom properties set inline */
   padding: var(--border-width, 2px);
   background: conic-gradient(from var(--angle), var(--color-1, #7c3aed), var(--color-2, #a855f7), var(--color-3, #c084fc), var(--color-1, #7c3aed));
   animation: rotate-gradient var(--speed, 3s) linear infinite;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius, 16px);
+  background: conic-gradient(from var(--angle), var(--color-1, #7c3aed), var(--color-2, #a855f7), var(--color-3, #c084fc), var(--color-1, #7c3aed));
+  animation: rotate-gradient var(--speed, 3s) linear infinite;
+  filter: blur(16px);
+  opacity: 0.65;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   background: var(--inner-color, #16161a);
   border-radius: var(--inner-radius, 14px);
-  padding: 1.5rem;
+  padding: 2.25rem 2rem;
   height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+

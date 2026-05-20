@@ -4,37 +4,64 @@
    ═══════════════════════════════════════════════════════ */
 
 @keyframes ripple-expand {
-  to { transform: scale(4); opacity: 0; }
+  to { 
+    transform: scale(35); 
+    opacity: 0; 
+  }
 }
 
 .button {
   position: relative;
-  padding: 12px 28px;
+  padding: 14px 34px;
   font-size: 15px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: var(--border-radius, 12px);
   cursor: pointer;
   overflow: hidden;
   font-family: inherit;
-  transition: opacity 150ms ease;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 
+    transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.button:hover {
-  opacity: 0.9;
+.button:active {
+  transform: scale(0.97);
 }
 
 /* Filled variant */
 .buttonFilled {
-  color: white;
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
-  border: none;
+  color: var(--text-color, #ffffff);
+  background: var(--bg-color, #a855f7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.buttonFilled:hover {
+  filter: brightness(1.06);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 /* Outline variant */
 .buttonOutline {
-  color: #a855f7;
+  color: var(--text-color, #a855f7);
   background: transparent;
-  border: 1px solid rgba(168, 85, 247, 0.4);
+  border: 1.5px solid var(--text-color, rgba(168, 85, 247, 0.6));
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.buttonOutline:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--text-color, #a855f7);
 }
 
 .ripple {
@@ -42,12 +69,13 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--ripple-color, rgba(255, 255, 255, 0.35));
   pointer-events: none;
-  animation: ripple-expand 0.6s ease-out forwards;
+  animation: ripple-expand var(--duration, 0.6s) cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
 .label {
   position: relative;
   z-index: 1;
 }
+
