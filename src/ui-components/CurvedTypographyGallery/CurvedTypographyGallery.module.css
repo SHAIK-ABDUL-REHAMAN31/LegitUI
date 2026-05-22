@@ -9,7 +9,7 @@
 
 .galleryWrapper {
   position: absolute;
-  top: 30vh;
+  top: 50vh; /* Centered layout placement in viewport */
   left: 50%;
   width: 0;
   height: 0;
@@ -23,6 +23,18 @@
   will-change: transform;
 }
 
+.ambientGlow {
+  position: absolute;
+  top: 50vh; /* Centered directly behind the active center card */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .svgWrapper {
   position: absolute;
   top: 0;
@@ -33,7 +45,7 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.35;
   z-index: 0;
 }
 
@@ -53,17 +65,30 @@
 
 .card {
   position: relative;
-  width: 300px;
-  height: 400px;
-  border-radius: 32px;
-  overflow: hidden;
-  background-color: #18181b;
+  width: 200px; /* Refined smaller card width */
+  height: 280px; /* Refined smaller card height */
   flex-shrink: 0;
-  margin-top: -200px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  will-change: transform;
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
+  margin-top: -140px; /* Centered on the radius circumference vertically */
   cursor: pointer;
+  z-index: 10;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px; /* Premium tighter corner radius */
+  overflow: hidden;
+  background-color: #0c0c0e; /* Deeper backdrop shadow container */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  will-change: transform;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .cardInner {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 60px -10px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
 }
 
 .gradientOverlay {
@@ -89,35 +114,36 @@
 
 .textOverlay {
   position: absolute;
-  bottom: 2.5rem;
-  left: 2rem;
-  right: 2rem;
+  bottom: 1.25rem;
+  left: 1rem;
+  right: 1rem;
   z-index: 20;
   overflow: hidden;
 }
 
 .idText {
-  font-size: 0.875rem;
+  font-size: 0.7rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
   letter-spacing: 0.2em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   margin-top: 0;
 }
 
 .titleText {
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
   color: white;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   margin-top: 0;
+  line-height: 1.1;
 }
 
 .subtitleText {
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0.025em;
   margin: 0;
 }
@@ -128,7 +154,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 1px;
-  height: 15vh;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+  height: 12vh;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
   z-index: 0;
 }

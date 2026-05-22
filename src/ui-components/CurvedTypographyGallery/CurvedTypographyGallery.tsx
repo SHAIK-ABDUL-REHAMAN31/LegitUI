@@ -37,8 +37,8 @@ export default function CurvedTypographyGallery({ items = defaultItems, classNam
   const galleryRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const R = 1200; // Adjusted radius to fit preview
-  const anglePerItem = 14; // Degrees between each item
+  const R = 850; // Radius circumference to fit showcase bounds
+  const anglePerItem = 15; // Degrees of separation between cards
   const totalItems = items.length;
 
   useEffect(() => {
@@ -46,21 +46,72 @@ export default function CurvedTypographyGallery({ items = defaultItems, classNam
     const gallery = galleryRef.current;
     if (!container || !gallery) return;
 
-    // Initial state setup for cards
-    cardsRef.current.forEach((card, i) => {
-        if (!card) return;
-        const itemAngle = i * anglePerItem;
-        const dist = Math.abs(itemAngle);
-        const scale = gsap.utils.mapRange(0, anglePerItem * 3, 1, 0.5, Math.min(dist, anglePerItem * 3));
-        const opacity = gsap.utils.mapRange(0, anglePerItem * 3, 1, 0.1, Math.min(dist, anglePerItem * 3));
-        const blur = gsap.utils.mapRange(0, anglePerItem * 3, 0, 4, Math.min(dist, anglePerItem * 3));
-        gsap.set(card, { scale, opacity, filter: `blur(${blur}px)` });
-    });
-
+    // Calculate total rotation to move from first to last item
     const totalRotation = -(totalItems - 1) * anglePerItem;
 
+    // Define card style updater that handles scroll updates and entrance progress simultaneously
+    const updateCards = (currentRot: number, entranceProgress: number = 1) => {
+      cardsRef.current.forEach((card, i) => {
+        if (!card) return;
+        const itemAngle = i * anglePerItem;
+        const absAngle = itemAngle + currentRot;
+        const dist = Math.abs(absAngle);
+        const maxDist = anglePerItem * 3; // Focus drop-off boundary
+
+        // Base mapping curves driven by scroll distance
+        const targetScale = gsap.utils.mapRange(0, maxDist, 1, 0.8, Math.min(dist, maxDist));
+        const targetOpacity = gsap.utils.mapRange(0, maxDist, 1, 0.8, Math.min(dist, maxDist));
+        const targetBlur = 0; // No blur on side cards for crisp visuals
+        const zIndex = 100 - Math.round(dist);
+        const yOffset = 0; // Natural circular curvature handles depth and Y offset
+
+        // Blend scroll-driven calculations with the entrance progress
+        const scale = gsap.utils.interpolate(targetScale * 0.3, targetScale, entranceProgress);
+        const opacity = gsap.utils.interpolate(0, targetOpacity, entranceProgress);
+        const blur = gsap.utils.interpolate(10, targetBlur, entranceProgress);
+        const y = gsap.utils.interpolate(150, yOffset, entranceProgress);
+
+        gsap.set(card, {
+          scale,
+          opacity,
+          filter: `blur(${blur}px)`,
+          y,
+          zIndex
+        });
+
+        // Text Overlay Focus Effect: Subtle fade for non-active cards
+        const textOverlay = card.querySelector(`.${styles.textOverlay}`);
+        if (textOverlay) {
+          const textDist = Math.min(dist, anglePerItem * 1.5);
+          const baseTextOpacity = gsap.utils.mapRange(0, anglePerItem * 1.5, 1, 0.3, textDist);
+          const baseTextY = gsap.utils.mapRange(0, anglePerItem * 1.5, 0, 15, textDist);
+
+          const textOpacity = baseTextOpacity * entranceProgress;
+          const textY = baseTextY + (1 - entranceProgress) * 20;
+
+          gsap.set(textOverlay, {
+            opacity: textOpacity,
+            y: textY
+          });
+        }
+      });
+    };
+
     const ctx = gsap.context(() => {
-      // Rotate the entire gallery on scroll
+      // 1. Entrance object to track blooming reveal progress
+      const entranceObj = { progress: 0 };
+      const entranceTween = gsap.to(entranceObj, {
+        progress: 1,
+        duration: 1.5,
+        ease: "power4.out",
+        delay: 0.25,
+        onUpdate: () => {
+          const currentRot = gsap.getProperty(gallery, "rotation") as number || 0;
+          updateCards(currentRot, entranceObj.progress);
+        }
+      });
+
+      // 2. Rotate the entire gallery on scroll (using smoothed tween updates)
       gsap.to(gallery, {
         rotation: totalRotation,
         ease: "none",
@@ -68,58 +119,45 @@ export default function CurvedTypographyGallery({ items = defaultItems, classNam
           trigger: container,
           start: "top top",
           end: `+=${totalItems * 400}`,
-          scrub: 1,
+          scrub: 1.2, // Smoothed scroll lag
           pin: true,
           snap: {
-             snapTo: 1 / (totalItems - 1),
-             duration: 0.3,
-             ease: "power2.inOut"
-          },
-          onUpdate: (self) => {
-            const currentRot = self.progress * totalRotation;
-            
-            // Dynamic scaling and perspective distortion for each card
-            cardsRef.current.forEach((card, i) => {
-                if (!card) return;
-                const itemAngle = i * anglePerItem;
-                const absAngle = itemAngle + currentRot; // distance from top-center (0)
-                
-                const dist = Math.abs(absAngle);
-                const maxDist = anglePerItem * 3; 
-                
-                const scale = gsap.utils.mapRange(0, maxDist, 1, 0.5, Math.min(dist, maxDist));
-                const opacity = gsap.utils.mapRange(0, maxDist, 1, 0.1, Math.min(dist, maxDist));
-                const blur = gsap.utils.mapRange(0, maxDist, 0, 4, Math.min(dist, maxDist));
-                const zIndex = 100 - Math.round(dist); // center card on top
-                
-                gsap.set(card, {
-                  scale,
-                  opacity,
-                  filter: `blur(${blur}px)`,
-                  zIndex
-                });
-            });
+            snapTo: 1 / (totalItems - 1),
+            duration: 0.5,
+            ease: "power3.inOut"
           }
+        },
+        onUpdate: function () {
+          // This executes on every frame the scroll position (rotation) interpolates
+          const currentRot = gsap.getProperty(gallery, "rotation") as number || 0;
+          updateCards(currentRot, entranceObj.progress);
         }
       });
-      
-      // Independent continuous rotation for the warped typography
+
+      // 3. Ambient entrance and continuous rotation for the warped typography ring
+      gsap.fromTo(`.${styles.svgWrapper}`,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 0.35, scale: 1, duration: 2.0, ease: "power4.out", delay: 0.1 }
+      );
+
       gsap.to(`.${styles.svgWrapper}`, {
-         rotation: 360,
-         duration: 80,
-         repeat: -1,
-         ease: "none",
-         transformOrigin: "center center"
+        rotation: 360,
+        duration: 90,
+        repeat: -1,
+        ease: "none",
+        transformOrigin: "center center"
       });
     });
 
     return () => ctx.revert();
   }, [totalItems, anglePerItem]);
 
-  const svgR = R - 150; // Text path radius
+  const svgR = 770; // Arc radius placed behind cards to fit entirely in viewBox without clipping
 
   return (
     <div ref={containerRef} className={`${styles.container} ${className}`}>
+      {/* Soft Ambient Glow in Center Showcase */}
+      <div className={styles.ambientGlow} />
       
       {/* Wrapper to handle absolute positioning without GSAP transform conflicts */}
       <div className={styles.galleryWrapper}>
@@ -141,9 +179,9 @@ export default function CurvedTypographyGallery({ items = defaultItems, classNam
                 <defs>
                    <path id="circle-path" d={`M ${R},${R} m -${svgR},0 a ${svgR},${svgR} 0 1,1 ${svgR*2},0 a ${svgR},${svgR} 0 1,1 -${svgR*2},0`} />
                 </defs>
-                <text fill="#ffffff" fontSize="80" fontWeight="900" letterSpacing="12px" className={styles.curvedText}>
+                <text fill="#ffffff" fontSize="56" fontWeight="900" letterSpacing="15px" className={styles.curvedText}>
                    <textPath href="#circle-path" startOffset="25%" textAnchor="middle">
-                      CURVED TYPOGRAPHY GALLERY · EXPERIMENTAL POSTER SYSTEMS · KINETIC EDITORIAL · DYNAMIC PERSPECTIVE · CURVED TYPOGRAPHY GALLERY · EXPERIMENTAL POSTER SYSTEMS · KINETIC EDITORIAL · DYNAMIC PERSPECTIVE · 
+                      CURVED TYPOGRAPHY GALLERY · EXPERIMENTAL POSTER SYSTEMS · KINETIC EDITORIAL · DYNAMIC PERSPECTIVE · 
                    </textPath>
                 </text>
              </svg>
@@ -168,22 +206,49 @@ export default function CurvedTypographyGallery({ items = defaultItems, classNam
                    ref={(el) => {
                      cardsRef.current[i] = el;
                    }}
+                   style={{ opacity: 0 }} // Pre-hidden to prevent FOUC on render
                    className={styles.card}
+                    onMouseEnter={(e) => {
+                      const inner = e.currentTarget.querySelector(`.${styles.cardInner}`);
+                      if (inner) {
+                        gsap.to(inner, {
+                          scale: 1.08,
+                          y: -10,
+                          duration: 0.5,
+                          ease: "power3.out",
+                          overwrite: "auto"
+                        });
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      const inner = e.currentTarget.querySelector(`.${styles.cardInner}`);
+                      if (inner) {
+                        gsap.to(inner, {
+                          scale: 1,
+                          y: 0,
+                          duration: 0.5,
+                          ease: "power3.out",
+                          overwrite: "auto"
+                        });
+                      }
+                    }}
                  >
-                    <div className={styles.gradientOverlay} />
-                    <img src={item.image} alt={item.title} className={styles.image} />
-                    
-                    {/* Text overlay */}
-                    <div className={styles.textOverlay}>
-                       <p className={styles.idText}>
-                         {item.id}
-                       </p>
-                       <h3 className={styles.titleText}>
-                         {item.title}
-                       </h3>
-                       <p className={styles.subtitleText}>
-                         {item.subtitle}
-                       </p>
+                    <div className={styles.cardInner}>
+                       <div className={styles.gradientOverlay} />
+                       <img src={item.image} alt={item.title} className={styles.image} />
+                       
+                       {/* Text overlay */}
+                       <div className={styles.textOverlay}>
+                          <p className={styles.idText}>
+                             {item.id}
+                          </p>
+                          <h3 className={styles.titleText}>
+                             {item.title}
+                          </h3>
+                          <p className={styles.subtitleText}>
+                             {item.subtitle}
+                          </p>
+                       </div>
                     </div>
                  </div>
               </div>
@@ -191,7 +256,7 @@ export default function CurvedTypographyGallery({ items = defaultItems, classNam
           })}
         </div>
       </div>
-      
+
       {/* Decorative vertical center line for alignment */}
       <div className={styles.decorativeLine} />
     </div>

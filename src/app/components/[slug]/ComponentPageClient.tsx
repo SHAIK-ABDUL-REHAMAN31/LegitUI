@@ -477,7 +477,7 @@ export default function ComponentPageClient({
             </div>
 
             <div className={styles.panelRight}>
-              {component.category === "TextAnimations" && (
+              {(component.category === "TextAnimations" || component.slug === "animated-border") && (
                 <button
                   onClick={() => setReloadKey(k => k + 1)}
                   className={styles.actionBtn}
@@ -781,7 +781,9 @@ export default function ComponentPageClient({
                     {controlType === "number" && (
                       <PremiumSlider
                         value={Number(currentValue) || 0}
-                        {...getSliderConfig(parseFloat(prop.default || "0") || 0)}
+                        min={prop.min !== undefined ? prop.min : getSliderConfig(parseFloat(prop.default || "0") || 0).min}
+                        max={prop.max !== undefined ? prop.max : getSliderConfig(parseFloat(prop.default || "0") || 0).max}
+                        step={prop.step !== undefined ? prop.step : getSliderConfig(parseFloat(prop.default || "0") || 0).step}
                         onChange={(val) => updateProp(prop.name, val)}
                       />
                     )}
