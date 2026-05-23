@@ -131,7 +131,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "innerColor", type: "string", default: '"#0c0c0e"', description: "Inner background color" },
       { name: "borderRadius", type: "number", default: "24", min: 0, max: 64, step: 2, description: "Corner radius in pixels" },
       { name: "ambientGlow", type: "boolean", default: "true", description: "Enable subtle background glow" },
-      { name: "glowIntensity", type: "number", default: "0.15", min: 0, max: 0.5, step: 0.01, description: "Background glow opacity" },
+      { name: "glowIntensity", type: "number", default: "0.4", min: 0, max: 0.5, step: 0.01, description: "Background glow opacity" },
     ],
     tags: ["border", "animation", "gradient", "container"],
     isNew: true,
@@ -1490,7 +1490,26 @@ export const defaultComponents: ComponentMeta[] = [
     isNew: true,
     createdAt: "2026-05-16",
   },
-  
+  {
+    id: "99",
+    name: "Premium 3D Cursor",
+    slug: "premium-3d-cursor",
+    folder: "Premium3DCursor",
+    fileName: "Premium3DCursor",
+    category: "LegitComponents",
+    description: "A premium 3D interactive cursor component that tracks mouse movement with fluid physics, customizable via sliders.",
+    dependencies: ["framer-motion"],
+    props: [
+      { name: "size", type: "number", description: "Scale/size of the 3D cursor", default: "40" },
+      { name: "lag", type: "number", description: "Follow lag / physics delay", default: "0.5" },
+      { name: "baseColor", type: "string", description: "Base material color", default: '\"#1a1a1a\"' },
+      { name: "highlightColor", type: "string", description: "Inner glow/highlight color", default: '\"#ffffff\"' }
+    ],
+    tags: ["cursor", "3d", "interactive", "framer-motion", "premium", "custom"],
+    isNew: true,
+    createdAt: "2026-05-23",
+  },
+
 ];
 // ────────────────────────────────────────────────────
 // Helper: look up a component by slug

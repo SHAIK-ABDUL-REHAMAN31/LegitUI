@@ -64,6 +64,8 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'horizon-gradient': { load: () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'), weight: 'medium' },
   'timeline-steps': { load: () => import('@/ui-components/TimelineSteps/TimelineStepsUsage'), weight: 'medium' },
   'orbit-carousel': { load: () => import('@/ui-components/OrbitCarousel/OrbitCarouselUsage'), weight: 'medium' },
+  'premium-3d-cursor': { load: () => import('@/ui-components/Premium3DCursor/Premium3DCursorUsage'), weight: 'medium' },
+
 
 
   // ── HEAVY — OGL / Three.js ──
