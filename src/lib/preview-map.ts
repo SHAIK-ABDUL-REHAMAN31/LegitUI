@@ -67,8 +67,8 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'premium-3d-cursor': { load: () => import('@/ui-components/Premium3DCursor/Premium3DCursorUsage'), weight: 'medium' },
   'scroll-circle-transition': { load: () => import('@/ui-components/ScrollCircleTransition/ScrollCircleTransitionUsage'), weight: 'medium' },
   'scroll-snake-transition': { load: () => import('@/ui-components/ScrollSnakeTransition/ScrollSnakeTransitionUsage'), weight: 'medium' },
-
-
+  'halftone-eyes': { load: () => import('@/ui-components/HalftoneEyes/HalftoneEyesUsage'), weight: 'medium' },
+  'blur-cursor-text': { load: () => import('@/ui-components/BlurCursorText/BlurCursorTextUsage'), weight: 'medium' },
 
   // ── HEAVY — OGL / Three.js ──
   'particles-background': { load: () => import('@/ui-components/Particles/SpaceParticles'), weight: 'heavy' },

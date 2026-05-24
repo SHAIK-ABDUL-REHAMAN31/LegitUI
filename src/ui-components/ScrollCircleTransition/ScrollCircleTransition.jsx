@@ -179,9 +179,9 @@ const ScrollCircleTransition = ({ section1Content, section2Content, colors = DEF
             const delay = index * staggerDelay;
             const shrinkDelay = (colors.length - 1 - index) * staggerDelay;
             return (<motion.div key={index} className={styles.circle} initial={{ scale: 0 }} animate={{ scale: isTransitioning ? 1 : 0 }} transition={{
-                    duration: animationDuration,
+                    duration: isAnimating ? animationDuration : 0,
                     ease: [0.65, 0, 0.35, 1], // easeInOutCubic
-                    delay: isTransitioning ? delay : shrinkDelay,
+                    delay: isAnimating ? (isTransitioning ? delay : shrinkDelay) : 0,
                 }} style={{
                     backgroundColor: color,
                     zIndex: 100 + index,

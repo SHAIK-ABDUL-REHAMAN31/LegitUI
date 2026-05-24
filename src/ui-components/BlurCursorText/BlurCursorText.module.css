@@ -1,0 +1,20 @@
+.container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  user-select: none;
+  cursor: default;
+  position: relative;
+  text-align: center;
+}
+
+.char {
+  display: inline-block;
+  filter: blur(var(--char-blur, 0px));
+  will-change: filter;
+  /* Premium spring-like cubic bezier transition for organic follow */
+  transition: filter var(--char-transition-duration, 0.3s) cubic-bezier(0.25, 1, 0.5, 1);
+}

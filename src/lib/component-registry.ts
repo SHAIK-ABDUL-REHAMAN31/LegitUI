@@ -1544,8 +1544,54 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["transition", "animation", "scroll", "interactive", "framer-motion", "svg", "snake", "solid"],
     createdAt: "2026-05-23",
   },
-
+  {
+    id: "102",
+    name: "Halftone Eyes",
+    slug: "halftone-eyes",
+    folder: "HalftoneEyes",
+    fileName: "HalftoneEyes",
+    category: "Animations",
+    description: "A pair of highly realistic halftone-style eyes that smoothly track the mouse cursor with smooth linear interpolation and organic saccadic idle drift.",
+    tags: ["interactive", "canvas", "eyes", "halftone", "follow", "cursor", "smooth"],
+    dependencies: [],
+    props: [
+      { name: "eyeSize", type: "number", default: "220", min: 120, max: 500, step: 10, description: "Width and height of each eye canvas (px)" },
+      { name: "gridSpacing", type: "number", default: "8", min: 4, max: 20, step: 1, description: "Spacing between halftone dots (px)" },
+      { name: "maxOffset", type: "number", default: "35", min: 10, max: 80, step: 1, description: "Maximum look-around offset of the iris (px)" },
+      { name: "lerpSpeed", type: "number", default: "0.08", min: 0.01, max: 0.5, step: 0.01, description: "Interpolation speed for smooth movement delay" },
+      { name: "theme", type: "'crimson' | 'sapphire' | 'emerald' | 'amethyst' | 'amber' | 'cyanide' | 'custom'", default: '"sapphire"', description: "Color theme for the eyes" },
+      { name: "irisColor", type: "string", default: '"#3b82f6"', description: "Hex color of the iris (active when theme is 'custom')" },
+      { name: "scleraColor", type: "string", default: '"#fdfaf6"', description: "Hex color of the sclera (active when theme is 'custom')" },
+      { name: "pupilRadius", type: "number", default: "32", min: 10, max: 80, step: 1, description: "Radius of the black pupil hole (px)" },
+      { name: "irisRadius", type: "number", default: "65", min: 20, max: 120, step: 1, description: "Radius of the iris circle (px)" },
+      { name: "scleraRadius", type: "number", default: "100", min: 40, max: 180, step: 1, description: "Radius of the outer sclera circle (px)" },
+      { name: "backgroundColor", type: "string", default: '"#000000"', description: "Background color of the eye canvas" },
+      { name: "eyeDistance", type: "number", default: "40", min: 0, max: 200, step: 5, description: "Distance between the two eyes (px)" },
+      { name: "ambientDrift", type: "boolean", default: "true", description: "Enable organic micro-saccadic eye movements when idle" }
+    ],
+    createdAt: "2026-05-24",
+  },
+  {
+    id: "104",
+    name: "Blur Cursor Text",
+    slug: "blur-cursor-text",
+    folder: "BlurCursorText",
+    fileName: "BlurCursorText",
+    category: "TextAnimations",
+    description: "A premium cursor proximity text effect. Characters dynamically blur and scale up when the cursor moves nearby, creating a stunning lens focus wave trail.",
+    tags: ["text", "animation", "blur", "hover", "cursor", "proximity", "distortion"],
+    dependencies: [],
+    props: [
+      { name: "text", type: "string", default: '"Flow"', description: "The string of text to animate" },
+      { name: "maxBlur", type: "number", default: "4", min: 0, max: 20, step: 0.5, description: "Maximum Gaussian blur radius (px)" },
+      { name: "proximityRadius", type: "number", default: "80", min: 40, max: 400, step: 5, description: "Cursor influence distance threshold (px)" },
+      { name: "transitionDuration", type: "number", default: "0.25", min: 0.05, max: 1.5, step: 0.05, description: "Time in seconds for characters to animate to target state" },
+      { name: "fontSize", type: "string", default: '"clamp(5rem, 15vw, 12rem)"', description: "CSS font size of the text" }
+    ],
+    createdAt: "2026-05-24",
+  },
 ];
+
 // ────────────────────────────────────────────────────
 // Helper: look up a component by slug
 // ────────────────────────────────────────────────────
