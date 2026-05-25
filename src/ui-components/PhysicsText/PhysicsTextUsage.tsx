@@ -15,8 +15,8 @@ const PhysicsTextUsage = (props: any) => {
             overflow: "hidden"
         }}>
             <PhysicsText 
-                text={props.text || "DRAG ME PLAYFUL GRAVITY BOUNCE"} 
-                fontSize={props.fontSize || "clamp(2rem, 5vw, 6rem)"} 
+                text={props.text || "Craft stunning interactive user interfaces with LegitUI"} 
+                fontSize={props.fontSize || "clamp(1.5rem, 4vw, 2.5rem)"} 
                 {...props}
             />
         </div>
