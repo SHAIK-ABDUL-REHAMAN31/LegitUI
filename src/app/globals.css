@@ -433,8 +433,9 @@ pre[class*="language-"] {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-tertiary);
-  padding: 0.5rem 1.5rem;
-  margin-top: 0.75rem;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  margin-top: 0;
+  border-top: 1px dotted var(--border-secondary);
 }
 
 .sidebar-link {
@@ -442,16 +443,18 @@ pre[class*="language-"] {
   padding: 0.5rem 0.75rem;
   margin: 0.15rem 0.75rem;
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   text-decoration: none;
   transition: all var(--transition-fast);
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
+  transform-origin: left center;
 }
 
 .sidebar-link:hover {
   color: var(--text-primary);
   background: var(--bg-secondary);
+  transform: scale(0.97);
 }
 
 .sidebar-link.active {

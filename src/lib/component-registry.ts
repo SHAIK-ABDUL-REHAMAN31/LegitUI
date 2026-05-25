@@ -1618,6 +1618,26 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     createdAt: "2026-05-25",
   },
+  {
+    id: "106",
+    name: "Swipeable Card Stack",
+    slug: "swipeable-card-stack",
+    folder: "SwipeableCardStack",
+    fileName: "SwipeableCardStack",
+    category: "Cards",
+    description: "An interactive card stack featuring physics-based dragging, swipe-away gestures, smooth GSAP transition animations, and scroll-linked depth navigation.",
+    tags: ["card", "swipe", "gsap", "physics", "dragging", "interactive", "neom", "deck"],
+    dependencies: ["gsap"],
+    props: [
+      { name: "swipeSpeed", type: "number", default: "0.5", min: 0.1, max: 2.0, step: 0.05, description: "Flyout animation duration in seconds" },
+      { name: "cardWidth", type: "number", default: "240", min: 160, max: 480, step: 10, description: "Card width in pixels" },
+      { name: "cardHeight", type: "number", default: "340", min: 220, max: 640, step: 10, description: "Card height in pixels" },
+      { name: "rotationOffset", type: "number", default: "4", min: 0, max: 15, step: 0.5, description: "Tilt angle factor in degrees to fan out cards" },
+      { name: "maxVisibleCards", type: "number", default: "3", min: 2, max: 5, step: 1, description: "Maximum visible cards in the background stack" },
+      { name: "enableWheelSwipe", type: "boolean", default: "true", description: "Allow swiping using mouse wheel scrolling" }
+    ],
+    createdAt: "2026-05-26",
+  },
 ];
 
 // ────────────────────────────────────────────────────

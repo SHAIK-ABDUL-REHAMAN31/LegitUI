@@ -60,6 +60,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'kinetic-split-text': { load: () => import('@/ui-components/KineticSplitText/KineticSplitTextUsage'), weight: 'medium' },
   'shine-text': { load: () => import('@/ui-components/ShineText/ShineTextUsage'), weight: 'medium' },
   'magnetic-dock': { load: () => import('@/ui-components/MagneticDock/MagneticDockUsage'), weight: 'medium' },
+  'swipeable-card-stack': { load: () => import('@/ui-components/SwipeableCardStack/SwipeableCardStackUsage'), weight: 'medium' },
   'stacked-card-reveal': { load: () => import('@/ui-components/StackedCardReveal/StackedCardRevealUsage'), weight: 'medium' },
   'network-nodes': { load: () => import('@/ui-components/NetworkNodes/NetworkNodesUsage'), weight: 'medium' },
   'horizon-gradient': { load: () => import('@/ui-components/HorizonGradient/HorizonGradientUsage'), weight: 'medium' },
