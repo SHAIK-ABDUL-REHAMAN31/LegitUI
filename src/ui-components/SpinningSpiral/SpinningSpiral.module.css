@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+.spiralContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    /* Prevents scroll while dragging on mobile */
+    will-change: transform;
+}
+
+.spiralContainer.dragging {
+    cursor: grabbing;
+}
+
+.spiralSvg {
+    display: block;
+    transform-origin: center center;
+    will-change: transform;
+    overflow: visible;
+}
+
+/* Smooth vector transitions for interactive colors/gradients */
+.spiralSvg path {
+    transition: stroke 0.3s cubic-bezier(0.25, 1, 0.5, 1), stroke-width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.rotationGroup {
+    transform-origin: 0px 0px;
+    will-change: transform;
+}
+
+.textContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    text-align: center;
+}
+
+.slideUpText {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    font-size: clamp(2rem, 8vw, 6rem);
+    font-weight: 800;
+    color: #0a0a0f;
+    transform: translateY(100%);
+    will-change: transform;
+    line-height: 1.2;
+}

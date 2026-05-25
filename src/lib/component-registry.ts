@@ -1593,6 +1593,31 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     createdAt: "2026-05-24",
   },
+  {
+    id: "105",
+    name: "Spinning Spiral",
+    slug: "spinning-spiral",
+    folder: "SpinningSpiral",
+    fileName: "SpinningSpiral",
+    category: "Animations",
+    description: "An interactive SVG pinwheel spiral. Drag and swipe it with kinetic physical inertia, customize curvature, thickness, arm count, and colors dynamically.",
+    tags: ["animation", "spiral", "svg", "kinetic", "drag", "physics", "inertia", "interactive"],
+    dependencies: [],
+    props: [
+      { name: "armsCount", type: "number", default: "10", min: 3, max: 24, step: 1, description: "Number of spiral arms" },
+      { name: "curvature", type: "number", default: "75", min: -180, max: 180, step: 5, description: "Angle of arm curvature (deg)" },
+      { name: "strokeWidth", type: "number", default: "14", min: 4, max: 24, step: 1, description: "Thickness of the spiral arms (px)" },
+      { name: "color", type: "string", default: '"#ffffff"', description: "Color of the spiral arms" },
+      { name: "autoSpinSpeed", type: "number", default: "0.5", min: -5, max: 5, step: 0.1, description: "Continuous auto-spin speed" },
+      { name: "friction", type: "number", default: "0.95", min: 0.8, max: 0.99, step: 0.01, description: "Friction for drag momentum decay" },
+      { name: "interactive", type: "boolean", default: "true", description: "Enable interactive dragging and swiping" },
+      { name: "size", type: "string | number", default: "400", description: "Dimensions of the spiral canvas" },
+      { name: "maxScale", type: "number", default: "15", min: 1.5, max: 30, step: 0.5, description: "Max zoom scale factor on scroll" },
+      { name: "scrollZoom", type: "boolean", default: "true", description: "Enable scale zoom on page scroll" },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
+    ],
+    createdAt: "2026-05-25",
+  },
 ];
 
 // ────────────────────────────────────────────────────
