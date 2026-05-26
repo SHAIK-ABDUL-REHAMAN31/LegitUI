@@ -1,0 +1,235 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #030304;
+  color: #ffffff;
+  padding: 1rem;
+  overflow: hidden;
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  user-select: none;
+}
+
+/* Ambient Radial Background Glow */
+.ambientGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle,
+      rgba(236, 72, 153, 0.12) 0%,
+      rgba(99, 102, 241, 0.08) 40%,
+      rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+
+
+/* Card Showcase Grid/Area */
+.cardArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  height: 280px;
+  z-index: 5;
+}
+
+/* Container holding the absolute stacked cards */
+.cardsContainer {
+  position: relative;
+  width: 230px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base Card Styling */
+.card {
+  position: absolute;
+  width: 210px;
+  height: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 22, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform-origin: bottom center;
+  will-change: transform, opacity, filter;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Texture Overlay */
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+/* Card Glow Effect */
+.cardGlow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle, var(--glow-color, rgba(168, 85, 247, 0.3)) 0%, transparent 60%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover .cardGlow {
+  opacity: 0.85;
+}
+
+/* Card Image Wrapper & Image */
+.imageWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.imageWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.88) 100%);
+  z-index: 2;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card:hover .cardImage {
+  transform: scale(1.08);
+}
+
+/* Card Content (Text) */
+.cardContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cardSubtitle {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--theme-color, #a855f7);
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* Responsive Scaling Styles */
+@media (max-width: 900px) {
+  .container {
+    height: 100vh;
+    padding: 1rem;
+  }
+
+  .cardArea {
+    height: 220px;
+  }
+
+  .cardsContainer {
+    width: 180px;
+    height: 210px;
+  }
+
+  .card {
+    width: 170px;
+    height: 195px;
+    border-radius: 18px;
+  }
+
+  .cardContent {
+    padding: 1rem;
+  }
+
+  .cardTitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    height: 100vh;
+    padding: 0.5rem;
+  }
+
+
+
+  .cardArea {
+    height: 180px;
+  }
+
+  .cardsContainer {
+    width: 140px;
+    height: 160px;
+  }
+
+  .card {
+    width: 130px;
+    height: 150px;
+    border-radius: 14px;
+  }
+
+  .cardTitle {
+    font-size: 0.85rem;
+  }
+
+  .cardSubtitle {
+    font-size: 0.5rem;
+  }
+
+  .ambientGlow {
+    width: 350px;
+    height: 350px;
+  }
+}

@@ -74,6 +74,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'blur-cursor-text': { load: () => import('@/ui-components/BlurCursorText/BlurCursorTextUsage'), weight: 'medium' },
   'signpost-navigation': { load: () => import('@/ui-components/SignpostNavigation/SignpostNavigationUsage'), weight: 'medium' },
   'tearable-cloth': { load: () => import('@/ui-components/TearableCloth/TearableClothUsage'), weight: 'medium' },
+  'fanning-cards': { load: () => import('@/ui-components/FanningCards/FanningCardsUsage'), weight: 'medium' },
 
   // ── HEAVY — OGL / Three.js ──
   'particles-background': { load: () => import('@/ui-components/Particles/SpaceParticles'), weight: 'heavy' },

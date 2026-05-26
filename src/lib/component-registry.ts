@@ -1692,6 +1692,28 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     createdAt: "2026-05-26",
   },
+  {
+    id: "107",
+    name: "Fanning Cards",
+    slug: "fanning-cards",
+    folder: "FanningCards",
+    fileName: "FanningCards",
+    category: "Cards",
+    description: "A premium animated card gallery that staggers a series of cards outwards from the center in an elegant circular-fanned arc using GSAP.",
+    tags: ["card", "gsap", "animation", "stagger", "fan", "hover", "curved", "luxe"],
+    dependencies: ["gsap"],
+    props: [
+      { name: "badgeText", type: "string", default: '"✦ Premium Eyewear"', description: "Small pill badge text at the top" },
+      { name: "headline", type: "string", default: '"Eyewear That Stands Out"', description: "Primary main copy/headline below the cards" },
+      { name: "buttonText", type: "string", default: '"Enter Store"', description: "Text inside the CTA pill button" },
+      { name: "buttonLink", type: "string", default: '"#"', description: "Href destination link for the CTA button" },
+      { name: "animationDuration", type: "number", default: "1.1", min: 0.2, max: 3, step: 0.1, description: "Duration in seconds of the central card slide-up" },
+      { name: "scaleOffset", type: "number", default: "0.08", min: 0.02, max: 0.2, step: 0.01, description: "Scale reduction applied to outer adjacent cards to create depth" },
+      { name: "showGlow", type: "boolean", default: "true", description: "Toggle ambient radial background glow behind cards" },
+      { name: "enableHoverEffect", type: "boolean", default: "true", description: "Enable interactive card zoom, straighten, and surrounding blur/dim effects" }
+    ],
+    createdAt: "2026-05-27",
+  },
 ];
 
 // ────────────────────────────────────────────────────
