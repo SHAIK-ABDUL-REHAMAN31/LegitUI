@@ -37,6 +37,24 @@ export const categories: Category[] = [
 // ────────────────────────────────────────────────────
 export const defaultComponents: ComponentMeta[] = [
   {
+    id: "expandable-product-cards",
+    name: "Expandable Product Cards",
+    slug: "expandable-product-cards",
+    folder: "ExpandableProductCards",
+    fileName: "ExpandableProductCards",
+    category: "Cards",
+    description: "A smooth expandable accordion card gallery with hover effects using Framer Motion.",
+    dependencies: ["framer-motion"],
+    props: [
+      { name: "products", type: "ProductCard[]", description: "Array of product data" },
+      { name: "imageType", type: "'cover' | 'contain'", default: '"cover"', description: "How the image should fit" },
+      { name: "defaultExpandedIndex", type: "number", description: "Index of the initially expanded card" },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
+    ],
+    tags: ["card", "accordion", "expandable", "gallery", "framer-motion", "hover"],
+    createdAt: "2026-05-26",
+  },
+  {
     id: "1",
     name: "Shimmer Button",
     slug: "shimmer-button",

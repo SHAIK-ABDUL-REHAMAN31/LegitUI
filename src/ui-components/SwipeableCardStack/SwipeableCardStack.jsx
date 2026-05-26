@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import styles from "./SwipeableCardStack.module.css";
-import { ArrowLeft, ArrowRight, RotateCcw, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 const defaultCards = [
     {
         id: 1,
@@ -203,8 +203,8 @@ export default function SwipeableCardStack({ cards = defaultCards, swipeSpeed = 
                 </button>)}
 
             <div className={styles.stackContainer} style={{ width: cardWidth, height: cardHeight }}>
-        {/* Render in reverse order so z-index stacks naturally */}
-        {[...activeCards].reverse().map((card) => {
+                {/* Render in reverse order so z-index stacks naturally */}
+                {[...activeCards].reverse().map((card) => {
             const originalIndex = activeCards.indexOf(card);
             const isTop = originalIndex === 0;
             return (<div key={card.id} ref={(el) => {
@@ -216,39 +216,39 @@ export default function SwipeableCardStack({ cards = defaultCards, swipeSpeed = 
                     cursor: isTop ? (isDragging ? "grabbing" : "pointer") : "default",
                     "--accent-color": card.accentColor || "#a855f7",
                 }} onPointerDown={isTop ? onPointerDown : undefined} onPointerMove={isTop ? onPointerMove : undefined} onPointerUp={isTop ? onPointerUp : undefined}>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={card.image} alt={card.title} className={styles.cardImage} draggable={false}/>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={card.image} alt={card.title} className={styles.cardImage} draggable={false}/>
 
-                                {/* Gradient overlay for text readability */}
-                                <div className={styles.gradientOverlay}/>
+                            {/* Gradient overlay for text readability */}
+                            <div className={styles.gradientOverlay}/>
 
-                                {/* Textured overlay */}
-                                <div className={styles.grain}/>
+                            {/* Textured overlay */}
+                            <div className={styles.grain}/>
 
-                                {/* Ambient border accent glow */}
-                                <div className={styles.glow}/>
+                            {/* Ambient border accent glow */}
+                            <div className={styles.glow}/>
 
-                                {/* Top Metadata Header Row */}
-                                <div className={styles.header}>
-                                    <div className={styles.badge}>
-                                        <span className={styles.badgeDot}/>
-                                        <span>DESTINATION</span>
-                                    </div>
-                                    <button className={styles.arrowButton}>
-                                        <ArrowUpRight size={14}/>
-                                    </button>
+                            {/* Top Metadata Header Row */}
+                            <div className={styles.header}>
+                                <div className={styles.badge}>
+                                    <span className={styles.badgeDot}/>
+                                    <span>DESTINATION</span>
                                 </div>
+                                <button className={styles.arrowButton}>
+                                    <ArrowUpRight size={14}/>
+                                </button>
+                            </div>
 
-                                {/* Card Content Stack */}
-                                <div className={styles.cardContent}>
-                                    <h2 className={styles.title}>{card.title}</h2>
-                                    <p className={styles.description}>{card.description}</p>
-                                    {card.linkText && (<div className={styles.actionLink}>
-                                            <span>{card.linkText}</span>
-                                            <ArrowRight size={12} style={{ marginLeft: "2px" }}/>
-                                        </div>)}
-                                </div>
-                            </div>);
+                            {/* Card Content Stack */}
+                            <div className={styles.cardContent}>
+                                <h2 className={styles.title}>{card.title}</h2>
+                                <p className={styles.description}>{card.description}</p>
+                                {card.linkText && (<div className={styles.actionLink}>
+                                        <span>{card.linkText}</span>
+                                        <ArrowRight size={12} style={{ marginLeft: "2px" }}/>
+                                    </div>)}
+                            </div>
+                        </div>);
         })}
             </div>
 

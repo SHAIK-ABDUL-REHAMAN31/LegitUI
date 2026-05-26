@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 400px;
+  gap: 16px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: 600px;
+  }
+}
+
+.card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease;
+  min-width: 0;
+  min-height: 0;
+}
+
+.card:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.imageContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.productImageCover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productImageContain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 40px;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+}
+
+.overlayHovered {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  transition: all 0.4s ease;
+}
+
+.contentContainer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.largeBackgroundText {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(40px, 8vw, 100px);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.details {
+  z-index: 3;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.subtitle {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  color: #fff;
+}
+
+.buyButton {
+  margin-top: 16px;
+  padding: 12px 32px;
+  border-radius: 50px;
+  border: none;
+  background: white;
+  color: black;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.buyButton:hover {
+  transform: scale(1.05);
+  background: #f0f0f0;
+}
