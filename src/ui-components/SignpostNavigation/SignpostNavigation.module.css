@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 40px 20px;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+.pole {
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(to right, #1a1a1a, #333 30%, #1a1a1a 70%, #0a0a0a);
+  border-radius: 12px 12px 0 0;
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.5), 2px 0 8px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Add a cap to the top of the pole */
+.pole::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  right: -4px;
+  height: 16px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: inset 0 -2px 4px rgba(255, 255, 255, 0.2), 0 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.signsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 2;
+  margin-top: 40px;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.signRow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.sign {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  padding: 12px 24px 12px 48px;
+  transform: rotate(var(--base-rotation, 0deg));
+  transform-origin: center center;
+  transition: box-shadow 0.2s ease;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  /* Text outline effect for that comic/sticker look */
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    0px 4px 4px rgba(0, 0, 0, 0.5);
+  border: 3px solid #000;
+
+  /* Make it feel like a solid block */
+  position: relative;
+}
+
+/* Nails/Bolts attaching sign to the pole */
+.sign::before,
+.sign::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #444;
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.4), inset -1px -1px 2px rgba(0, 0, 0, 0.8), 0 2px 2px rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%);
+}
+
+.sign::before {
+  left: 12px;
+}
+
+.sign::after {
+  left: 28px;
+}

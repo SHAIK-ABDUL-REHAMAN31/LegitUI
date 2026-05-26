@@ -72,6 +72,8 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'scroll-snake-transition': { load: () => import('@/ui-components/ScrollSnakeTransition/ScrollSnakeTransitionUsage'), weight: 'medium' },
   'halftone-eyes': { load: () => import('@/ui-components/HalftoneEyes/HalftoneEyesUsage'), weight: 'medium' },
   'blur-cursor-text': { load: () => import('@/ui-components/BlurCursorText/BlurCursorTextUsage'), weight: 'medium' },
+  'signpost-navigation': { load: () => import('@/ui-components/SignpostNavigation/SignpostNavigationUsage'), weight: 'medium' },
+  'tearable-cloth': { load: () => import('@/ui-components/TearableCloth/TearableClothUsage'), weight: 'medium' },
 
   // ── HEAVY — OGL / Three.js ──
   'particles-background': { load: () => import('@/ui-components/Particles/SpaceParticles'), weight: 'heavy' },

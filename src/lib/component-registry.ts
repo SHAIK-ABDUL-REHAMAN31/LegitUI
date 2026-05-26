@@ -37,6 +37,42 @@ export const categories: Category[] = [
 // ────────────────────────────────────────────────────
 export const defaultComponents: ComponentMeta[] = [
   {
+    id: "signpost-navigation",
+    name: "Signpost Navigation",
+    slug: "signpost-navigation",
+    folder: "SignpostNavigation",
+    fileName: "SignpostNavigation",
+    category: "LegitComponents",
+    description: "A creative, animated signpost navigation menu with swinging hover effects.",
+    dependencies: ["lucide-react"],
+    props: [
+      { name: "items", type: "SignpostItem[]", description: "Array of navigation items with label, icon, and colors" },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
+    ],
+    tags: ["navigation", "menu", "signpost", "creative", "animated", "hover"],
+    createdAt: "2026-05-26",
+  },
+  {
+    id: "tearable-cloth",
+    name: "Tearable Cloth",
+    slug: "tearable-cloth",
+    folder: "TearableCloth",
+    fileName: "TearableCloth",
+    category: "LegitComponents",
+    description: "An interactive, high-fidelity physical cloth layer that can be torn apart using mouse drag to reveal content underneath.",
+    dependencies: ["lucide-react"],
+    props: [
+      { name: "children", type: "React.ReactNode", description: "Background content to be revealed" },
+      { name: "theme", type: "'cosmic' | 'neon-cyan' | 'cyberpunk' | 'luxury-gold'", default: "'cosmic'", description: "The color theme of the cloth" },
+      { name: "gridSpacing", type: "number", default: "16", description: "Grid density of physics points" },
+      { name: "gravity", type: "number", default: "0.22", description: "Gravity pulling the cloth points down" },
+      { name: "influenceRadius", type: "number", default: "35", description: "Radius of mouse interaction" },
+      { name: "tearSensitivity", type: "number", default: "1.7", description: "Ratio of stretch that causes links to break" }
+    ],
+    tags: ["canvas", "physics", "verlet", "tearing", "cloth", "interactive", "animation"],
+    createdAt: "2026-05-26",
+  },
+  {
     id: "expandable-product-cards",
     name: "Expandable Product Cards",
     slug: "expandable-product-cards",
