@@ -1714,6 +1714,34 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     createdAt: "2026-05-27",
   },
+  {
+    id: "108",
+    name: "Violet Arc Background",
+    slug: "violet-arc-background",
+    folder: "VioletArcBackground",
+    fileName: "VioletArcBackground",
+    category: "Backgrounds",
+    description: "A premium dark background with two crossing violet aurora arc beams, built from layered colour gradients with blur — inspired by modern SaaS hero sections.",
+    dependencies: [],
+    props: [
+      { name: "children", type: "React.ReactNode", description: "Content rendered over the background" },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
+      { name: "background", type: "string", default: '"#08060e"', description: "Dark background colour" },
+      { name: "coreColor", type: "string", default: '"rgba(221, 214, 254, 0.62)"', description: "Core innermost band colour" },
+      { name: "streakColor1", type: "string", default: '"rgba(88, 28, 135, 0.92)"', description: "Outermost deep purple band colour" },
+      { name: "streakColor2", type: "string", default: '"rgba(139, 92, 246, 0.88)"', description: "Bright violet band colour" },
+      { name: "streakColor3", type: "string", default: '"rgba(167, 139, 250, 0.78)"', description: "Medium purple band colour" },
+      { name: "glowColor", type: "string", default: '"rgba(196, 181, 253, 0.30)"', description: "Central ambient glow colour" },
+      { name: "blurAmount", type: "number", default: "24", min: 0, max: 80, step: 2, description: "Uniform blur radius in pixels applied to arc layers" },
+      { name: "arcAngle", type: "number", default: "12", min: 2, max: 25, step: 1, description: "Crossing angle of the two arc groups in degrees" },
+      { name: "speed", type: "number", default: "30", min: 0, max: 500, step: 5, description: "Animation speed multiplier (30 is normal speed)" },
+      { name: "arcScale", type: "number", default: "1", min: 0.5, max: 1.8, step: 0.05, description: "Overall scale factor for the arc group widths, heights, and thicknesses" },
+      { name: "glowIntensity", type: "number", default: "1", min: 0, max: 3, step: 0.1, description: "Opacity multiplier for the central ambient glow bloom" },
+      { name: "animated", type: "boolean", default: "true", description: "Toggle the subtle drift animation" }
+    ],
+    tags: ["background", "aurora", "violet", "arc", "gradient", "blur", "hero", "dark"],
+    createdAt: "2026-05-27",
+  },
 ];
 
 // ────────────────────────────────────────────────────

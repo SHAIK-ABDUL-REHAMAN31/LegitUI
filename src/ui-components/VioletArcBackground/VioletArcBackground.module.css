@@ -1,0 +1,232 @@
+/* ═══════════════════════════════════════════════════════════
+   VioletArcBackground — Layered crossing colour-band arcs
+   Construction: thick-bordered circles → only top arc visible
+                 two groups rotated ±angle → crossing X-pattern
+                 uniform blur applied → soft aurora glow
+   ═══════════════════════════════════════════════════════════ */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  background-color: var(--bg-color, #08060e);
+}
+
+/* ─── Blur wrapper — all bands live inside, blurred together ─── */
+.blurLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: blur(var(--blur-amount, 24px));
+  will-change: filter;
+}
+
+/* ─── Arc group containers (rotated in opposite directions) ─── */
+.arcGroupA {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(var(--angle-a, -12deg));
+  transform-origin: 50% 0%;
+}
+
+.arcGroupB {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(var(--angle-b, 12deg));
+  transform-origin: 50% 0%;
+}
+
+/* ─── Shared band base — large circle, thick border, no fill ─── */
+.band {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── Layer 1 — Outermost deep purple band ── */
+.bandOuter {
+  width: calc(180vw * var(--arc-scale, 1));
+  height: calc(180vw * var(--arc-scale, 1));
+  top: 5%;
+  border: calc(clamp(35px, 6vw, 75px) * var(--arc-scale, 1)) solid var(--color-1, rgba(88, 28, 135, 0.92));
+}
+
+/* ── Layer 2 — Bright violet band ── */
+.bandMid {
+  width: calc(155vw * var(--arc-scale, 1));
+  height: calc(155vw * var(--arc-scale, 1));
+  top: 8%;
+  border: calc(clamp(30px, 5vw, 65px) * var(--arc-scale, 1)) solid var(--color-2, rgba(139, 92, 246, 0.88));
+}
+
+/* ── Layer 3 — Medium purple band ── */
+.bandInner {
+  width: calc(130vw * var(--arc-scale, 1));
+  height: calc(130vw * var(--arc-scale, 1));
+  top: 12%;
+  border: calc(clamp(25px, 4.5vw, 55px) * var(--arc-scale, 1)) solid var(--color-3, rgba(167, 139, 250, 0.78));
+}
+
+/* ── Layer 4 — Lightest lavender/white band ── */
+.bandCore {
+  width: calc(108vw * var(--arc-scale, 1));
+  height: calc(108vw * var(--arc-scale, 1));
+  top: 16%;
+  border: calc(clamp(18px, 3.5vw, 42px) * var(--arc-scale, 1)) solid var(--color-4, rgba(221, 214, 254, 0.62));
+}
+
+/* ─── Central crossing glow bloom ─── */
+.centralGlow {
+  position: absolute;
+  width: 50%;
+  height: 22%;
+  top: 8%;
+  left: 25%;
+  border-radius: 50%;
+  opacity: var(--glow-intensity, 1);
+  background: radial-gradient(
+    ellipse 70% 100% at 50% 70%,
+    var(--glow-color, rgba(196, 181, 253, 0.30)) 0%,
+    transparent 70%
+  );
+}
+
+/* ─── Bottom fade into background ─── */
+.bottomFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to top,
+    var(--bg-color, #08060e) 0%,
+    var(--bg-color, #08060e) 20%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ─── Content overlay ─── */
+.content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS — activated via .animated on root
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Arc group breathing: slow rotation + scale oscillation ── */
+.animated .arcGroupA {
+  animation:
+    breatheA var(--breathe-dur, 12s) ease-in-out infinite alternate,
+    swayA    var(--sway-dur, 18s) ease-in-out infinite;
+}
+
+.animated .arcGroupB {
+  animation:
+    breatheB var(--breathe-dur, 12s) ease-in-out infinite alternate,
+    swayB    var(--sway-dur, 18s) ease-in-out infinite;
+}
+
+/* ── Individual band layers: staggered gentle pulsing ── */
+.animated .bandOuter {
+  animation: pulseOuter var(--pulse-dur, 10s) ease-in-out infinite alternate;
+}
+
+.animated .bandMid {
+  animation: pulseMid var(--pulse-dur, 10s) ease-in-out var(--pulse-delay-mid, 1.5s) infinite alternate;
+}
+
+.animated .bandInner {
+  animation: pulseInner var(--pulse-dur, 10s) ease-in-out var(--pulse-delay-inner, 3s) infinite alternate;
+}
+
+.animated .bandCore {
+  animation: pulseCore var(--pulse-dur, 10s) ease-in-out var(--pulse-delay-core, 4.5s) infinite alternate;
+}
+
+/* ── Central glow: pulsing brightness ── */
+.animated .centralGlow {
+  animation: glowPulse var(--glow-dur, 6s) ease-in-out infinite alternate;
+}
+
+/* ─── Keyframes ─── */
+
+/* Breathing — gentle scale up/down */
+@keyframes breatheA {
+  0%   { transform: rotate(var(--angle-a, -12deg)) scale(1); }
+  100% { transform: rotate(var(--angle-a, -12deg)) scale(1.06); }
+}
+
+@keyframes breatheB {
+  0%   { transform: rotate(var(--angle-b, 12deg)) scale(1); }
+  100% { transform: rotate(var(--angle-b, 12deg)) scale(1.06); }
+}
+
+/* Swaying — slow rotation oscillation ±3deg */
+@keyframes swayA {
+  0%   { transform: rotate(var(--angle-a, -12deg)) scale(1) translateY(0); }
+  25%  { transform: rotate(calc(var(--angle-a, -12deg) + 2deg)) scale(1.03) translateY(-6px); }
+  50%  { transform: rotate(var(--angle-a, -12deg)) scale(1.06) translateY(-2px); }
+  75%  { transform: rotate(calc(var(--angle-a, -12deg) - 1.5deg)) scale(1.02) translateY(-8px); }
+  100% { transform: rotate(var(--angle-a, -12deg)) scale(1) translateY(0); }
+}
+
+@keyframes swayB {
+  0%   { transform: rotate(var(--angle-b, 12deg)) scale(1) translateY(0); }
+  25%  { transform: rotate(calc(var(--angle-b, 12deg) - 2deg)) scale(1.03) translateY(-6px); }
+  50%  { transform: rotate(var(--angle-b, 12deg)) scale(1.06) translateY(-2px); }
+  75%  { transform: rotate(calc(var(--angle-b, 12deg) + 1.5deg)) scale(1.02) translateY(-8px); }
+  100% { transform: rotate(var(--angle-b, 12deg)) scale(1) translateY(0); }
+}
+
+/* Band pulses — subtle border-width / opacity breathing */
+@keyframes pulseOuter {
+  0%   { opacity: 0.85; transform: translateX(-50%) scale(1); }
+  100% { opacity: 1;    transform: translateX(-50%) scale(1.025); }
+}
+
+@keyframes pulseMid {
+  0%   { opacity: 0.82; transform: translateX(-50%) scale(1); }
+  100% { opacity: 1;    transform: translateX(-50%) scale(1.03); }
+}
+
+@keyframes pulseInner {
+  0%   { opacity: 0.8;  transform: translateX(-50%) scale(1); }
+  100% { opacity: 1;    transform: translateX(-50%) scale(1.035); }
+}
+
+@keyframes pulseCore {
+  0%   { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  100% { opacity: 1;    transform: translateX(-50%) scale(1.04); }
+}
+
+/* Central glow pulse */
+@keyframes glowPulse {
+  0%   { opacity: 0.6;  transform: scale(1); }
+  100% { opacity: 1;    transform: scale(1.12); }
+}
+
+/* ─── Reduced motion preference ─── */
+@media (prefers-reduced-motion: reduce) {
+  .animated .arcGroupA,
+  .animated .arcGroupB,
+  .animated .bandOuter,
+  .animated .bandMid,
+  .animated .bandInner,
+  .animated .bandCore,
+  .animated .centralGlow {
+    animation: none !important;
+  }
+}

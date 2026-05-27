@@ -35,6 +35,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'hover-reveal-card': { load: () => import('@/ui-components/HoverRevealCard/HoverRevealCardUsage'), weight: 'light' },
   'chromatic-gradient': { load: () => import('@/ui-components/ChromaticGradient/ChromaticGradientUsage'), weight: 'light' },
   'spinning-spiral': { load: () => import('@/ui-components/SpinningSpiral/SpinningSpiralUsage'), weight: 'light' },
+  'violet-arc-background': { load: () => import('@/ui-components/VioletArcBackground/VioletArcBackgroundUsage'), weight: 'light' },
 
   // ── MEDIUM — GSAP or Framer Motion ──
   'aurora-background': { load: () => import('@/ui-components/AuroraBackground/AuroraBackgroundUsage'), weight: 'medium' },
