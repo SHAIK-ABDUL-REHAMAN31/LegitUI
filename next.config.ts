@@ -13,6 +13,24 @@ const nextConfig: NextConfig = {
       "lucide-react",
     ],
   },
+
+  async headers() {
+    return [
+      {
+        source: '/PreviewVideos/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'Accept-Ranges',
+            value: 'bytes',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const withAnalyzer = withBundleAnalyzer({

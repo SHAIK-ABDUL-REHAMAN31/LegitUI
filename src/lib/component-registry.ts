@@ -110,7 +110,6 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["button", "shimmer", "animation", "cta"],
 
     createdAt: "2024-01-15",
-    previewVideo: "/sample.mp4",
   },
   {
     id: "2",
@@ -130,7 +129,6 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     tags: ["card", "glow", "interactive", "hover"],
     createdAt: "2024-01-14",
-    previewVideo: "/sample.mp4",
   },
   {
     id: "4",
@@ -188,7 +186,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "glowIntensity", type: "number", default: "0.4", min: 0, max: 0.5, step: 0.01, description: "Background glow opacity" },
     ],
     tags: ["border", "animation", "gradient", "container"],
-
+    previewVideo: true,
     createdAt: "2024-01-15",
   },
   {
@@ -548,7 +546,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "centralSubtitle", type: "string", default: '"Collection"', description: "Small subtitle under central text" },
     ],
     tags: ["3d", "gallery", "carousel", "framer-motion", "interactive", "images"],
-
     createdAt: "2026-04-26",
   },
   {
@@ -569,7 +566,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "fov", type: "number", default: "55", description: "Camera field of view", min: 30, max: 120, step: 1 },
     ],
     tags: ["3d", "gallery", "carousel", "scroll", "threejs", "r3f", "interactive"],
-
     createdAt: "2026-04-26",
   },
   {
@@ -590,7 +586,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", description: "Additional CSS class for the container", default: '""' }
     ],
     tags: ["text", "reveal", "scroll", "gsap", "animation", "wipe"],
-
     createdAt: "2026-04-26",
   },
   {
@@ -614,7 +609,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "scrub", type: "boolean", default: "false", description: "Tie animation to scroll progress" },
     ],
     tags: ["text", "fade", "stagger", "gsap", "animation", "hero", "intro"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -634,7 +628,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "fontSize", type: "string", default: '"clamp(3rem, 10vw, 9rem)"', description: "CSS font-size for the heading" },
     ],
     tags: ["text", "3d", "framer-motion", "scroll", "animation", "cinematic", "blur"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -650,7 +643,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "text", type: "string", default: '"GSAP Scale + Blur Reveal"', description: "The text to animate" },
     ],
     tags: ["text", "gsap", "scroll", "animation", "blur", "scale"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -667,7 +659,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "subtitle", type: "string", default: '"Our bespoke animation engine delivers fluid, high-fidelity transitions that captivate users and define modern web aesthetics."', description: "The subtitle text below the main heading" },
     ],
     tags: ["text", "gsap", "framer-motion", "stagger", "slide", "reveal"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -687,7 +678,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "typing", "cursor", "gsap", "framer-motion", "animation"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -706,7 +696,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "cursor", type: "boolean", default: "true", description: "Whether to show the blinking cursor" },
     ],
     tags: ["text", "typewriter", "classic", "animation"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -730,7 +719,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "pixel", "animation", "gsap", "canvas", "digital"],
-
     createdAt: "2026-04-28",
   },
   {
@@ -1230,7 +1218,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["scroll", "cinematic", "horizontal", "gsap", "framer-motion", "lenis", "parallax"],
-
+    previewVideo: true,
     createdAt: "2026-05-08",
   },
   {
@@ -1247,7 +1235,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["scroll", "curved", "typography", "gsap", "framer-motion", "gallery", "perspective"],
-
+    previewVideo: true,
     createdAt: "2026-05-08",
   },
   {
@@ -1263,7 +1251,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "rows", type: "MarqueeRow[]", description: "Array of rows containing image URLs and scroll speed" }
     ],
     tags: ["scroll", "marquee", "infinite", "gsap", "image", "perspective", "velocity"],
-
+    previewVideo: true,
     createdAt: "2026-05-10",
   },
   {
@@ -1278,8 +1266,8 @@ export const defaultComponents: ComponentMeta[] = [
     props: [
       { name: "chapters", type: "StoryChapter[]", description: "Array of chapters containing title, description, and image URL" }
     ],
-    tags: ["scroll", "editorial", "storytelling", "gsap", "split-type", "cinematic", "image", "text"],
-
+    tags: ["scroll", "editorial", "storytelling", "cinematic", "gsap", "parallax", "lenis"],
+    previewVideo: true,
     createdAt: "2026-05-10",
   },
   {
@@ -1296,7 +1284,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "renderCount", type: "number", default: "15", description: "Total number of images in the trail train" }
     ],
     tags: ["cursor", "mouse", "trail", "gsap", "image", "kinetic"],
-
+    previewVideo: true,
     createdAt: "2026-05-10",
   },
   {
@@ -1315,7 +1303,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "buttonText", type: "string", default: '"Join Us"', description: "Text for the central button" }
     ],
     tags: ["orbit", "circular", "space", "stars", "hover", "gsap", "team", "community"],
-
+    previewVideo: true,
     createdAt: "2026-05-10",
   },
   {
@@ -1328,8 +1316,8 @@ export const defaultComponents: ComponentMeta[] = [
     description: "A macOS-style dock with magnetic 3D scaling, smooth physics, and interactive glow effects.",
     dependencies: ["gsap"],
     props: [],
-    tags: ["macos", "dock", "magnetic", "gsap", "physics", "interactive"],
-
+    tags: ["navigation", "dock", "magnetic", "macos", "framer-motion", "interactive", "hover"],
+    previewVideo: true,
     createdAt: "2026-05-11",
   },
   {
@@ -1351,7 +1339,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
     ],
     tags: ["ascii", "text", "animation"],
-
     createdAt: "2026-05-11",
   },
   {
@@ -1365,7 +1352,6 @@ export const defaultComponents: ComponentMeta[] = [
     dependencies: [],
     props: [],
     tags: ["horizon", "gradient", "space", "celestial", "background"],
-
     createdAt: "2026-05-11",
   },
   {
@@ -1385,7 +1371,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "particleSpeed", type: "number", default: "3", description: "Speed of the particles (duration in seconds)" },
     ],
     tags: ["network", "nodes", "particles", "svg", "framer-motion", "connections"],
-
     createdAt: "2026-05-15",
   },
   {
@@ -1402,7 +1387,6 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", description: "Optional CSS class" }
     ],
     tags: ["timeline", "steps", "scroll", "framer-motion", "cards", "vertical"],
-
     createdAt: "2026-05-15",
   },
   {
@@ -1544,7 +1528,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", description: "Additional CSS class", default: '""' }
     ],
     tags: ["animation", "carousel", "orbit", "circular", "framer-motion", "gallery", "premium"],
-
+    previewVideo: true,
     createdAt: "2026-05-16",
   },
   {
@@ -1581,7 +1565,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "staggerDelay", type: "number", description: "Stagger delay between circle reveals (s)", default: "0.4" }
     ],
     tags: ["transition", "animation", "scroll", "interactive", "framer-motion", "page"],
-
+    previewVideo: true,
     createdAt: "2026-05-23",
   },
   {
@@ -1599,6 +1583,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "animationDuration", type: "number", description: "Snake drawing duration (s)", default: "4" }
     ],
     tags: ["transition", "animation", "scroll", "interactive", "framer-motion", "svg", "snake", "solid"],
+    previewVideo: true,
     createdAt: "2026-05-23",
   },
   {
@@ -1626,6 +1611,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "eyeDistance", type: "number", default: "40", min: 0, max: 200, step: 5, description: "Distance between the two eyes (px)" },
       { name: "ambientDrift", type: "boolean", default: "true", description: "Enable organic micro-saccadic eye movements when idle" }
     ],
+    previewVideo: true,
     createdAt: "2026-05-24",
   },
   {
@@ -1670,6 +1656,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "scrollZoom", type: "boolean", default: "true", description: "Enable scale zoom on page scroll" },
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
+    previewVideo: true,
     createdAt: "2026-05-25",
   },
   {
@@ -1742,30 +1729,7 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["background", "aurora", "violet", "arc", "gradient", "blur", "hero", "dark"],
     createdAt: "2026-05-27",
   },
-  {
-    id: "alive-gradient",
-    name: "Alive Gradient",
-    slug: "alive-gradient",
-    folder: "AliveGradient",
-    fileName: "AliveGradient",
-    category: "Backgrounds",
-    description: "A highly dynamic, organic moving gradient background. Features liquid-like warm and cool energy flows with customizable colors, warp distortion, and speed.",
-    dependencies: ["ogl"],
-    props: [
-      { name: "background", type: "string", default: '"#020205"', description: "Deep background void color" },
-      { name: "color1", type: "string", default: '"#ea580c"', description: "Warm outer orange glow color" },
-      { name: "color2", type: "string", default: '"#eab308"', description: "Warm inner gold core color" },
-      { name: "color3", type: "string", default: '"#2563eb"', description: "Cool outer blue glow color" },
-      { name: "color4", type: "string", default: '"#ffffff"', description: "Cool inner white core color" },
-      { name: "color5", type: "string", default: '"#10b981"', description: "Iridescent green edge color" },
-      { name: "speed", type: "number", default: "0.35", min: 0.05, max: 2, step: 0.05, description: "Animation flow speed" },
-      { name: "intensity", type: "number", default: "1.0", min: 0.1, max: 2.0, step: 0.1, description: "Glow brightness intensity" },
-      { name: "distortion", type: "number", default: "0.4", min: 0.0, max: 1.5, step: 0.05, description: "Organic fluid warp distortion strength" },
-      { name: "glowSize", type: "number", default: "1.0", min: 0.2, max: 3.0, step: 0.1, description: "Glow radius size multiplier" }
-    ],
-    tags: ["background", "gradient", "webgl", "ogl", "fluid", "alive", "glow", "organic"],
-    createdAt: "2026-06-01",
-  },
+
 ];
 
 // ────────────────────────────────────────────────────

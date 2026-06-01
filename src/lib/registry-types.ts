@@ -65,7 +65,7 @@ export interface ComponentRegistryEntry {
   isUpdated?: boolean;
   createdAt: string;     // ISO date string
   updatedAt?: string;
-  previewVideo?: string;
+  previewVideo?: boolean;
   previewImage?: string;
 }
 

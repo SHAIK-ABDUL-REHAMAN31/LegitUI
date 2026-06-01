@@ -1,11 +1,12 @@
 "use client";
 
 // ════════════════════════════════════════════════════════════════
-// ComponentCard — Phase 10.1: Viewport-aware lazy loading
+// ComponentCard — Phase 10.2: WebM video previews with fallback
 // ════════════════════════════════════════════════════════════════
-// Cards on the listing page no longer load video/image previews
-// until the card enters the viewport (IntersectionObserver) or
-// the user hovers. This dramatically reduces initial page weight.
+// Cards with previewVideo: true auto-play a looping, muted WebM
+// video when the card enters the viewport (IntersectionObserver).
+// Cards without videos continue to show the placeholder icon.
+// WebM source first (Chrome/Firefox/Edge), MP4 fallback (Safari).
 // ════════════════════════════════════════════════════════════════
 
 import Link from "next/link";
@@ -70,8 +71,9 @@ export default function ComponentCard({ component }: ComponentCardProps) {
   const [videoReady, setVideoReady] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
-  // Phase 10.1: Viewport detection — only load media when visible
+  // Viewport detection — load media 200px before card enters viewport
   const [isInViewport, setIsInViewport] = useState(false);
+  const [hasStartedLoading, setHasStartedLoading] = useState(false);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -81,15 +83,32 @@ export default function ComponentCard({ component }: ComponentCardProps) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInViewport(true);
-          observer.disconnect(); // Once visible, stay activated
+          if (!hasStartedLoading) {
+            setHasStartedLoading(true);
+          }
+        } else {
+          setIsInViewport(false);
         }
       },
-      { rootMargin: "100px", threshold: 0.05 }
+      { rootMargin: "200px", threshold: 0 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [hasStartedLoading]);
+
+  // Play when in viewport, pause when out — saves GPU and battery
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoReady) return;
+
+    if (isInViewport) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [isInViewport, videoReady]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -102,25 +121,19 @@ export default function ComponentCard({ component }: ComponentCardProps) {
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
-    setIsInViewport(true); // Force activate on hover
-    if (videoRef.current && component.previewVideo && !videoError) {
-      videoRef.current.play().catch(() => {
-        // autoplay may fail silently
-      });
-    }
-  }, [component.previewVideo, videoError]);
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   }, []);
 
   const handleVideoCanPlay = useCallback(() => {
     setVideoReady(true);
-  }, []);
+    const video = videoRef.current;
+    if (video && isInViewport) {
+      video.play().catch(() => {});
+    }
+  }, [isInViewport]);
 
   const handleVideoError = useCallback(() => {
     setVideoError(true);
@@ -132,8 +145,8 @@ export default function ComponentCard({ component }: ComponentCardProps) {
   const hasVideo = !!component.previewVideo && !videoError;
   const hasFallbackImage = !!component.previewImage;
 
-  // Phase 10.1: Only render media when in viewport or hovered
-  const shouldLoadMedia = isInViewport || isHovered;
+  // Only render media when near viewport
+  const shouldLoadMedia = hasStartedLoading;
 
   return (
     <Link href={`/components/${component.slug}`} className={styles.link}>
@@ -166,33 +179,43 @@ export default function ComponentCard({ component }: ComponentCardProps) {
             )}
           </div>
 
-          {/* Video Preview — only rendered when in viewport */}
+          {/* Video Preview — only rendered when near viewport */}
           {hasVideo && shouldLoadMedia && (
             <>
               {/* Loading skeleton - shown while video is loading */}
-              {!videoReady && isHovered && (
+              {!videoReady && (
                 <div className={styles.videoSkeleton} />
               )}
 
-              {/* The actual video element */}
+              {/* The actual video element — WebM first, MP4 fallback */}
               <video
                 ref={videoRef}
-                src={component.previewVideo}
                 muted
                 loop
                 playsInline
-                preload="none"
+                preload="metadata"
                 onCanPlay={handleVideoCanPlay}
                 onError={handleVideoError}
                 className={styles.previewVideo}
                 style={{
-                  opacity: isHovered && videoReady ? 1 : 0,
+                  opacity: videoReady ? 1 : 0,
                 }}
-              />
+              >
+                {/* WebM first — Chrome, Firefox, Edge (smaller file) */}
+                <source
+                  src={`/PreviewVideos/${component.slug}.webm`}
+                  type="video/webm"
+                />
+                {/* MP4 fallback — Safari */}
+                <source
+                  src={`/PreviewVideos/${component.slug}.mp4`}
+                  type="video/mp4"
+                />
+              </video>
             </>
           )}
 
-          {/* Fallback image — only when in viewport */}
+          {/* Fallback image — only when near viewport */}
           {hasFallbackImage && !hasVideo && shouldLoadMedia && (
             <img
               src={component.previewImage}
@@ -208,7 +231,7 @@ export default function ComponentCard({ component }: ComponentCardProps) {
             style={{
               transform: isHovered ? "scale(1.1)" : "scale(1)",
               opacity:
-                isHovered && hasVideo && videoReady ? 0 : undefined,
+                hasVideo && videoReady ? 0 : undefined,
             }}
           >
             {visual.icon}
@@ -237,3 +260,4 @@ export default function ComponentCard({ component }: ComponentCardProps) {
     </Link>
   );
 }
+
