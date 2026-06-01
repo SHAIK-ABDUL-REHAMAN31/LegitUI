@@ -1,0 +1,104 @@
+/* ═══════════════════════════════════════════════════════
+   AliveGradient.module.css
+   Highly fluid, organic moving gradient background
+   ═══════════════════════════════════════════════════════ */
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg-color, #020205);
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── CSS Fallback (active if WebGL fails) ─── */
+.fallback {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--bg-color, #020205);
+  z-index: 0;
+}
+
+.fallbackBlur {
+  position: absolute;
+  inset: 0;
+  filter: blur(100px);
+  opacity: calc(var(--intensity, 1.0) * 0.85);
+}
+
+.fallbackWarm {
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  bottom: -10%;
+  left: -10%;
+  background: radial-gradient(
+    circle,
+    var(--color-2, #eab308) 0%,
+    var(--color-1, #ea580c) 45%,
+    transparent 70%
+  );
+  animation: fallback-warm-drift 12s ease-in-out infinite alternate;
+}
+
+.fallbackCool {
+  position: absolute;
+  width: 80vw;
+  height: 80vw;
+  border-radius: 50%;
+  top: -10%;
+  right: -10%;
+  background: radial-gradient(
+    circle,
+    var(--color-4, #ffffff) 0%,
+    var(--color-3, #2563eb) 35%,
+    var(--color-5, #10b981) 60%,
+    transparent 75%
+  );
+  animation: fallback-cool-drift 16s ease-in-out infinite alternate;
+}
+
+@keyframes fallback-warm-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8vw, -12vh) scale(1.15);
+  }
+  100% {
+    transform: translate(-5vw, 6vh) scale(0.9);
+  }
+}
+
+@keyframes fallback-cool-drift {
+  0% {
+    transform: translate(0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate(-10vw, 15vh) scale(0.9);
+  }
+  100% {
+    transform: translate(6vw, -8vh) scale(1.15);
+  }
+}

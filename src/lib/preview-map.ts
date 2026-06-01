@@ -97,6 +97,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'silk-gradient': { load: () => import('@/ui-components/SilkGradient/SilkGradientUsage'), weight: 'heavy' },
   'dark-ambient-gradient': { load: () => import('@/ui-components/DarkAmbientGradient/DarkAmbientGradientUsage'), weight: 'heavy' },
   'hyperspeed-light-tunnel': { load: () => import('@/ui-components/HyperspeedLightTunnel/HyperspeedLightTunnelUsage'), weight: 'heavy' },
+  'alive-gradient': { load: () => import('@/ui-components/AliveGradient/AliveGradientUsage'), weight: 'heavy' },
   'liquid-chrome-particles': { load: () => import('@/ui-components/LiquidChrome/LiquidChromeParticlesUsage'), weight: 'extreme' },
 
   // ── EXTREME — R3F + postprocessing / multiple heavy deps ──

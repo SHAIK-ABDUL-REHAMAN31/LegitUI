@@ -1742,6 +1742,30 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["background", "aurora", "violet", "arc", "gradient", "blur", "hero", "dark"],
     createdAt: "2026-05-27",
   },
+  {
+    id: "alive-gradient",
+    name: "Alive Gradient",
+    slug: "alive-gradient",
+    folder: "AliveGradient",
+    fileName: "AliveGradient",
+    category: "Backgrounds",
+    description: "A highly dynamic, organic moving gradient background. Features liquid-like warm and cool energy flows with customizable colors, warp distortion, and speed.",
+    dependencies: ["ogl"],
+    props: [
+      { name: "background", type: "string", default: '"#020205"', description: "Deep background void color" },
+      { name: "color1", type: "string", default: '"#ea580c"', description: "Warm outer orange glow color" },
+      { name: "color2", type: "string", default: '"#eab308"', description: "Warm inner gold core color" },
+      { name: "color3", type: "string", default: '"#2563eb"', description: "Cool outer blue glow color" },
+      { name: "color4", type: "string", default: '"#ffffff"', description: "Cool inner white core color" },
+      { name: "color5", type: "string", default: '"#10b981"', description: "Iridescent green edge color" },
+      { name: "speed", type: "number", default: "0.35", min: 0.05, max: 2, step: 0.05, description: "Animation flow speed" },
+      { name: "intensity", type: "number", default: "1.0", min: 0.1, max: 2.0, step: 0.1, description: "Glow brightness intensity" },
+      { name: "distortion", type: "number", default: "0.4", min: 0.0, max: 1.5, step: 0.05, description: "Organic fluid warp distortion strength" },
+      { name: "glowSize", type: "number", default: "1.0", min: 0.2, max: 3.0, step: 0.1, description: "Glow radius size multiplier" }
+    ],
+    tags: ["background", "gradient", "webgl", "ogl", "fluid", "alive", "glow", "organic"],
+    createdAt: "2026-06-01",
+  },
 ];
 
 // ────────────────────────────────────────────────────
