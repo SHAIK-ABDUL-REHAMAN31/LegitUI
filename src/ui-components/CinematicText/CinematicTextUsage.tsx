@@ -6,16 +6,16 @@ import CinematicText from "./CinematicText";
 export const CinematicTextUsage = () => {
     const [text, setText] = useState("LegitUI");
     const [subtitle, setSubtitle] = useState("Open Source Component Library");
-    const [activeColor, setActiveColor] = useState("#000000ff");
-    const [inactiveColor, setInactiveColor] = useState("#1a1a2e");
-    const [fontSize, setFontSize] = useState("clamp(3rem, 10vw, 9rem)");
+    const [activeColor, setActiveColor] = useState<string>("#ffffffff");
+    const [inactiveColor, setInactiveColor] = useState<string>("#333333");
+    const [fontSize, setFontSize] = useState<string>("clamp(3rem, 10vw, 9rem)");
 
     return (
-        <div style={{ padding: "2rem", fontFamily: "sans-serif", backgroundColor: "#ffffffff", color: "#fff", minHeight: "150vh" }}>
+        <div style={{ padding: "2rem", fontFamily: "sans-serif", backgroundColor: "#000000", color: "#fff", minHeight: "150vh" }}>
 
 
-            <div style={{ height: "40vh", display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed #333", borderRadius: "8px", marginBottom: "2rem" }}>
-                <p style={{ color: "black" }}>Scroll down to see the animation</p>
+            <div style={{ height: "40vh", display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed #555", borderRadius: "8px", marginBottom: "2rem" }}>
+                <p style={{ color: "white" }}>Scroll down to see the animation</p>
             </div>
 
             <CinematicText

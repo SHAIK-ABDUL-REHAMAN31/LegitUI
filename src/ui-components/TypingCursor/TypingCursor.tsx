@@ -11,6 +11,9 @@ interface TypingCursorProps {
     delay?: number;
     className?: string;
     fontSize?: string;
+    textColor?: string;
+    backgroundColor?: string;
+    cursorColor?: string;
 }
 
 /**
@@ -30,6 +33,9 @@ const TypingCursor: React.FC<TypingCursorProps> = ({
     delay = 0.5,
     className = "",
     fontSize,
+    textColor = "#ffffff",
+    backgroundColor = "#000000",
+    cursorColor,
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const charsRef = useRef<(HTMLSpanElement | null)[]>([]);
@@ -74,13 +80,17 @@ const TypingCursor: React.FC<TypingCursorProps> = ({
         return () => {
             tl.kill();
         };
-    }, [text, typingSpeed, delay]);
+    }, [text, typingSpeed, delay, textColor, backgroundColor, cursorColor]);
 
     return (
         <div
             className={`${styles.container} ${className}`}
             ref={containerRef}
-            style={{ fontSize: fontSize || undefined }}
+            style={{ 
+                fontSize: fontSize || undefined, 
+                color: textColor,
+                backgroundColor: backgroundColor
+            }}
         >
             <span className={styles.gradientText}>
                 {text.split("").map((char, index) => (
@@ -96,6 +106,7 @@ const TypingCursor: React.FC<TypingCursorProps> = ({
                 ))}
                 <motion.span
                     className={styles.cursor}
+                    style={cursorColor ? { background: cursorColor, boxShadow: `0 0 10px ${cursorColor}` } : undefined}
                 />
             </span>
         </div>

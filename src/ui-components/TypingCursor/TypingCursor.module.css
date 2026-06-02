@@ -3,7 +3,7 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 2rem;
     font-weight: 700;
-    color: #000000;
+    color: #ffffff;
     line-height: 1.2;
     position: relative;
     letter-spacing: -0.02em;
@@ -47,5 +47,5 @@
 }
 
 .gradientText {
-    color: #000000;
+    color: inherit;
 }

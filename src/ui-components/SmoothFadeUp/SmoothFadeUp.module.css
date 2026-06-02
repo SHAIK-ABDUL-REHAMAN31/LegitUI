@@ -9,7 +9,7 @@
   min-height: 100vh;
   width: 100%;
   padding: 2rem 1.5rem;
-  background: #ffffff;
+  background: #000000;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -32,9 +32,9 @@
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: #000000;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   will-change: transform, opacity;
 }
 
@@ -44,7 +44,7 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  color: #000000;
+  color: #ffffff;
   margin: 0;
   will-change: transform, opacity;
 }
@@ -54,7 +54,7 @@
   font-size: clamp(1.05rem, 2vw, 1.35rem);
   font-weight: 400;
   line-height: 1.5;
-  color: #000000;
+  color: #a1a1aa;
   margin: 0;
   max-width: 540px;
   will-change: transform, opacity;
@@ -64,7 +64,7 @@
 .description {
   font-size: 0.95rem;
   line-height: 1.7;
-  color: #333333;
+  color: #a1a1aa;
   margin: 0;
   max-width: 520px;
   will-change: transform, opacity;
@@ -75,7 +75,7 @@
   width: 48px;
   height: 3px;
   border-radius: 9999px;
-  background: linear-gradient(90deg, #000000, #333333);
+  background: linear-gradient(90deg, #ffffff, #a1a1aa);
   will-change: transform, opacity;
 }
 

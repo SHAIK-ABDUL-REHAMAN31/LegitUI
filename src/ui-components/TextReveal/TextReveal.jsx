@@ -23,23 +23,39 @@ const ScrollWipeText = ({
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            // Animate each character to full opacity and active color
-            gsap.to(charsRef.current, {
-                opacity: opacityEnd,
-                color: activeColor,
-                ease: "none",
-                stagger: 0.1, // Staggers the effect character by character
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 65%", // Adjusted start so the first letter fades naturally
-                    end: "bottom center",
-                    scrub: 1, // Smooth scrubbing
+            // Animate each character with a complex premium reveal
+            gsap.fromTo(charsRef.current, 
+                {
+                    opacity: opacityStart,
+                    color: inactiveColor,
+                    y: 40,
+                    rotationX: -50,
+                    rotationY: 10,
+                    scale: 0.8,
+                    filter: "blur(10px)",
                 },
-            });
+                {
+                    opacity: opacityEnd,
+                    color: activeColor,
+                    y: 0,
+                    rotationX: 0,
+                    rotationY: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    ease: "power2.out",
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 80%",
+                        end: "bottom center",
+                        scrub: 1.5,
+                    },
+                }
+            );
         });
 
         return () => ctx.revert();
-    }, [activeColor, opacityEnd]);
+    }, [activeColor, inactiveColor, opacityStart, opacityEnd]);
 
     return (
         <div
@@ -56,7 +72,7 @@ const ScrollWipeText = ({
                             color: inactiveColor,
                             opacity: opacityStart,
                             whiteSpace: char === " " ? "pre" : "normal",
-                            willChange: "opacity, color"
+                            willChange: "opacity, color, transform, filter"
                         }}
                     >
                         {char}

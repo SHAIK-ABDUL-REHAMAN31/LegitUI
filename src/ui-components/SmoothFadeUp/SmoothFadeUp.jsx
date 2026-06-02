@@ -10,19 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
  * Each child element (heading, paragraph, badge, button …) fades in from
  * below with a staggered delay, creating a polished "rising curtain" feel.
  */
-const SmoothFadeUp = ({ heading = "Elevate Your Experience", subheading = "Crafted with precision. Designed for impact.", description = "A smooth, staggered fade‑in from below — the gold‑standard motion pattern used by the world's best landing pages to guide focus and build anticipation.", badge = "✦ Introducing", distance = 60, duration = 1, stagger = 0.15, ease = "power3.out", scrub = false, }) => {
+const SmoothFadeUp = ({ heading = "Elevate Your Experience", subheading = "Crafted with precision. Designed for impact.", description = "A smooth, staggered fade‑in from below — the gold‑standard motion pattern used by the world's best landing pages to guide focus and build anticipation.", badge = "✦ Introducing", distance = 60, duration = 1.2, stagger = 0.15, ease = "power3.out", scrub = false, showButtons = true, showDivider = true }) => {
     const sectionRef = useRef(null);
     const itemsRef = useRef([]);
     useEffect(() => {
         const els = itemsRef.current.filter(Boolean);
         const ctx = gsap.context(() => {
             // Starting state
-            gsap.set(els, { opacity: 0, y: distance });
+            gsap.set(els, { opacity: 0, y: distance, filter: "blur(10px)", scale: 0.95 });
             if (scrub) {
                 /* ── Scroll‑driven version ─────────────────── */
                 gsap.to(els, {
                     opacity: 1,
                     y: 0,
+                    filter: "blur(0px)",
+                    scale: 1,
                     ease: "none",
                     stagger: 0.1,
                     scrollTrigger: {
@@ -37,12 +39,14 @@ const SmoothFadeUp = ({ heading = "Elevate Your Experience", subheading = "Craft
                 /* ── Auto‑play version (fires once on enter) ─ */
                 ScrollTrigger.create({
                     trigger: sectionRef.current,
-                    start: "top 80%",
+                    start: "top 85%",
                     once: true,
                     onEnter: () => {
                         gsap.to(els, {
                             opacity: 1,
                             y: 0,
+                            filter: "blur(0px)",
+                            scale: 1,
                             duration,
                             ease,
                             stagger,
@@ -66,8 +70,18 @@ const SmoothFadeUp = ({ heading = "Elevate Your Experience", subheading = "Craft
                     </span>)}
 
                 {/* ── Heading ───────────────────────────── */}
-                <h1 ref={addRef} className={styles.heading}>
-                    {heading}
+                <h1 className={styles.heading}>
+                    {Array.isArray(heading) ? (
+                        heading.map((line, idx) => (
+                            <span key={idx} ref={addRef} style={{ display: "block" }}>
+                                {line}
+                            </span>
+                        ))
+                    ) : (
+                        <span ref={addRef} style={{ display: "block" }}>
+                            {heading}
+                        </span>
+                    )}
                 </h1>
 
                 {/* ── Subheading ────────────────────────── */}
@@ -81,17 +95,19 @@ const SmoothFadeUp = ({ heading = "Elevate Your Experience", subheading = "Craft
                     </p>)}
 
                 {/* ── Decorative divider ────────────────── */}
-                <span ref={addRef} className={styles.divider}/>
+                {showDivider && <span ref={addRef} className={styles.divider}/>}
 
                 {/* ── CTA Buttons ───────────────────────── */}
-                <div ref={addRef} className={styles.buttonGroup}>
-                    <button className={styles.primaryBtn}>
-                        Get Started
-                    </button>
-                    <button className={styles.secondaryBtn}>
-                        Learn More
-                    </button>
-                </div>
+                {showButtons && (
+                    <div ref={addRef} className={styles.buttonGroup}>
+                        <button className={styles.primaryBtn}>
+                            Get Started
+                        </button>
+                        <button className={styles.secondaryBtn}>
+                            Learn More
+                        </button>
+                    </div>
+                )}
             </div>
         </section>);
 };

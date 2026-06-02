@@ -14,7 +14,7 @@ import styles from "./TypingCursor.module.css";
  * - Gradient text support
  * - Hardware-accelerated animations
  */
-const TypingCursor = ({ text, typingSpeed = 0.04, delay = 0.5, className = "", fontSize, }) => {
+const TypingCursor = ({ text, typingSpeed = 0.04, delay = 0.5, className = "", fontSize, textColor = "#ffffff", backgroundColor = "#000000", cursorColor, }) => {
     const containerRef = useRef(null);
     const charsRef = useRef([]);
     useEffect(() => {
@@ -53,8 +53,12 @@ const TypingCursor = ({ text, typingSpeed = 0.04, delay = 0.5, className = "", f
         return () => {
             tl.kill();
         };
-    }, [text, typingSpeed, delay]);
-    return (<div className={`${styles.container} ${className}`} ref={containerRef} style={{ fontSize: fontSize || undefined }}>
+    }, [text, typingSpeed, delay, textColor, backgroundColor, cursorColor]);
+    return (<div className={`${styles.container} ${className}`} ref={containerRef} style={{ 
+            fontSize: fontSize || undefined,
+            color: textColor,
+            backgroundColor: backgroundColor
+        }}>
             <span className={styles.gradientText}>
                 {text.split("").map((char, index) => (<span key={`${char}-${index}`} ref={(el) => {
                 if (el)
@@ -62,7 +66,7 @@ const TypingCursor = ({ text, typingSpeed = 0.04, delay = 0.5, className = "", f
             }} className={styles.char}>
                         {char === " " ? "\u00A0" : char}
                     </span>))}
-                <motion.span className={styles.cursor}/>
+                <motion.span className={styles.cursor} style={cursorColor ? { background: cursorColor, boxShadow: `0 0 10px ${cursorColor}` } : undefined}/>
             </span>
         </div>);
 };

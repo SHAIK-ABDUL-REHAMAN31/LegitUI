@@ -24,6 +24,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  perspective: 1000px;
 }
 
 @media (min-width: 768px) {

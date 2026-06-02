@@ -14,6 +14,12 @@ interface TypewriterTextProps {
   className?: string;
   /** Whether to show the blinking cursor. @default true */
   cursor?: boolean;
+  /** Custom text color. */
+  textColor?: string;
+  /** Custom background color. */
+  backgroundColor?: string;
+  /** Custom font size. */
+  fontSize?: string;
 }
 
 const TypewriterText: React.FC<TypewriterTextProps> = ({
@@ -22,14 +28,25 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   delay = 0,
   className = '',
   cursor = true,
+  textColor = '#ffffff',
+  backgroundColor = '#000000',
+  fontSize,
 }) => {
   const [displayed, setDisplayed] = useState('');
   const [started, setStarted] = useState(false);
 
+  // Reset states to restart typing when key props change
   useEffect(() => {
-    const delayTimer = setTimeout(() => setStarted(true), delay);
-    return () => clearTimeout(delayTimer);
-  }, [delay]);
+    setDisplayed('');
+    setStarted(false);
+  }, [text, speed, delay, textColor, backgroundColor, fontSize]);
+
+  useEffect(() => {
+    if (!started) {
+      const delayTimer = setTimeout(() => setStarted(true), delay);
+      return () => clearTimeout(delayTimer);
+    }
+  }, [started, delay]);
 
   useEffect(() => {
     if (!started) return;
@@ -42,7 +59,13 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   }, [displayed, started, text, speed]);
 
   return (
-    <span className={`${styles.text} ${className}`}>
+    <span 
+      className={`${styles.text} ${className}`}
+      style={{
+        color: textColor,
+        fontSize: fontSize || undefined
+      }}
+    >
       {displayed}
       {cursor && <span className={styles.cursor} />}
     </span>

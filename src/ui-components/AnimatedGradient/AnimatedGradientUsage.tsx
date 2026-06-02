@@ -4,7 +4,7 @@ import AnimatedGradientText from "./AnimatedGradient";
 
 const AnimatedGradientUsage = () => {
     return (
-        <div className="w-full min-h-screen flex flex-col items-center justify-center bg-white">
+        <div className="w-full min-h-screen flex flex-col items-center justify-center bg-black">
             <AnimatedGradientText
                 text="Beautifully Crafted"
             />

@@ -1,14 +1,11 @@
 import StaggeredWordSlide from "./StaggeredWordSlide";
 
-const Usage = () => {
+const StaggeredWordSlideUsage = (props) => {
     return (
-        <div>
-            <StaggeredWordSlide
-                text="The Future of Digital Interaction"
-                subtitle="Experience the next generation of web animation with our premium effects."
-            />
+        <div style={{ background: props.backgroundColor || "#000000", minHeight: "100vh" }}>
+            <StaggeredWordSlide {...props} />
         </div>
     );
 };
 
-export default Usage;
+export default StaggeredWordSlideUsage;

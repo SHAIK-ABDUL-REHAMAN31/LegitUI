@@ -50,6 +50,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
     ],
     tags: ["navigation", "menu", "signpost", "creative", "animated", "hover"],
+    previewVideo: true,
     createdAt: "2026-05-26",
   },
   {
@@ -88,6 +89,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
     ],
     tags: ["card", "accordion", "expandable", "gallery", "framer-motion", "hover"],
+    previewVideo: true,
     createdAt: "2026-05-26",
   },
   {
@@ -356,7 +358,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS class" },
     ],
     tags: ["background", "neon", "waves", "webgl", "interactive", "3d", "three"],
-
+    previewVideo: true,
     createdAt: "2024-01-16",
   },
   {
@@ -375,7 +377,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS class" },
     ],
     tags: ["background", "3d", "three", "webgl", "mirror", "capsules"],
-
+    previewVideo: true,
     createdAt: "2024-01-16",
   },
   {
@@ -399,7 +401,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "color6", type: "string", default: '"#99ccff"', description: "Left edge highlight color" }
     ],
     tags: ["background", "webgl", "ogl", "fractal", "haze", "glass", "refraction"],
-
+    previewVideo: true,
     createdAt: "2024-01-16",
   },
   {
@@ -499,7 +501,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "baseHeight", type: "number", default: "0.87", description: "Base floor height of the waves" }
     ],
     tags: ["background", "webgl", "ogl", "ribbons", "waves", "3d", "terrain"],
-
+    previewVideo: true,
     createdAt: "2026-04-26",
   },
   {
@@ -521,7 +523,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "colorInner", type: "string", default: '"#fff0ff"', description: "Inner accretion disk glow" }
     ],
     tags: ["background", "webgl", "threejs", "space", "black hole", "3d", "r3f"],
-
+    previewVideo: true,
     createdAt: "2026-04-26",
   },
   {
@@ -546,6 +548,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "centralSubtitle", type: "string", default: '"Collection"', description: "Small subtitle under central text" },
     ],
     tags: ["3d", "gallery", "carousel", "framer-motion", "interactive", "images"],
+    previewVideo: true,
     createdAt: "2026-04-26",
   },
   {
@@ -566,6 +569,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "fov", type: "number", default: "55", description: "Camera field of view", min: 30, max: 120, step: 1 },
     ],
     tags: ["3d", "gallery", "carousel", "scroll", "threejs", "r3f", "interactive"],
+    previewVideo: true,
     createdAt: "2026-04-26",
   },
   {
@@ -586,6 +590,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", description: "Additional CSS class for the container", default: '""' }
     ],
     tags: ["text", "reveal", "scroll", "gsap", "animation", "wipe"],
+    previewVideo: true,
     createdAt: "2026-04-26",
   },
   {
@@ -609,6 +614,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "scrub", type: "boolean", default: "false", description: "Tie animation to scroll progress" },
     ],
     tags: ["text", "fade", "stagger", "gsap", "animation", "hero", "intro"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -628,6 +634,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "fontSize", type: "string", default: '"clamp(3rem, 10vw, 9rem)"', description: "CSS font-size for the heading" },
     ],
     tags: ["text", "3d", "framer-motion", "scroll", "animation", "cinematic", "blur"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -643,6 +650,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "text", type: "string", default: '"GSAP Scale + Blur Reveal"', description: "The text to animate" },
     ],
     tags: ["text", "gsap", "scroll", "animation", "blur", "scale"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -656,9 +664,19 @@ export const defaultComponents: ComponentMeta[] = [
     dependencies: ["gsap", "framer-motion"],
     props: [
       { name: "text", type: "string", default: '"Elevating Digital Experiences With Premium Motion"', description: "The main text to animate" },
-      { name: "subtitle", type: "string", default: '"Our bespoke animation engine delivers fluid, high-fidelity transitions that captivate users and define modern web aesthetics."', description: "The subtitle text below the main heading" },
+      { name: "duration", type: "number", default: "1.4", min: 0.1, max: 5.0, step: 0.1, description: "Word animation duration in seconds" },
+      { name: "staggerAmount", type: "number", default: "0.4", min: 0.05, max: 3.0, step: 0.05, description: "Stagger delay between words in seconds" },
+      { name: "yOffset", type: "string", default: '"110%"', description: "Starting vertical offset of mask" },
+      { name: "skewY", type: "number", default: "6", min: -90, max: 90, step: 1, description: "Starting skew Y in degrees" },
+      { name: "rotateX", type: "number", default: "-8", min: -90, max: 90, step: 1, description: "Starting rotation X in degrees" },
+      { name: "ease", type: "'power4.out' | 'power3.out' | 'power2.out' | 'sine.out' | 'expo.out'", default: '"power4.out"', description: "GSAP ease equation" },
+      { name: "textColor", type: "string", default: '"#ffffff"', description: "Color of the standard words" },
+      { name: "accentColor", type: "string", default: '"#ffffff"', description: "Color of the final highlight words" },
+      { name: "backgroundColor", type: "string", default: '"#000000"', description: "Background color of the container" },
+      { name: "fontSize", type: "string", default: '"clamp(2rem, 5.2vw, 4rem)"', description: "CSS font size for the heading" },
     ],
     tags: ["text", "gsap", "framer-motion", "stagger", "slide", "reveal"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -672,12 +690,15 @@ export const defaultComponents: ComponentMeta[] = [
     dependencies: ["gsap", "framer-motion"],
     props: [
       { name: "text", type: "string", default: '"Web Developer"', description: "The text to type out" },
-      { name: "typingSpeed", type: "number", default: "0.04", description: "Delay between each character typing" },
-      { name: "delay", type: "number", default: "0.5", description: "Initial delay before typing starts" },
-      { name: "fontSize", type: "string", description: "CSS font size for the text" },
-      { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
+      { name: "typingSpeed", type: "number", default: "0.04", min: 0.01, max: 0.5, step: 0.01, description: "Delay between each character typing" },
+      { name: "delay", type: "number", default: "0.5", min: 0.0, max: 5.0, step: 0.1, description: "Initial delay before typing starts" },
+      { name: "fontSize", type: "string", default: '"clamp(2rem, 6vw, 4rem)"', description: "CSS font size for the text" },
+      { name: "textColor", type: "string", default: '"#ffffff"', description: "Color of the typed text" },
+      { name: "backgroundColor", type: "string", default: '"#000000"', description: "Background color of the container" },
+      { name: "cursorColor", type: "string", default: '""', description: "Custom glow color of the cursor (optional)" },
     ],
     tags: ["text", "typing", "cursor", "gsap", "framer-motion", "animation"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -691,11 +712,15 @@ export const defaultComponents: ComponentMeta[] = [
     dependencies: [],
     props: [
       { name: "text", type: "string", default: '"Modern Typewriter Effect"', description: "The text to type out" },
-      { name: "speed", type: "number", default: "50", description: "Typing speed in milliseconds" },
-      { name: "delay", type: "number", default: "0", description: "Initial delay before typing starts" },
+      { name: "speed", type: "number", default: "50", min: 10, max: 500, step: 10, description: "Typing speed in milliseconds" },
+      { name: "delay", type: "number", default: "0", min: 0, max: 5000, step: 100, description: "Initial delay before typing starts" },
       { name: "cursor", type: "boolean", default: "true", description: "Whether to show the blinking cursor" },
+      { name: "textColor", type: "string", default: '"#ffffff"', description: "Color of the typed text" },
+      { name: "backgroundColor", type: "string", default: '"#000000"', description: "Background color of the container" },
+      { name: "fontSize", type: "string", default: '"clamp(2rem, 5vw, 4rem)"', description: "CSS font size for the text" },
     ],
     tags: ["text", "typewriter", "classic", "animation"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -719,6 +744,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "pixel", "animation", "gsap", "canvas", "digital"],
+    previewVideo: true,
     createdAt: "2026-04-28",
   },
   {
@@ -738,7 +764,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "numbers", "counter", "framer-motion", "animation", "spring", "technical"],
-
+    previewVideo: true,
     createdAt: "2026-04-29",
   },
   {
@@ -755,7 +781,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "gradient", "animation", "framer-motion", "apple", "premium"],
-
+    previewVideo: true,
     createdAt: "2026-04-30",
   },
   {
@@ -795,7 +821,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "liquid", "wave", "gsap", "svg", "animation"],
-
+    previewVideo: true,
     createdAt: "2026-05-06",
   },
   {
@@ -817,7 +843,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "flip", "3d", "framer-motion", "animation", "entrance"],
-
+    previewVideo: true,
     createdAt: "2026-05-06",
   },
   {
@@ -859,7 +885,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "morph", "framer-motion", "blur", "layoutId", "shape-shift"],
-
+    previewVideo: true,
     createdAt: "2026-05-06",
   },
   {
@@ -881,7 +907,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "direction", type: "string", default: '"left-to-right"', description: "Direction of the shine ('left-to-right' | 'right-to-left')" },
     ],
     tags: ["text", "shine", "animation", "framer-motion", "motion", "effect"],
-
+    previewVideo: true,
     createdAt: "2026-05-14",
   },
   {
@@ -900,7 +926,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "scroll", "reveal", "scrub", "framer-motion", "clip-path"],
-
+    previewVideo: true,
     createdAt: "2026-05-06",
   },
   {
@@ -921,7 +947,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "slide-up", "entrance", "framer-motion", "stagger", "animation"],
-
+    previewVideo: true,
     createdAt: "2026-05-06",
   },
   {
@@ -941,7 +967,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "roller", "picker", "gsap", "3d", "infinite", "wheel"],
-
+    previewVideo: true,
     createdAt: "2026-05-06",
   },
   {
@@ -961,7 +987,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "hover", "magnetic", "gsap", "quickTo", "interaction"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -980,7 +1006,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "rotating", "scroller", "wheel", "animation", "gsap"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1002,7 +1028,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "hoverDelay", type: "number", default: "0", description: "Delay before hover animation starts" },
     ],
     tags: ["text", "hover", "card", "3d", "perspective", "transform"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1021,7 +1047,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "kinetic", "split", "blur", "stagger", "gsap", "entrance", "reveal"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   }, {
     id: "46",
@@ -1045,7 +1071,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "morphSpeed", type: "number", default: "8", description: "Speed of the subtle shape morphing in seconds" },
     ],
     tags: ["text", "curved", "svg", "textPath", "framer-motion", "gsap", "flow", "spiral", "circle", "wave"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1066,7 +1092,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "glitch", "cyberpunk", "gsap", "svg", "distortion", "flicker", "jitter"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1094,7 +1120,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "showSparkles", type: "boolean", default: "false", description: "Whether to show sparkle icons" },
     ],
     tags: ["text", "physics", "matter-js", "gravity", "bounce", "interactive", "drag", "gsap", "svg"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1119,6 +1145,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "3d", "depth", "parallax", "perspective", "gsap", "camera", "layered"],
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1141,6 +1168,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "3d", "geometry", "chrome", "bevel", "threejs", "fiber", "bloom", "glow", "cinematic"],
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1158,7 +1186,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["scroll", "gallery", "wave", "infinite", "loop", "framer-motion", "lenis", "parallax"],
-
+    previewVideo: true,
     createdAt: "2026-05-07",
   },
   {
@@ -1183,7 +1211,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "asciiChars", type: "string", default: '" .:-=+*%#░▒▓█"', description: "Characters used for the ASCII mapping" },
     ],
     tags: ["text", "ascii", "gpgpu", "shaders", "particles", "interactive", "threejs", "r3f", "premium"],
-
+    previewVideo: true,
     createdAt: "2026-05-08",
   },
   {
@@ -1199,7 +1227,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "containerHeight", type: "string", default: '"100vh"', description: "CSS height value for the scroll container" }
     ],
     tags: ["scroll", "cards", "framer-motion", "stacked", "cinematic", "premium"],
-
+    previewVideo: true,
     createdAt: "2026-05-08",
   },
 
@@ -1339,6 +1367,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
     ],
     tags: ["ascii", "text", "animation"],
+    previewVideo: true,
     createdAt: "2026-05-11",
   },
   {
@@ -1352,6 +1381,7 @@ export const defaultComponents: ComponentMeta[] = [
     dependencies: [],
     props: [],
     tags: ["horizon", "gradient", "space", "celestial", "background"],
+    previewVideo: true,
     createdAt: "2026-05-11",
   },
   {
@@ -1371,6 +1401,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "particleSpeed", type: "number", default: "3", description: "Speed of the particles (duration in seconds)" },
     ],
     tags: ["network", "nodes", "particles", "svg", "framer-motion", "connections"],
+    previewVideo: true,
     createdAt: "2026-05-15",
   },
   {
@@ -1387,6 +1418,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", description: "Optional CSS class" }
     ],
     tags: ["timeline", "steps", "scroll", "framer-motion", "cards", "vertical"],
+    previewVideo: true,
     createdAt: "2026-05-15",
   },
   {
@@ -1435,7 +1467,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "children", type: "React.ReactNode", description: "Content rendered above the gradient" }
     ],
     tags: ["background", "gradient", "webgl", "ogl", "smooth", "silk", "aurora", "cinematic"],
-
+    previewVideo: true,
     createdAt: "2026-05-15",
   },
   {
@@ -1460,7 +1492,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "children", type: "React.ReactNode", description: "Content rendered above the gradient" }
     ],
     tags: ["background", "gradient", "webgl", "ogl", "dark", "ambient", "underwater", "emerald", "teal", "cinematic"],
-
+    previewVideo: true,
     createdAt: "2026-05-16",
   },
   {
@@ -1483,7 +1515,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "background", type: "string", description: "Container background colour", default: '"#050505"' },
     ],
     tags: ["background", "webgl", "threejs", "particles", "chrome", "interactive", "cursor", "dark"],
-
+    previewVideo: true,
     createdAt: "2026-05-16",
   },
   {
@@ -1508,7 +1540,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "children", type: "React.ReactNode", description: "Content rendered above the background" }
     ],
     tags: ["background", "gradient", "webgl", "ogl", "scifi", "tunnel", "hyperspeed", "neon", "rays", "cinematic"],
-
+    previewVideo: true,
     createdAt: "2026-05-16",
   },
   {
@@ -1547,7 +1579,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "highlightColor", type: "string", description: "Inner glow/highlight color", default: '\"#ffffff\"' }
     ],
     tags: ["cursor", "3d", "interactive", "framer-motion", "premium", "custom"],
-
+    previewVideo: true,
     createdAt: "2026-05-23",
   },
   {
@@ -1623,6 +1655,7 @@ export const defaultComponents: ComponentMeta[] = [
     category: "TextAnimations",
     description: "A premium cursor proximity text effect. Characters dynamically blur and scale up when the cursor moves nearby, creating a stunning lens focus wave trail.",
     tags: ["text", "animation", "blur", "hover", "cursor", "proximity", "distortion"],
+    previewVideo: true,
     dependencies: [],
     props: [
       { name: "text", type: "string", default: '"Flow"', description: "The string of text to animate" },
@@ -1668,6 +1701,7 @@ export const defaultComponents: ComponentMeta[] = [
     category: "Cards",
     description: "An interactive card stack featuring physics-based dragging, swipe-away gestures, smooth GSAP transition animations, and scroll-linked depth navigation.",
     tags: ["card", "swipe", "gsap", "physics", "dragging", "interactive", "neom", "deck"],
+    previewVideo: true,
     dependencies: ["gsap"],
     props: [
       { name: "swipeSpeed", type: "number", default: "0.5", min: 0.1, max: 2.0, step: 0.05, description: "Flyout animation duration in seconds" },
@@ -1688,6 +1722,7 @@ export const defaultComponents: ComponentMeta[] = [
     category: "Cards",
     description: "A premium animated card gallery that staggers a series of cards outwards from the center in an elegant circular-fanned arc using GSAP.",
     tags: ["card", "gsap", "animation", "stagger", "fan", "hover", "curved", "luxe"],
+    previewVideo: true,
     dependencies: ["gsap"],
     props: [
       { name: "badgeText", type: "string", default: '"✦ Premium Eyewear"', description: "Small pill badge text at the top" },
@@ -1727,6 +1762,7 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "animated", type: "boolean", default: "true", description: "Toggle the subtle drift animation" }
     ],
     tags: ["background", "aurora", "violet", "arc", "gradient", "blur", "hero", "dark"],
+    previewVideo: true,
     createdAt: "2026-05-27",
   },
 

@@ -9,11 +9,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface SmoothFadeUpProps {
     /** Main headline text */
-    heading?: string;
+    heading?: React.ReactNode | React.ReactNode[];
     /** Secondary tagline / subtitle */
-    subheading?: string;
+    subheading?: React.ReactNode | React.ReactNode[];
     /** Body paragraph */
-    description?: string;
+    description?: React.ReactNode;
     /** Small pill / badge text above the heading */
     badge?: string;
     /** px the elements travel upward (default 60) */
@@ -26,6 +26,10 @@ interface SmoothFadeUpProps {
     ease?: string;
     /** tie animation to scroll progress (default false) */
     scrub?: boolean;
+    /** show CTA buttons (default true) */
+    showButtons?: boolean;
+    /** show decorative divider (default true) */
+    showDivider?: boolean;
 }
 
 /**
@@ -40,10 +44,12 @@ const SmoothFadeUp: React.FC<SmoothFadeUpProps> = ({
     description = "A smooth, staggered fade‑in from below — the gold‑standard motion pattern used by the world's best landing pages to guide focus and build anticipation.",
     badge = "✦ Introducing",
     distance = 60,
-    duration = 1,
+    duration = 1.2,
     stagger = 0.15,
     ease = "power3.out",
     scrub = false,
+    showButtons = true,
+    showDivider = true,
 }) => {
     const sectionRef = useRef<HTMLElement>(null);
     const itemsRef = useRef<(HTMLElement | null)[]>([]);
@@ -53,13 +59,15 @@ const SmoothFadeUp: React.FC<SmoothFadeUpProps> = ({
 
         const ctx = gsap.context(() => {
             // Starting state
-            gsap.set(els, { opacity: 0, y: distance });
+            gsap.set(els, { opacity: 0, y: distance, filter: "blur(10px)", scale: 0.95 });
 
             if (scrub) {
                 /* ── Scroll‑driven version ─────────────────── */
                 gsap.to(els, {
                     opacity: 1,
                     y: 0,
+                    filter: "blur(0px)",
+                    scale: 1,
                     ease: "none",
                     stagger: 0.1,
                     scrollTrigger: {
@@ -73,12 +81,14 @@ const SmoothFadeUp: React.FC<SmoothFadeUpProps> = ({
                 /* ── Auto‑play version (fires once on enter) ─ */
                 ScrollTrigger.create({
                     trigger: sectionRef.current,
-                    start: "top 80%",
+                    start: "top 85%",
                     once: true,
                     onEnter: () => {
                         gsap.to(els, {
                             opacity: 1,
                             y: 0,
+                            filter: "blur(0px)",
+                            scale: 1,
                             duration,
                             ease,
                             stagger,
@@ -107,8 +117,18 @@ const SmoothFadeUp: React.FC<SmoothFadeUpProps> = ({
                 )}
 
                 {/* ── Heading ───────────────────────────── */}
-                <h1 ref={addRef} className={styles.heading}>
-                    {heading}
+                <h1 className={styles.heading}>
+                    {Array.isArray(heading) ? (
+                        heading.map((line, idx) => (
+                            <span key={idx} ref={addRef} style={{ display: "block" }}>
+                                {line}
+                            </span>
+                        ))
+                    ) : (
+                        <span ref={addRef} style={{ display: "block" }}>
+                            {heading}
+                        </span>
+                    )}
                 </h1>
 
                 {/* ── Subheading ────────────────────────── */}
@@ -126,17 +146,19 @@ const SmoothFadeUp: React.FC<SmoothFadeUpProps> = ({
                 )}
 
                 {/* ── Decorative divider ────────────────── */}
-                <span ref={addRef} className={styles.divider} />
+                {showDivider && <span ref={addRef} className={styles.divider} />}
 
                 {/* ── CTA Buttons ───────────────────────── */}
-                <div ref={addRef} className={styles.buttonGroup}>
-                    <button className={styles.primaryBtn}>
-                        Get Started
-                    </button>
-                    <button className={styles.secondaryBtn}>
-                        Learn More
-                    </button>
-                </div>
+                {showButtons && (
+                    <div ref={addRef} className={styles.buttonGroup}>
+                        <button className={styles.primaryBtn}>
+                            Get Started
+                        </button>
+                        <button className={styles.secondaryBtn}>
+                            Learn More
+                        </button>
+                    </div>
+                )}
             </div>
         </section>
     );

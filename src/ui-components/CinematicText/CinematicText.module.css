@@ -10,12 +10,13 @@
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
+    background-color: #000000;
 }
 
 .topRule {
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
     margin-bottom: 2.5rem;
     transform-origin: center;
     z-index: 1;
@@ -45,7 +46,7 @@
     max-width: 500px;
     height: 3px;
     margin-top: 1.5rem;
-    background: linear-gradient(90deg, transparent, rgb(0, 0, 0), rgb(80, 80, 108), rgb(8, 8, 8), transparent);
+    background: linear-gradient(90deg, transparent, rgb(255, 255, 255), rgb(200, 200, 255), rgb(240, 240, 240), transparent);
     border-radius: 999px;
     transform-origin: left center;
     z-index: 1;
@@ -57,7 +58,7 @@
     font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: black;
+    color: #ffffff;
     text-align: center;
     z-index: 1;
 }

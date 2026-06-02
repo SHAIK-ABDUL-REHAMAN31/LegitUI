@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff;
+    background: #000000;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     box-sizing: border-box;
     overflow: hidden;
@@ -26,7 +26,7 @@
     line-height: 1;
     font-weight: 800;
     letter-spacing: -0.04em;
-    color: #000000;
+    color: #ffffff;
     display: flex;
     flex-wrap: wrap;
     column-gap: 0.3em;
@@ -49,7 +49,7 @@
 .subtitle {
     margin-top: 2rem;
     font-size: 1.125rem;
-    color: #000000;
+    color: #a1a1aa;
     max-width: 600px;
     line-height: 1.6;
     opacity: 0;
@@ -57,5 +57,5 @@
 }
 
 .accent {
-    color: #000000;
+    color: #ffffff;
 }
