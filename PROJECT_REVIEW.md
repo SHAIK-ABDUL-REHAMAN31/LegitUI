@@ -55,12 +55,5 @@ This document provides an overview of the current status of **LegitUI**, analyzi
 * **How it works**: Create a CLI script that scans the directory `src/ui-components/`, parses the TypeScript props interfaces, and automatically generates `preview-map.ts` and the `component-registry.ts` array dynamically during the pre-build phase.
 * **Benefit**: Eliminates manual registration mistakes and speeds up component onboarding.
 
-### 3. Move JSX Variants to Build Output
-* **Proposal**: Avoid checking `.jsx` files into Git.
-* **How it works**: Ignore `.jsx` files in `.gitignore` and run the generation script (`generate:js`) during the production build step or when exporting the public registry distribution.
-* **Benefit**: A clean, compact repository file tree and search workspace.
 
-### 4. Centralize Theme Tokens
-* **Proposal**: Standardize neon/cyber colors.
-* **How it works**: Create a shared layout stylesheet (e.g. `src/styles/themes.css`) exposing standard CSS variables for neon gradients, glow levels, and borders.
-* **Benefit**: Guarantees visual consistency across different components and simplifies global theme changes (e.g., swapping a color scheme from Cyberpunk neon to a subtle glassmorphic corporate theme).
+

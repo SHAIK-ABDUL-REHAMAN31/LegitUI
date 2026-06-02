@@ -13,6 +13,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import * as crypto from "crypto";
 import * as docgen from "react-docgen-typescript";
 
 // ────────────────────────────────────────────────────
@@ -29,6 +30,12 @@ const COMPONENT_REGISTRY_PATH = path.join(
 );
 const PREVIEW_MAP_PATH = path.join(ROOT_DIR, "src", "lib", "preview-map.ts");
 const PACKAGE_JSON_PATH = path.join(ROOT_DIR, "package.json");
+const CACHE_PATH = path.join(ROOT_DIR, ".registry-cache.json");
+
+// ────────────────────────────────────────────────────
+// CLI Flags
+// ────────────────────────────────────────────────────
+const NO_CACHE = process.argv.includes("--no-cache");
 
 // ────────────────────────────────────────────────────
 // Types (mirrors registry-types.ts for the script)
@@ -109,6 +116,43 @@ interface RegistryIndex {
   components: RegistryIndexEntry[];
   updatedAt: string;
   version: string;
+}
+
+// ────────────────────────────────────────────────────
+// Incremental Cache Types & Helpers
+// ────────────────────────────────────────────────────
+
+interface CacheEntry {
+  hash: string;
+  tsxPath: string;
+  props: ComponentProp[];
+}
+
+interface RegistryCache {
+  version: number;
+  entries: Record<string, CacheEntry>;
+}
+
+function hashFile(filePath: string): string {
+  const content = fs.readFileSync(filePath);
+  return crypto.createHash("sha256").update(content).digest("hex");
+}
+
+function loadCache(): RegistryCache {
+  if (NO_CACHE) return { version: 1, entries: {} };
+  try {
+    if (fs.existsSync(CACHE_PATH)) {
+      const data = JSON.parse(fs.readFileSync(CACHE_PATH, "utf-8"));
+      if (data.version === 1 && data.entries) return data;
+    }
+  } catch {
+    // Corrupt cache — start fresh
+  }
+  return { version: 1, entries: {} };
+}
+
+function saveCache(cache: RegistryCache): void {
+  fs.writeFileSync(CACHE_PATH, JSON.stringify(cache, null, 2), "utf-8");
 }
 
 // ────────────────────────────────────────────────────
@@ -249,10 +293,14 @@ const docgenParser = docgen.withDefaultConfig({
  * Extract props from a .tsx file using react-docgen-typescript.
  * Merges extracted props with manually defined registry props.
  * Manual definitions always take priority.
+ *
+ * If `cachedDocgenProps` is provided, the expensive docgen parse is skipped
+ * and the cached result is used instead (incremental build optimisation).
  */
 function extractAndMergeProps(
   tsxFilePath: string,
-  registryProps: ComponentProp[]
+  registryProps: ComponentProp[],
+  cachedDocgenProps?: ComponentProp[]
 ): ComponentProp[] {
   // Build a lookup from manually-defined props
   const manualMap = new Map<string, ComponentProp>();
@@ -262,6 +310,10 @@ function extractAndMergeProps(
 
   let extracted: ComponentProp[] = [];
 
+  // Use cached docgen results if available (cache hit)
+  if (cachedDocgenProps) {
+    extracted = cachedDocgenProps;
+  } else {
   try {
     const docs = docgenParser.parse(tsxFilePath);
     if (docs.length > 0 && docs[0].props) {
@@ -288,6 +340,7 @@ function extractAndMergeProps(
     // docgen can fail on some files (e.g., WebGL components with complex types)
     // silently fall back to manual props
   }
+  } // end else (non-cached path)
 
   if (extracted.length === 0) {
     return registryProps;
@@ -500,7 +553,20 @@ function main() {
     console.log(`  ◆ Created ${path.relative(ROOT_DIR, REGISTRY_DIR)}/\n`);
   }
 
-  // 4. Generate per-component JSON files
+  // 4. Load incremental cache
+  const cache = loadCache();
+  const newCache: RegistryCache = { version: 1, entries: {} };
+  let cacheHits = 0;
+  let cacheMisses = 0;
+
+  if (NO_CACHE) {
+    console.log("  ◆ Cache disabled (--no-cache flag)\n");
+  } else {
+    const cachedCount = Object.keys(cache.entries).length;
+    console.log(`  ◆ Loaded cache with ${cachedCount} entries\n`);
+  }
+
+  // 5. Generate per-component JSON files
   const now = new Date().toISOString();
   const version = getProjectVersion();
   const indexEntries: RegistryIndexEntry[] = [];
@@ -521,11 +587,33 @@ function main() {
       continue;
     }
 
-    // Extract + merge props via react-docgen-typescript
+    // Extract + merge props via react-docgen-typescript (with caching)
     const tsxFilePath = path.join(folderPath, `${entry.fileName}.tsx`);
-    const mergedProps = fs.existsSync(tsxFilePath)
-      ? extractAndMergeProps(tsxFilePath, entry.props || [])
-      : entry.props || [];
+    let mergedProps: ComponentProp[];
+
+    if (fs.existsSync(tsxFilePath)) {
+      const currentHash = hashFile(tsxFilePath);
+      const cached = cache.entries[entry.slug];
+
+      if (cached && cached.hash === currentHash) {
+        // Cache hit — reuse docgen results
+        mergedProps = extractAndMergeProps(tsxFilePath, entry.props || [], cached.props);
+        cacheHits++;
+      } else {
+        // Cache miss — run docgen
+        mergedProps = extractAndMergeProps(tsxFilePath, entry.props || []);
+        cacheMisses++;
+      }
+
+      // Update the new cache
+      newCache.entries[entry.slug] = {
+        hash: currentHash,
+        tsxPath: path.relative(ROOT_DIR, tsxFilePath).replace(/\\/g, "/"),
+        props: mergedProps,
+      };
+    } else {
+      mergedProps = entry.props || [];
+    }
 
     const componentJSON: PerComponentJSON = {
       name: entry.name,
@@ -730,9 +818,15 @@ function main() {
     failed++;
   }
 
-  // 7. Summary
+  // 8. Save updated cache
+  saveCache(newCache);
+
+  // 9. Summary
   console.log(
-    `\n  Generated: ${generated} + ${shadcnGenerated} shadcn  |  Failed: ${failed}  |  Total entries: ${registryEntries.length}\n`
+    `\n  Generated: ${generated} + ${shadcnGenerated} shadcn  |  Failed: ${failed}  |  Total entries: ${registryEntries.length}`
+  );
+  console.log(
+    `  Cache: ${cacheHits} hit(s), ${cacheMisses} rebuilt\n`
   );
 
   if (failed > 0) {

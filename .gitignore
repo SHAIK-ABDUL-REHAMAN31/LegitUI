@@ -21,6 +21,10 @@ node_modules/
 /public/registry/
 *.tsbuildinfo
 next-env.d.ts
+.registry-cache.json
+
+# ──── Generated JSX variants (rebuilt by generate:js) ────
+src/ui-components/**/*.jsx
 
 # ──── Environment variables ────
 .env
