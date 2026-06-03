@@ -54,6 +54,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'depth-text': { load: () => import('@/ui-components/DepthText/DepthTextUsage'), weight: 'medium' },
   'editorial-storytelling': { load: () => import('@/ui-components/EditorialStorytelling/EditorialStorytellingUsage'), weight: 'medium' },
   'expandable-product-cards': { load: () => import('@/ui-components/ExpandableProductCards/ExpandableProductCardsUsage'), weight: 'medium' },
+  'expandable-task-card': { load: () => import('@/ui-components/ExpandableTaskCard/ExpandableTaskCard'), weight: 'medium' },
   'fanning-cards': { load: () => import('@/ui-components/FanningCards/FanningCardsUsage'), weight: 'medium' },
   'flip-text': { load: () => import('@/ui-components/FlipText/FlipTextUsage'), weight: 'medium' },
   'glitch-text': { load: () => import('@/ui-components/GlitchText/GlitchTextUsage'), weight: 'medium' },

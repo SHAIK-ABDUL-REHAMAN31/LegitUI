@@ -30,6 +30,7 @@ export const categories: Category[] = [
   { name: "Inputs", slug: "inputs" },
   { name: "Loaders", slug: "loaders" },
   { name: "Navigation", slug: "navigation" },
+
 ];
 
 // ────────────────────────────────────────────────────
@@ -1764,6 +1765,27 @@ export const defaultComponents: ComponentMeta[] = [
     tags: ["background", "aurora", "violet", "arc", "gradient", "blur", "hero", "dark"],
     previewVideo: true,
     createdAt: "2026-05-27",
+  },
+  {
+    id: "expandable-task-card",
+    name: "Expandable Task Card",
+    slug: "expandable-task-card",
+    folder: "ExpandableTaskCard",
+    fileName: "ExpandableTaskCard",
+    category: "Cards",
+    description: "A smooth hover-expandable task card that reveals a checklist, priority, status, and team avatars with buttery spring animations.",
+    dependencies: ["framer-motion", "lucide-react"],
+    props: [
+      { name: "title", type: "string", default: '"System Design"', description: "The task card title" },
+      { name: "progress", type: "number", default: "50", description: "Progress percentage (0–100)" },
+      { name: "priority", type: "string", default: '"High"', description: "Priority label text" },
+      { name: "status", type: "string", default: '"Review"', description: "Status label text" },
+      { name: "checklist", type: "ChecklistItem[]", description: "Array of checklist items with id, text, and checked boolean" },
+      { name: "avatars", type: "Avatar[]", description: "Array of team member avatars with id, name, and url" },
+    ],
+    tags: ["card", "expandable", "hover", "task", "framer-motion", "checklist", "animation"],
+    isNew: true,
+    createdAt: "2026-06-04",
   },
 
 ];

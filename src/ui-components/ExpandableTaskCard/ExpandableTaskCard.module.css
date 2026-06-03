@@ -1,0 +1,338 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #111827;
+}
+
+.card {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Header right — stacked layers for crossfade */
+.headerRight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 90px;
+  justify-content: flex-end;
+}
+
+.headerRightCollapsed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerRightExpanded {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.progressBar {
+  width: 48px;
+  height: 6px;
+  background-color: #dcfce7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #22c55e;
+  border-radius: 4px;
+}
+
+.progressText {
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.iconGray {
+  color: #9ca3af;
+}
+
+/* ─── Expanded Content ─── */
+.expandedContent {
+  overflow: hidden;
+}
+
+.expandedInner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+/* ─── Footer Collapsed ─── */
+.footerCollapsed {
+  overflow: hidden;
+}
+
+.footerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.footerText {
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 500;
+  margin-left: 6px;
+  margin-right: 12px;
+}
+
+.footerRight {
+  display: flex;
+  align-items: center;
+}
+
+.avatarImgStacked {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ─── Checklist ─── */
+.checklistContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 4px;
+}
+
+.checklistHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.checklistHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.checklistHeaderText {
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.checkCircleSolid {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #4b5563;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checklistHeaderLeft .checkCircleSolid {
+  background-color: white;
+  color: #9ca3af;
+  border: 1px solid #d1d5db;
+}
+
+.circleOutline {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  flex-shrink: 0;
+}
+
+.checklistItemsWrapper {
+  position: relative;
+}
+
+.treeLine {
+  position: absolute;
+  left: 8px;
+  top: -12px;
+  bottom: 16px;
+  width: 2px;
+  background-color: #f3f4f6;
+  z-index: 0;
+}
+
+.checklistItems {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.treeConnector {
+  position: absolute;
+  left: -20px;
+  top: 8px;
+  width: 12px;
+  height: 2px;
+  background-color: #f3f4f6;
+}
+
+.itemText {
+  font-size: 13.5px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.itemTextChecked {
+  font-size: 13.5px;
+  color: #111827;
+  font-weight: 500;
+}
+
+/* ─── Meta Info ─── */
+.metaInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 8px 4px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metaLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.badgeRed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.badgeYellow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #fef3c7;
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ─── Avatars Expanded ─── */
+.avatarsExpanded {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 4px 8px 4px;
+}
+
+.avatarPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  border: 1px solid #f3f4f6;
+  border-radius: 20px;
+  background: white;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #374151;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.avatarImg {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
