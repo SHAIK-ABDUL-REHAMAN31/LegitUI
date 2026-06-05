@@ -1787,7 +1787,26 @@ export const defaultComponents: ComponentMeta[] = [
     isNew: true,
     createdAt: "2026-06-04",
   },
-
+  {
+    id: "card-wheel-spread",
+    name: "Card Wheel Spread",
+    slug: "card-wheel-spread",
+    folder: "CardWheelSpread",
+    fileName: "CardWheelSpread",
+    category: "Cards",
+    description: "A continuously spinning card wheel where cards are arranged in a circle and rotate smoothly around a center point. Slows down on hover for interaction.",
+    tags: ["card", "gsap", "animation", "spin", "circle", "hover", "wheel", "creative", "carousel"],
+    dependencies: ["gsap"],
+    props: [
+      { name: "radius", type: "number", default: "130", min: 100, max: 400, step: 10, description: "Distance from center to each card in pixels" },
+      { name: "spinSpeed", type: "number", default: "12", min: 3, max: 30, step: 1, description: "Seconds for one full revolution (lower = faster)" },
+      { name: "centerTitle", type: "string", default: '"CARDS 07"', description: "Centered large title text" },
+      { name: "centerSubtitle", type: "string", default: '"Interactive Wheel"', description: "Centered small subtitle text" },
+      { name: "enableHover", type: "boolean", default: "true", description: "Slow down the spin on hover" }
+    ],
+    isNew: true,
+    createdAt: "2026-06-05",
+  },
 ];
 
 // ────────────────────────────────────────────────────

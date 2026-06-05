@@ -46,6 +46,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   // ── MEDIUM — GSAP or Framer Motion ──
   '3d-gallery': { load: () => import('@/ui-components/3DGallery/3DGalleryUsage'), weight: 'medium' },
   'animated-gradient-text': { load: () => import('@/ui-components/AnimatedGradient/AnimatedGradientUsage'), weight: 'medium' },
+  'card-wheel-spread': { load: () => import('@/ui-components/CardWheelSpread/CardWheelSpreadUsage'), weight: 'medium' },
   'cinematic-scroll': { load: () => import('@/ui-components/CinematicScroll/CinematicScrollUsage'), weight: 'medium' },
   'cinematic-text': { load: () => import('@/ui-components/CinematicText/CinematicTextUsage'), weight: 'medium' },
   'cursor-image-trail': { load: () => import('@/ui-components/CursorImageTrail/CursorImageTrailUsage'), weight: 'medium' },
