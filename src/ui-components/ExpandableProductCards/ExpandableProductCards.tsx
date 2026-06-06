@@ -28,7 +28,10 @@ export const ExpandableProductCards: React.FC<ExpandableProductCardsProps> = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(defaultExpandedIndex);
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div 
+      className={`${styles.container} ${className}`}
+      onMouseLeave={() => setHoveredIndex(defaultExpandedIndex)}
+    >
       {products.map((product, index) => {
         const isHovered = hoveredIndex === index;
         return (
@@ -37,11 +40,10 @@ export const ExpandableProductCards: React.FC<ExpandableProductCardsProps> = ({
             className={styles.card}
             style={{ backgroundColor: product.color || "#333" }}
             onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(defaultExpandedIndex)}
             layout
             initial={{ flex: index === defaultExpandedIndex ? 6 : 1 }}
             animate={{ flex: isHovered ? 6 : 1 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
           >
             {/* The image */}
             <motion.div
@@ -49,7 +51,7 @@ export const ExpandableProductCards: React.FC<ExpandableProductCardsProps> = ({
               animate={{ 
                 scale: isHovered ? 1.05 : 1,
               }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             >
               <img 
                  src={product.image} 
@@ -66,41 +68,41 @@ export const ExpandableProductCards: React.FC<ExpandableProductCardsProps> = ({
                    className={styles.contentContainer}
                    initial={{ opacity: 0, x: -20 }}
                    animate={{ opacity: 1, x: 0 }}
-                   exit={{ opacity: 0, x: -20 }}
-                   transition={{ duration: 0.4, delay: 0.1 }}
+                   exit={{ opacity: 0, x: -10, transition: { duration: 0.2, delay: 0, ease: "easeIn" } }}
+                   transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.1 }}
                 >
                     <div className={styles.largeBackgroundText}>
                       {product.title.split(" ")[0].toUpperCase()}
                     </div>
                     <div className={styles.details}>
                       <motion.p 
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 0.8, y: 0 }}
-                        transition={{ delay: 0.2 }}
+                        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
                         className={styles.subtitle}
                       >
                         {product.subtitle}
                       </motion.p>
                       <motion.h2 
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.25 }}
+                        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1], delay: 0.25 }}
                         className={styles.title}
                       >
                         {product.title}
                       </motion.h2>
                       <motion.p 
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
+                        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1], delay: 0.3 }}
                         className={styles.price}
                       >
                         {product.price}
                       </motion.p>
                       <motion.button 
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.35 }}
+                        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1], delay: 0.35 }}
                         className={styles.buyButton}
                       >
                         Buy Now
