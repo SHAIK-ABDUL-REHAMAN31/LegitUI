@@ -38,6 +38,22 @@ export const categories: Category[] = [
 // ────────────────────────────────────────────────────
 export const defaultComponents: ComponentMeta[] = [
   {
+    id: "animated-stacked-cards",
+    name: "Animated Stacked Cards",
+    slug: "animated-stacked-cards",
+    folder: "AnimatedStackedCards",
+    fileName: "AnimatedStackedCards",
+    category: "Cards",
+    description: "A neo-brutalist auto-cycling stacked cards animation where cards pop out and drop to the back.",
+    dependencies: ["framer-motion", "lucide-react"],
+    props: [
+      { name: "cards", type: "StackedCard[]", description: "Array of card items" },
+      { name: "interval", type: "number", default: "3000", description: "Time between animations" }
+    ],
+    tags: ["cards", "stack", "animation", "framer-motion", "neo-brutalism"],
+    createdAt: "2026-06-06",
+  },
+  {
     id: "signpost-navigation",
     name: "Signpost Navigation",
     slug: "signpost-navigation",
@@ -1807,6 +1823,28 @@ export const defaultComponents: ComponentMeta[] = [
     isNew: true,
     createdAt: "2026-06-05",
   },
+  {
+    id: "cinematic-card-choreography",
+    name: "Cinematic Card Choreography",
+    slug: "cinematic-card-choreography",
+    folder: "CinematicCardChoreography",
+    fileName: "CinematicCardChoreography",
+    category: "Cards",
+    description: "A crazy, continuous cinematic 3D animation sequence cycling through an Orbit, a Magician's Fan, and an Isometric Matrix Grid.",
+    tags: ["card", "gsap", "animation", "cinematic", "3d", "choreography", "premium", "creative", "matrix", "orbit", "fan"],
+    dependencies: ["gsap", "lucide-react"],
+    props: [
+      { name: "cards", type: "CinematicCard[]", description: "Array of card data objects to display" },
+      { name: "className", type: "string", default: '""', description: "Additional CSS class for the container" },
+      { name: "cardWidth", type: "number", default: "200", description: "Width of each card in pixels" },
+      { name: "cardHeight", type: "number", default: "280", description: "Height of each card in pixels" },
+      { name: "orbitRadius", type: "number", default: "320", description: "Radius of the circular orbit in pixels" },
+      { name: "speed", type: "number", default: "1", description: "Overall animation speed multiplier (1 = default, 2 = twice as fast, 0.5 = half speed)" },
+      { name: "pauseOnHover", type: "boolean", default: "false", description: "Pause the animation when hovered" },
+    ],
+    isNew: true,
+    createdAt: "2026-06-07",
+  }
 ];
 
 // ────────────────────────────────────────────────────
