@@ -477,7 +477,7 @@ export default function ComponentPageClient({
             </div>
 
             <div className={styles.panelRight}>
-              {(component.category === "TextAnimations" || component.slug === "animated-border" || component.slug === "fanning-cards") && (
+              {(component.category === "TextAnimations" || component.slug === "animated-border" || component.slug === "fanning-cards" || component.slug === "animated-stacked-cards") && (
                 <button
                   onClick={() => setReloadKey(k => k + 1)}
                   className={styles.actionBtn}

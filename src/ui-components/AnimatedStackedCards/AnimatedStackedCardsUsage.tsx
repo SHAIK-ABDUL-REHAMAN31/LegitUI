@@ -4,14 +4,13 @@ import AnimatedStackedCards from './AnimatedStackedCards';
 const AnimatedStackedCardsUsage: React.FC = () => {
   return (
     <div style={{ 
-      background: '#f4f4f5', 
+      background: 'radial-gradient(circle at center, #1b1b1f 0%, #0b0b0d 100%)', 
       height: '100vh',
       width: '100vw',
       overflow: 'hidden',
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'center',
-      paddingBottom: '150px', // Moves the component up so the dropping card doesn't hit the bottom
       fontFamily: 'system-ui, -apple-system, sans-serif',
       margin: 0,
       boxSizing: 'border-box'
@@ -22,3 +21,4 @@ const AnimatedStackedCardsUsage: React.FC = () => {
 };
 
 export default AnimatedStackedCardsUsage;
+

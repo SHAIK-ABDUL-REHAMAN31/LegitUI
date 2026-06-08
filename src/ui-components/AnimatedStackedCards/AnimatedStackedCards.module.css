@@ -1,57 +1,83 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 400px;
   position: relative;
   width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  perspective: 1500px;
+  overflow: visible;
+  user-select: none;
 }
 
 .cardWrapper {
   position: absolute;
-  width: 380px;
-  height: 140px;
+  width: 130px; /* Slimmer initial star size */
+  height: 130px;
   transform-origin: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1;
 }
 
-.card {
+.cardInner {
+  position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
-  border: 3px solid #111;
-  padding: 24px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out; /* For smooth hover micro-tilt response */
+}
+
+.cardFace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  background-color: #000000; /* Solid black background */
+}
+
+.cardFront {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: none;
-}
-
-.header {
-  display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 8px;
+  color: #fff;
+}
+.cardBack {
+  transform: rotateY(180deg);
 }
 
-.iconContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.backImageOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.95; /* Show beautiful Unsplash images clearly in full detail */
+  pointer-events: none;
 }
 
-.title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #111;
-  margin: 0;
-  letter-spacing: -0.02em;
-  font-family: system-ui, -apple-system, sans-serif;
+
+/* SVG border to trace the clipped shape */
+.borderSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
 }
 
-.subtitle {
-  font-size: 1.1rem;
-  color: #222;
-  margin: 0;
-  font-weight: 500;
-  font-family: system-ui, -apple-system, sans-serif;
+.borderPath {
+  stroke: #ffffff;
+  stroke-width: 1px; /* Clipped to look like a perfect 0.5px border */
+  fill: none;
 }
