@@ -90,6 +90,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'text-morph': { load: () => import('@/ui-components/TextMorph/TextMorphUsage'), weight: 'medium' },
   'text-reveal': { load: () => import('@/ui-components/TextReveal/TextRevealUsage'), weight: 'medium' },
   'text-roller': { load: () => import('@/ui-components/TextRoller/TextRollerUsage'), weight: 'medium' },
+  'text-split-image-reveal': { load: () => import('@/ui-components/TextSplitImageReveal/TextSplitImageRevealUsage'), weight: 'medium' },
   'timeline-steps': { load: () => import('@/ui-components/TimelineSteps/TimelineStepsUsage'), weight: 'medium' },
   'typing-cursor': { load: () => import('@/ui-components/TypingCursor/TypingCursorUsage'), weight: 'medium' },
 

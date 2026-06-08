@@ -1844,6 +1844,25 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     isNew: true,
     createdAt: "2026-06-07",
+  },
+  {
+    id: "text-split-image-reveal",
+    name: "Text Split Image Reveal",
+    slug: "text-split-image-reveal",
+    folder: "TextSplitImageReveal",
+    fileName: "TextSplitImageReveal",
+    category: "TextAnimations",
+    description: "A seamless GSAP animation where two words pop up, split apart, and reveal an image that expands to full screen.",
+    tags: ["text", "image", "gsap", "animation", "reveal", "split"],
+    dependencies: ["gsap"],
+    props: [
+      { name: "word1", type: "string", default: '"Creative"', description: "First word to display" },
+      { name: "word2", type: "string", default: '"Studio"', description: "Second word to display" },
+      { name: "imageUrl", type: "string", description: "The image source URL to reveal" },
+      { name: "speed", type: "number", default: "1", description: "Overall speed multiplier" }
+    ],
+    isNew: true,
+    createdAt: "2026-06-09",
   }
 ];
 
