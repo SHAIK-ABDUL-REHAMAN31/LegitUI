@@ -1863,6 +1863,35 @@ export const defaultComponents: ComponentMeta[] = [
     ],
     isNew: true,
     createdAt: "2026-06-09",
+  },
+  {
+    id: "pixel-background",
+    name: "Pixel Background",
+    slug: "pixel-background",
+    folder: "PixelBackground",
+    fileName: "PixelBackground",
+    category: "Backgrounds",
+    description: "An interactive HTML5 Canvas pixel grid that responds elastically to mouse movements, features a cursor trail, and procedural shifting continent-like structures.",
+    tags: ["background", "canvas", "physics", "particles", "interactive", "noise"],
+    dependencies: ["framer-motion"],
+    props: [
+      { name: "gridSpacing", type: "number", default: "14", description: "Space between pixels in the grid (px)" },
+      { name: "dotSize", type: "number", default: "1.5", description: "Base pixel size (px)" },
+      { name: "activeDotSize", type: "number", default: "3", description: "Highlight pixel size (px)" },
+      { name: "interactionRadius", type: "number", default: "130", description: "Radius of influence around cursor (px)" },
+      { name: "pushStrength", type: "number", default: "0.45", description: "Displacement force multiplier" },
+      { name: "springTension", type: "number", default: "0.025", description: "Spring restoring tension coefficient" },
+      { name: "damping", type: "number", default: "0.86", description: "Friction/Damping coefficient (0-1)" },
+      { name: "noiseScale", type: "number", default: "0.006", description: "Procedural noise frequency/scale" },
+      { name: "noiseSpeed", type: "number", default: "0.002", description: "Procedural noise morphing speed" },
+      { name: "dotColor", type: "string", default: '"rgba(255, 255, 255, 0.08)"', description: "Custom base dot color" },
+      { name: "activeDotColor", type: "string", default: '"rgba(255, 255, 255, 0.85)"', description: "Custom highlight dot color" },
+      { name: "enableTrail", type: "boolean", default: "true", description: "Enable mouse trail pixel particles" },
+      { name: "trailColor", type: "string", default: '"rgba(255, 255, 255, 0.9)"', description: "Custom trail dot color" },
+      { name: "hoverActiveRadius", type: "number", default: "60", description: "Radius around cursor where grid pixels light up (px)" }
+    ],
+    isNew: true,
+    createdAt: "2026-06-13",
   }
 ];
 

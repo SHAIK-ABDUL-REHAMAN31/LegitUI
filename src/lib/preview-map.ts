@@ -73,6 +73,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'orbit-carousel': { load: () => import('@/ui-components/OrbitCarousel/OrbitCarouselUsage'), weight: 'medium' },
   'orbit-gallery': { load: () => import('@/ui-components/OrbitGallery/OrbitGalleryUsage'), weight: 'medium' },
   'physics-text': { load: () => import('@/ui-components/PhysicsText/PhysicsTextUsage'), weight: 'medium' },
+  'pixel-background': { load: () => import('@/ui-components/PixelBackground/PixelBackgroundUsage'), weight: 'medium' },
   'pixelify-text': { load: () => import('@/ui-components/PixelifyText/PixelifyText'), weight: 'medium' },
   'premium-3d-cursor': { load: () => import('@/ui-components/Premium3DCursor/Premium3DCursorUsage'), weight: 'medium' },
   'rotating-text': { load: () => import('@/ui-components/RotatingText/RotatingTextUsage'), weight: 'medium' },
