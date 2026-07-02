@@ -1916,8 +1916,27 @@ export const defaultComponents: ComponentMeta[] = [
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     tags: ["text", "scramble", "decode", "gsap", "animation", "hacker", "terminal", "stagger"],
-    isNew: true,
     createdAt: "2026-06-14",
+  },
+  {
+    id: "cinematic-hover-gallery",
+    name: "Cinematic Hover Gallery",
+    slug: "cinematic-hover-gallery",
+    folder: "CinematicHoverGallery",
+    fileName: "CinematicHoverGallery",
+    category: "Animations",
+    description: "A premium typography-based navigation and portfolio showcase. As you hover over list items, a floating preview image trails the cursor using GSAP, morphing dynamically using an SVG-based liquid displacement filter and skewing/stretching based on speed.",
+    dependencies: ["gsap"],
+    props: [
+      { name: "items", type: "GalleryItem[]", description: "Array of items to display in the hover showcase" },
+      { name: "distortionIntensity", type: "number", default: "80", min: 0, max: 200, step: 5, description: "Strength of the liquid warp ripple effect" },
+      { name: "springDamping", type: "number", default: "0.25", min: 0.05, max: 1, step: 0.05, description: "Damping factor for mouse trailing interpolation" },
+      { name: "skewStrength", type: "number", default: "2.5", min: 0, max: 10, step: 0.5, description: "Amount of skew/stretch based on mouse velocity" },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes" }
+    ],
+    tags: ["scroll", "hover", "gallery", "distortion", "liquid", "svg", "gsap", "stagger", "cinematic", "premium"],
+    isNew: true,
+    createdAt: "2026-06-17",
   }
 ];
 

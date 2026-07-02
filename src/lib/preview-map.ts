@@ -49,6 +49,7 @@ export const PREVIEW_MAP: Record<string, PreviewEntry> = {
   'animated-stacked-cards': { load: () => import('@/ui-components/AnimatedStackedCards/AnimatedStackedCardsUsage'), weight: 'medium' },
   'card-wheel-spread': { load: () => import('@/ui-components/CardWheelSpread/CardWheelSpreadUsage'), weight: 'medium' },
   'cinematic-card-choreography': { load: () => import('@/ui-components/CinematicCardChoreography/CinematicCardChoreographyUsage'), weight: 'medium' },
+  'cinematic-hover-gallery': { load: () => import('@/ui-components/CinematicHoverGallery/CinematicHoverGalleryUsage'), weight: 'medium' },
   'cinematic-scroll': { load: () => import('@/ui-components/CinematicScroll/CinematicScrollUsage'), weight: 'medium' },
   'cinematic-text': { load: () => import('@/ui-components/CinematicText/CinematicTextUsage'), weight: 'medium' },
   'cursor-image-trail': { load: () => import('@/ui-components/CursorImageTrail/CursorImageTrailUsage'), weight: 'medium' },
