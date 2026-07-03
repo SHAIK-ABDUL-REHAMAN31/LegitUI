@@ -26,10 +26,10 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
   children,
   className = '',
   intensity = 'medium',
-  color1 = '124, 58, 237',
-  color2 = '168, 85, 247',
-  color3 = '192, 132, 252',
-  backgroundColor = '#09090b',
+  color1 = '16, 185, 129',
+  color2 = '6, 182, 212',
+  color3 = '139, 92, 246',
+  backgroundColor = '#020617',
 }) => {
   const opacity = opacityMap[intensity];
 
@@ -44,10 +44,8 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
         '--bg-color': backgroundColor,
       } as React.CSSProperties}
     >
-      <div className={styles.blurLayer}>
-        <div className={styles.orb1} />
-        <div className={styles.orb2} />
-        <div className={styles.orb3} />
+      <div className={styles.auroraWrapper}>
+        <div className={styles.aurora} />
       </div>
       <div className={styles.content}>{children}</div>
     </div>

@@ -3,69 +3,82 @@
    Aurora borealis animated gradient background
    ═══════════════════════════════════════════════════════ */
 
-@keyframes aurora-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(30px, -50px) scale(1.1); }
-  66%       { transform: translate(-20px, 20px) scale(0.9); }
-}
-
-@keyframes aurora-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(-40px, 30px) scale(1.15); }
-  66%       { transform: translate(30px, -40px) scale(0.95); }
-}
-
-@keyframes aurora-3 {
-  0%, 100% { transform: translate(0, 0) scale(1.05); }
-  33%       { transform: translate(20px, 40px) scale(0.9); }
-  66%       { transform: translate(-30px, -20px) scale(1.1); }
-}
-
 .root {
   position: relative;
   overflow: hidden;
-  background: var(--bg-color, #09090b);
+  background: var(--bg-color, #020617);
 }
 
-.blurLayer {
+.auroraWrapper {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  filter: blur(80px);
+  pointer-events: none;
 }
 
-/* Aurora orbs — intensity controlled via --aurora-opacity CSS var */
-.orb1 {
+.aurora {
   position: absolute;
-  width: 50%;
-  height: 50%;
-  top: 10%;
-  left: 15%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--color-1, 124, 58, 237), var(--aurora-opacity, 0.25)), transparent 70%);
-  animation: aurora-1 8s ease-in-out infinite;
+  inset: -10px;
+  opacity: var(--aurora-opacity, 0.4);
+  /* The core aurora shape using repeating gradients to simulate folded light curtains */
+  background-image: 
+    repeating-linear-gradient(
+      100deg, 
+      var(--bg-color) 0%, 
+      var(--bg-color) 7%, 
+      transparent 10%, 
+      transparent 12%, 
+      var(--bg-color) 16%
+    ),
+    repeating-linear-gradient(
+      100deg, 
+      rgba(var(--color-3), 1) 10%, 
+      rgba(var(--color-1), 1) 15%, 
+      rgba(var(--color-2), 1) 20%, 
+      rgba(var(--color-3), 1) 25%, 
+      rgba(var(--color-1), 1) 30%
+    );
+  background-size: 300% 200%;
+  background-position: 50% 50%, 50% 50%;
+  filter: blur(15px);
+  mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
 }
 
-.orb2 {
+.aurora::after {
+  content: "";
   position: absolute;
-  width: 40%;
-  height: 40%;
-  top: 30%;
-  right: 10%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--color-2, 168, 85, 247), var(--aurora-opacity, 0.25)), transparent 70%);
-  animation: aurora-2 10s ease-in-out infinite;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      100deg, 
+      var(--bg-color) 0%, 
+      var(--bg-color) 7%, 
+      transparent 10%, 
+      transparent 12%, 
+      var(--bg-color) 16%
+    ),
+    repeating-linear-gradient(
+      100deg, 
+      rgba(var(--color-3), 1) 10%, 
+      rgba(var(--color-1), 1) 15%, 
+      rgba(var(--color-2), 1) 20%, 
+      rgba(var(--color-3), 1) 25%, 
+      rgba(var(--color-1), 1) 30%
+    );
+  background-size: 200% 100%;
+  background-attachment: fixed;
+  mix-blend-mode: difference;
+  animation: aurora-anim 60s linear infinite;
 }
 
-.orb3 {
-  position: absolute;
-  width: 45%;
-  height: 45%;
-  bottom: 10%;
-  left: 30%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--color-3, 192, 132, 252), var(--aurora-opacity, 0.25)), transparent 70%);
-  animation: aurora-3 12s ease-in-out infinite;
+@keyframes aurora-anim {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
 }
 
 .content {

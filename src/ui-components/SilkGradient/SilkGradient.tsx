@@ -30,39 +30,73 @@ uniform float uSpread;
 
 varying vec2 vUv;
 
+// Generic pseudo-random function
+float random(vec2 st) {
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+// Value noise
+float noise(vec2 st) {
+    vec2 i = floor(st);
+    vec2 f = fract(st);
+
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+// Fractional Brownian Motion
+#define OCTAVES 5
+float fbm(vec2 st) {
+    float value = 0.0;
+    float amplitude = 0.5;
+    for (int i = 0; i < OCTAVES; i++) {
+        value += amplitude * noise(st);
+        st *= 2.0;
+        amplitude *= 0.5;
+    }
+    return value;
+}
+
 void main() {
-  vec2 p = vUv;
-  float t = uTime * uSpeed;
+    vec2 p = vUv;
+    float t = uTime * uSpeed * 0.4;
 
-  // Bottom Waves
-  float botBase = 0.15 * sin(p.x * 3.0 + t * 0.5) + 0.1 * cos(p.x * 5.0 - t * 0.8);
-  float botLayer2 = 0.05 * sin(p.x * 8.0 + t * 1.2) + 0.05 * sin(p.x * 2.0 + t * 0.3);
-  float botDrift = 0.1 * sin(t * 0.4);
-  float botFinal = botDrift + botBase + botLayer2;
-  float botDist = p.y - botFinal;
-  float botGlow = smoothstep(uSpread, -0.1, botDist) * uIntensity;
+    // Domain warping technique
+    vec2 q = vec2(0.0);
+    q.x = fbm(p + vec2(0.0, 0.0) + t * 0.5);
+    q.y = fbm(p + vec2(5.2, 1.3) - t * 0.4);
 
-  // Top Waves
-  float topBase = 0.15 * sin(p.x * 2.5 - t * 0.6) + 0.1 * cos(p.x * 4.5 + t * 0.7);
-  float topLayer2 = 0.05 * sin(p.x * 7.0 - t * 1.1) + 0.05 * cos(p.x * 3.0 - t * 0.4);
-  float topDrift = 0.1 * cos(t * 0.35);
-  float topFinal = 1.0 - (topDrift + topBase + topLayer2);
-  float topDist = topFinal - p.y;
-  float topGlow = smoothstep(uSpread, -0.1, topDist) * uIntensity;
+    vec2 r = vec2(0.0);
+    r.x = fbm(p + 2.0 * q + vec2(1.7, 9.2) + t * 0.6);
+    r.y = fbm(p + 2.0 * q + vec2(8.3, 2.8) + t * 0.3);
 
-  // Centre Accent
-  float accWave = 0.5 + 0.2 * sin(p.x * 2.0 + t * 0.4) + 0.1 * cos(p.x * 6.0 - t * 0.9);
-  float accDist = abs(p.y - accWave);
-  float accGlow = smoothstep(uSpread * 0.7, 0.0, accDist) * uIntensity * 0.6;
+    float f = fbm(p + 3.0 * r);
 
-  vec3 col = uBackground;
-  col = mix(col, uColorBottom, botGlow);
-  col = mix(col, uColorTop, topGlow);
-  col += uColorAccent * accGlow * 0.5;
+    // Color mixing based on the noise fields
+    vec3 col = uBackground;
+    
+    // Mix bottom color based on overall noise
+    col = mix(col, uColorBottom, clamp(f * uSpread * 2.0, 0.0, 1.0));
+    
+    // Mix top color based on warped domain
+    col = mix(col, uColorTop, clamp(length(q) * uSpread * 1.5, 0.0, 1.0));
+    
+    // Add accent color in the ridges
+    col = mix(col, uColorAccent, clamp(r.x * r.y * uIntensity * 3.0, 0.0, 1.0));
+    
+    // Add silky glossy reflections (specular-like folds)
+    float fold = smoothstep(0.4, 0.5, fbm(p + r * 2.0 + t));
+    col += uColorAccent * fold * (uIntensity * 0.5);
 
-  col *= 0.95 + 0.05 * sin(t);
+    // Global brightness / intensity scaling
+    col *= 0.5 + 0.5 * uIntensity;
 
-  gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+    gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
 }
 `;
 
